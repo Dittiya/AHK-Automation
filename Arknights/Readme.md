@@ -6,9 +6,14 @@ AHK Script for automation purpose. Mainly focused on base automation since gamep
 
 Install [AHK](https://www.autohotkey.com/)
 
+## Specifications
+
+- BlueStacks 10
+- Run with 1920x1080 configuration
+
 ## Usage
 
-Run Arknights.ahk
+- Run Arknights.ahk
 
 ## Goals
 - To fully automate Arknights Base 
