@@ -2,15 +2,10 @@
 
     WinGetPos winX, winY, winW, winH, BlueStacks 10
 
+    ; Find and click Base
     ^q::
-    ImageSearch, baseX, baseY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\base_icon.png
-    if (ErrorLevel = 2)
-        MsgBox, Could not find image
-    else if (ErrorLevel = 1)
-        MsgBox, Image not found
-    else 
-        ; MsgBox, Icon found at %baseX%x%baseY%
-        MouseClick, left, baseX+20, baseY+20
+    base := new ImgSearch("base_icon.png")
+    base.clickImage()
 
     ^w::
     ; continuous ImageSearch cause of load time to enter the base
@@ -52,9 +47,6 @@
     ImageSearch, desX, desY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\des_icon.png
     MouseClick, left, desX+20, desY+10
 
-    ^1::
-    Goto, pick_trade_trait
-
     ^2::
     img := new ImgSearch("order2_icon.png")
     MouseMove, img.getX(), img.getY()
@@ -76,11 +68,11 @@ class ImgSearch {
     }
 
     getX() {
-        return this.imgX
+        return this.X
     }
 
     getY() {
-        return this.imgY
+        return this.Y
     }
 
     doImgSearch(imgPath) {
@@ -90,7 +82,12 @@ class ImgSearch {
         else if (ErrorLevel = 1)
             MsgBox, Image not found err1
         else 
-            this.imgX := X
-            this.imgY := Y
+            this.X := X
+            this.Y := Y
+    }
+
+    clickImage() {
+        MouseClick, left, this.X, this.Y
+        return
     }
 }
