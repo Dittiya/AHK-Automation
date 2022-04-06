@@ -1,6 +1,6 @@
 class ImgSearch {
     __New( img, continuous=0 ) {
-        this.imagePath := A_WorkingDir . "\images\" . img
+        this.imagePath := img
 
         If (continuous = 1)
             this.continuousSearch(this.imagePath)
@@ -20,8 +20,11 @@ class ImgSearch {
         return this.Y
     }
 
-    clickImage(adjustmentX=20, adjustmentY=20) {
-        MouseClick, left, this.X+adjustmentX, this.Y+adjustmentY
+    clickImage(count=1, delay=500, adjustmentX=20, adjustmentY=20) {
+        Loop, %count% {
+            MouseClick, left, this.X+adjustmentX, this.Y+adjustmentY
+            Sleep, delay*1000
+        }
     }
 
     doImgSearch(imagePath) {
