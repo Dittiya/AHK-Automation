@@ -1,4 +1,8 @@
-#Include, image_search.ahk
+dir := A_ScriptDir 
+StringTrimRight, dir, dir, 3
+MsgBox, % dir
+
+; #Include, Module
 
 #IfWinActive BlueStacks 10
 
