@@ -6,41 +6,36 @@
 
     ; Find and click Base
     ^q::
-    base := new ImgSearch("base_icon.png")
+    basePath := A_ScriptDir . "\images\base_icon.png"
+    base := new ImgSearch(basePath)
     return
 
+    ; Continuously find Bell then click when found
     ^w::
-    bell := new ImgSearch("bell_icon.png", 1)
+    bellPath := A_ScriptDir . "\images\bell_icon.png"
+    bell := new ImgSearch(bellPath, 1)
     return
 
-    ; ^e::
-    ; ImageSearch, pX, pY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\p_icon.png
-    ; MouseClick, left, pX+20, pY
-    ; Sleep, 3000 ; slight sync after claim
-    ; MouseClick, left, pX+20, pY
-    ; Sleep, 3000 ; slight sync after claim
-    ; MouseClick, left, pX+20, pY
-    ; Sleep, 3000 ; slight sync after claim
-    ; MouseClick, left, pX+20, pY-200
+    ^e::
+    collectPath := A_ScriptDir . "\images\p_icon.png"
+    collect := new ImgSearch(collectPath)
+    collect.clickImage(3,3)
+    collect.clickImage(1,0,0,-50)
+    return
 
-    ; ^a::
-    ; ImageSearch, ovX, ovY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\ov_icon.png
-    ; MouseClick, left, ovX+20, ovY+10
-    ; Sleep, 3000
+    ^a::
+    new ImgSearch(A_ScriptDir . "\images\ov_icon.png")
+    return 
 
-    ; ^s::
-    ; ImageSearch, ccX, ccY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\cc_icon.png
-    ; if (ErrorLevel = 2)
-    ;     MsgBox, Could not find image
-    ; else if (ErrorLevel = 1)
-    ;     MsgBox, Image not found
-    ; else 
-    ;     MouseClick, left, ccX*1.5, ccY+20
-    ;     Sleep, 1000
+    ^s::
+    ccPath := A_ScriptDir . "\images\cc_icon.png"
+    cc := new ImgSearch(ccPath)
+    cc.clickImage(1,0,200)
+    return
     
-    ; ^d::
-    ; ImageSearch, desX, desY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %A_WorkingDir%\images\des_icon.png
-    ; MouseClick, left, desX+20, desY+10
+    ^d::
+    new ImgSearch(A_ScriptDir . "\images\des_icon.png")
+    return
 
     ; ^2::
     ; img := new ImgSearch("order2_icon.png")
