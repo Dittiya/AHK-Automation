@@ -48,13 +48,15 @@ class ImgSearch {
     }
 
     continuousSearch(imagePath, n) {
-        Loop 
+        Loop {
             ImageSearch, X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, *%n% %imagePath%
-        Until ErrorLevel = 0
+            MsgBox, , ErrorLevel 1, Image not found, 0.5
+            this.Found := False
+        } Until ErrorLevel = 0
         this.X := X
         this.Y := Y
-        Sleep, 4000
         this.move()
+        Sleep, 4000
     }
     
 }

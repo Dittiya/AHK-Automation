@@ -18,20 +18,21 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
 
     ; Continuously find Bell then click when found
     ^w::
-    bellPath := A_ScriptDir . "\Arknights\bell_icon.png"
-    bell := new ImgSearch(bellPath, 1)
+    bellPath := A_ScriptDir . "\Arknights\bell.png"
+    bell := new ImgSearch(bellPath, 70, 1)
     bell.click()
     return
 
     ^e::
     collectPath := A_ScriptDir . "\Arknights\p_icon.png"
-    collect := new ImgSearch(collectPath)
+    collect := new ImgSearch(collectPath, 70)
     collect.click(3,3)
     collect.click(1,0,0,-50)
     return
 
     ^a::
     ov := new ImgSearch(A_ScriptDir . "\Arknights\ov_icon.png")
+    ov.click(1,1)
     ov.click(1,4)
     return 
 
@@ -39,23 +40,27 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     ; If not found then should search for swire_work.png then Gosub to swire config
     ^s::
     amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png")
-    ; if (amiya.found)
-    ;     Gosub, swire_config
-    ; else
-    ;     Gosub, amiya_config
+    amiya.click(1,3)
+    Gosub, deselect_all
+    if (amiya.found)
+        Gosub, swire_config
+    else
+        Gosub, amiya_config
     return
     
     ^d::
-    Gosub, swire_config
     return
 
     ; Prototype all
     ^o::
+    Gosub, ^q
+    Gosub, ^w
     Gosub, ^a
     Gosub, ^s
     MsgBox, , Done, Task done, 3
     return
 
+    ; Control Center config with Swire
     swire_config:
     swire := A_ScriptDir . "\Arknights\swire.png"
     dobermann := A_ScriptDir . "\Arknights\dobermann.png"
@@ -72,6 +77,22 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     confirm.click()
     return
 
+    ; Control Center config with Amiya
+    amiya_config:
+    amiya := A_ScriptDir . "\Arknights\amiya.png"
+    ash := A_ScriptDir . "\Arknights\ash.png"
+    blitz := A_ScriptDir . "\Arknights\blitz.png"
+    tachanka := A_ScriptDir . "\Arknights\tachanka.png"
+    nearl := A_ScriptDir . "\Arknights\nearl.png"
+
+    array := [amiya, ash, blitz, tachanka, nearl]
+    For i, image in array {
+        scrollUntilFound(image, 100)
+        scrollRight(3)
+    }
+    confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
+    confirm.click()
+    return
 
 return
 
