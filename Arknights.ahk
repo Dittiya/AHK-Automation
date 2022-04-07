@@ -3,10 +3,8 @@ SetWorkingDir % A_ScriptDir
 
 #Include, Module\image_search.ahk
 
+WinGetPos winX, winY, winW, winH, BlueStacks 10
 #IfWinActive BlueStacks 10
-
-    WinGetPos winX, winY, winW, winH, BlueStacks 10
-
     ^p::
     ExitApp
     return
@@ -42,13 +40,13 @@ SetWorkingDir % A_ScriptDir
     ^s::
     amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png")
     ; if (amiya.found)
-    ;     Gosub, amiya
+    ;     Gosub, swire_config
     ; else
-    ;     Gosub, swire
+    ;     Gosub, amiya_config
     return
     
     ^d::
-    scroll_until_found(A_ScriptDir . "\Arknights\swire.png")
+    Gosub, swire_config
     return
 
     ; Prototype all
@@ -57,6 +55,23 @@ SetWorkingDir % A_ScriptDir
     Gosub, ^s
     MsgBox, , Done, Task done, 3
     return
+
+    swire_config:
+    swire := A_ScriptDir . "\Arknights\swire.png"
+    dobermann := A_ScriptDir . "\Arknights\dobermann.png"
+    scavenger := A_ScriptDir . "\Arknights\scavanger.png"
+    greythroat := A_ScriptDir . "\Arknights\greythroat.png"
+    red := A_ScriptDir . "\Arknights\red.png"
+
+    array := [swire, dobermann, scavenger, greythroat, red]
+    For i, image in array {
+        scrollUntilFound(image, 100)
+        scrollRight(3)
+    }
+    confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
+    confirm.click()
+    return
+
 
 return
 
@@ -69,7 +84,16 @@ scroll_left:
 MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 10
 return
 
-scroll_until_found(img, tolerance=70) {
+scrollRight(n) {
+    global winW, winH
+
+    loop, %n% {
+        MouseClickDrag, left, winW/2, winH/2, winW/2+550, winH/2, 5
+    }
+    return
+}
+
+scrollUntilFound(img, tolerance=70) {
     Loop {
         Gosub, scroll_left
         image := new ImgSearch(img, 100)
