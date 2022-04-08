@@ -56,7 +56,6 @@ class ImgSearch {
         this.X := X
         this.Y := Y
         this.move()
-        Sleep, 4000
     }
     
 }

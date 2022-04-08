@@ -1,10 +1,10 @@
 #NoEnv
-SetWorkingDir % A_ScriptDir
-
+SetWorkingDir, Arknights
 #Include, Module\image_search.ahk
 
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 #IfWinActive BlueStacks 10
+
     ^r::
     ExitApp
     return
@@ -20,18 +20,19 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     ^w::
     bellPath := A_ScriptDir . "\Arknights\bell.png"
     bell := new ImgSearch(bellPath, 70, 1)
-    bell.click()
+    Sleep, 4000
+    bell.click(1,0.5)
     return
 
     ^e::
-    collectPath := A_ScriptDir . "\Arknights\p_icon.png"
-    collect := new ImgSearch(collectPath, 70)
+    collectPath := A_ScriptDir . "\Arknights\collect.png"
+    collect := new ImgSearch(collectPath, 100)
     collect.click(3,3)
-    collect.click(1,0,0,-50)
+    collect.click(1,0.5,0,-50)
     return
 
     ^a::
-    ov := new ImgSearch(A_ScriptDir . "\Arknights\ov_icon.png")
+    ov := new ImgSearch(A_ScriptDir . "\Arknights\ov_icon.png", 70)
     ov.click(1,1)
     ov.click(1,4)
     return 
@@ -66,22 +67,38 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
         Gosub, saria_config
     }
     confirm.click(1,1.5)
+
+    Gosub, replace_trading_post_1
+    confirm.click(1,1.5)
     return
 
     ^g::
-    Gosub, swire_config
+    MsgBox, % A_WorkingDir
     return
     
     ^d::
-    Gosub, saria_config
+    return
+
+    replace_trading_post_1:
+    exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png")
+    gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", 70)
+    if (exu.found) {
+        exu.click(1,3)
+        Gosub, deselect_all
+        Gosub, gummy_config
+    } else {
+        gummy.click(1,3)
+        Gosub, deselect_all
+        Gosub, exu_config
+    }
     return
 
     ; Prototype all
     ^o::
     Gosub, ^q
     Gosub, ^w
+    Gosub, ^e
     Gosub, ^a
-    Gosub, ^s
     MsgBox, , Done, Task done, 3
     return
 
@@ -125,6 +142,40 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
 
     array := [saria, gitano]
     replaceOps(array)
+    return
+
+    ; Trading Post config with Exu
+    exu_config:
+    exu := A_ScriptDir . "\Arknights\exu.png"
+    lappland := A_ScriptDir . "\Arknights\lappland.png"
+    texas := A_ScriptDir . "\Arknights\texas.png"
+
+    array := [exu, lappland, texas]
+    replaceOps(array)
+    return
+
+    ; Trading Post config with Gummy
+    gummy_config:
+    gummy := A_ScriptDir . "\Arknights\gummy.png"
+    midnight := A_ScriptDir . "\Arknights\midnight.png"
+    catapult := A_ScriptDir . "\Arknights\Catapult.png"
+
+    array := [gummy, midnight, catapult]
+    replaceOps(array)
+    return
+
+    ; Hiring process
+    autohire:
+    loop, 3 {
+        loop {
+            hire := new ImgSearch(A_WorkingDir . "\hire.png", 120)
+            MouseClick, left, winW/2-10, winH/2
+        } until hire.found = True
+        hire.click(1,1.75)
+
+        skip := new ImgSearch(A_WorkingDir . "\skip.png")
+        skip.click(1,1)
+    }
     return
 
 return
