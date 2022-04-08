@@ -5,7 +5,7 @@ SetWorkingDir % A_ScriptDir
 
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 #IfWinActive BlueStacks 10
-    ^p::
+    ^r::
     ExitApp
     return
 
@@ -40,15 +40,42 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     ; If not found then should search for swire_work.png then Gosub to swire config
     ^s::
     amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png")
-    amiya.click(1,3)
-    Gosub, deselect_all
-    if (amiya.found)
+    swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png")
+    if (amiya.found) {
+        amiya.click(1,3)
+        Gosub, deselect_all
         Gosub, swire_config
-    else
+    } else {
+        swire.click(1,3)
+        Gosub, deselect_all
         Gosub, amiya_config
+    }
+
+    confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
+    confirm.click(1,1.5)
+
+    saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png")
+    utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", 70)
+    if (saria.found) {
+        saria.click(1,3)
+        Gosub, deselect_all
+        Gosub, utage_config
+    } else {
+        utage.click(1,3)
+        Gosub, deselect_all
+        Gosub, saria_config
+    }
+    confirm.click(1,1.5)
+
+
+    return
+
+    ^g::
+    
     return
     
     ^d::
+    Gosub, saria_config
     return
 
     ; Prototype all
@@ -73,8 +100,6 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
         scrollUntilFound(image, 100)
         scrollRight(3)
     }
-    confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
-    confirm.click()
     return
 
     ; Control Center config with Amiya
@@ -90,8 +115,30 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
         scrollUntilFound(image, 100)
         scrollRight(3)
     }
-    confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
-    confirm.click()
+    return
+
+    ; Reception Room config with Utage
+    utage_config:
+    utage := A_ScriptDir . "\Arknights\utage.png"
+    rope := A_ScriptDir . "\Arknights\rope.png"
+
+    array := [utage, rope]
+    for i, image in array {
+        scrollUntilFound(image, 100)
+        scrollRight(3)
+    }
+    return
+
+    ; Reception Room config with Saria
+    saria_config:
+    saria := A_ScriptDir . "\Arknights\saria.png"
+    gitano := A_ScriptDir . "\Arknights\gitano.png"
+
+    array := [saria, gitano]
+    for i, image in array {
+        scrollUntilFound(image, 100)
+        scrollRight(3)
+    }
     return
 
 return
@@ -111,14 +158,19 @@ scrollRight(n) {
     loop, %n% {
         MouseClickDrag, left, winW/2, winH/2, winW/2+550, winH/2, 5
     }
+    Sleep, 500
     return
 }
 
 scrollUntilFound(img, tolerance=70) {
-    Loop {
-        Gosub, scroll_left
-        image := new ImgSearch(img, 100)
-    } Until ErrorLevel = 0
+    image := new ImgSearch(img, tolerance)
+    if (!image.found) {
+        Loop {
+            Gosub, scroll_left
+            image := new ImgSearch(img, tolerance)
+        } Until ErrorLevel = 0
+        
+    } 
     image.click()
 
     return

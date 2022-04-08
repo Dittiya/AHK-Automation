@@ -1,7 +1,6 @@
 class ImgSearch {
     __New( img, tolerance=20, continuous=0 ) {
         this.imagePath := img
-        this.found := True
 
         If (continuous = 1)
             this.continuousSearch(this.imagePath, tolerance)
@@ -35,12 +34,13 @@ class ImgSearch {
     doImgSearch(imagePath, n) {
         ImageSearch, X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, *%n% %imagePath%
         if (ErrorLevel = 2)
-            MsgBox, Could not find image err2
+            MsgBox, , ErrorLevel 2, Image not available, 2
         else if (ErrorLevel = 1) {
             MsgBox, , ErrorLevel 1, Image not found, 0.5
-            this.Found := False
+            this.found := False
         }
         else {
+            this.found := True
             this.X := X
             this.Y := Y
             this.move()
