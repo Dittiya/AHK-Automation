@@ -55,7 +55,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     confirm.click(1,1.5)
 
     saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png")
-    utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", 70)
+    utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png")
     if (saria.found) {
         saria.click(1,3)
         Gosub, deselect_all
@@ -66,12 +66,10 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
         Gosub, saria_config
     }
     confirm.click(1,1.5)
-
-
     return
 
     ^g::
-    
+    Gosub, swire_config
     return
     
     ^d::
@@ -96,10 +94,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     red := A_ScriptDir . "\Arknights\red.png"
 
     array := [swire, dobermann, scavenger, greythroat, red]
-    For i, image in array {
-        scrollUntilFound(image, 100)
-        scrollRight(3)
-    }
+    replaceOps(array)
     return
 
     ; Control Center config with Amiya
@@ -111,10 +106,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     nearl := A_ScriptDir . "\Arknights\nearl.png"
 
     array := [amiya, ash, blitz, tachanka, nearl]
-    For i, image in array {
-        scrollUntilFound(image, 100)
-        scrollRight(3)
-    }
+    replaceOps(array)
     return
 
     ; Reception Room config with Utage
@@ -123,10 +115,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     rope := A_ScriptDir . "\Arknights\rope.png"
 
     array := [utage, rope]
-    for i, image in array {
-        scrollUntilFound(image, 100)
-        scrollRight(3)
-    }
+    replaceOps(array)
     return
 
     ; Reception Room config with Saria
@@ -135,10 +124,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     gitano := A_ScriptDir . "\Arknights\gitano.png"
 
     array := [saria, gitano]
-    for i, image in array {
-        scrollUntilFound(image, 100)
-        scrollRight(3)
-    }
+    replaceOps(array)
     return
 
 return
@@ -172,6 +158,13 @@ scrollUntilFound(img, tolerance=70) {
         
     } 
     image.click()
+    return
+}
 
+replaceOps(operators) {
+    for i, image in operators {
+        scrollUntilFound(image, 100)
+        scrollRight(2)
+    }
     return
 }
