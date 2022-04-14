@@ -77,6 +77,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     return
     
     ^d::
+    Gosub, autohire
     return
 
     replace_trading_post_1:
@@ -171,9 +172,9 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
             hire := new ImgSearch(A_WorkingDir . "\hire.png", 120)
             MouseClick, left, winW/2-10, winH/2
         } until hire.found = True
-        hire.click(1,1.75)
+        hire.click(1,3.25)
 
-        skip := new ImgSearch(A_WorkingDir . "\skip.png")
+        skip := new ImgSearch(A_WorkingDir . "\skip.png", 100)
         skip.click(1,1)
     }
     return
