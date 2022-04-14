@@ -37,8 +37,8 @@ class ImgSearch {
         if (ErrorLevel = 2)
             MsgBox, Could not find image err2
         else if (ErrorLevel = 1) {
-            MsgBox, , ErrorLevel 1, Image not found, 0.5
-            this.Found := False
+            MsgBox, , ErrorLevel 1, Image not found, 0.75
+            this.found := False
         }
         else {
             this.X := X
