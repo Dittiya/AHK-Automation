@@ -70,12 +70,16 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
 
     Gosub, replace_trading_post_1
     confirm.click(1,1.5)
+
+    Gosub, replace_factory_gold_1
+    confirm.click(1,1.5)
+    
     return
 
     ^g::
-    MsgBox, % A_WorkingDir
     return
     
+    ; Hotkey for autohire process
     ^d::
     Gosub, autohire
     return
@@ -91,6 +95,22 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
         gummy.click(1,3)
         Gosub, deselect_all
         Gosub, exu_config
+    }
+    return
+
+    replace_factory_gold_1:
+    variance := 73
+    gravel := new ImgSearch(A_WorkingDir . "\gravel_work.png", variance)
+    cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
+
+    if (gravel.found) {
+        gravel.click(1,3)
+        Gosub, deselect_all
+        Gosub, cuora_config
+    } else {
+        cuora.click(1,3)
+        Gosub, deselect_all
+        Gosub, gravel_config
     }
     return
 
@@ -164,6 +184,26 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
     array := [gummy, midnight, catapult]
     replaceOps(array)
     return
+
+    ; Factory gold config with Gravel
+    spot_config:
+    gravel := A_WorkingDir . "\gravel.png"
+    spot := A_WorkingDir . "\spot.png"
+    haze := A_WorkingDir . "\haze.png"
+
+    array := [gravel, spot, haze]
+    replaceOps(array)
+    return 
+
+    ; Factory gold config with Cuora
+    cuora_config:
+    cuora := A_WorkingDir . "\cuora.png"
+    noir := A_WorkingDir . "\noir.png"
+    bubble := A_WorkingDir . "\bubble.png"
+
+    array := [cuora, noir, bubble]
+    replaceOps(array)
+    return 
 
     ; Hiring process
     autohire:
