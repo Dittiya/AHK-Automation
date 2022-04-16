@@ -6,7 +6,7 @@ SetWorkingDir, Arknights
 #IfWinActive BlueStacks 10
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 
-^r::
+Esc::
 ExitApp
 return
 
@@ -35,10 +35,23 @@ confirm.click(1,1.5)
 return
 
 ^g::
-Gosub, base
-Gosub, collect_resources
-Gosub, overview_menu
-Gosub, replace_control_center
+; Gosub, base
+; Gosub, collect_resources
+; Gosub, overview_menu
+
+confirm := {x:winW*0.9, y:winH*0.95}
+; Gosub, replace_control_center
+; MouseMove, confirm.x, confirm.y
+; Click
+
+; Gosub, replace_reception_room
+; MouseMove, confirm.x, confirm.y
+; Click
+
+Gosub, replace_trading_post_1
+MouseMove, confirm.x, confirm.y
+Click
+
 return
 
 ; Hotkey for autohire process
@@ -59,12 +72,23 @@ Loop {
 } until ErrorLevel = 0
 MouseMove, px, py
 Sleep, 3000
-MouseClick, left, px, py, 2
+MouseClick, left, px, py
+
+collect := {x:winW*0.2, y:winH*0.95}
+MouseMove, collect.x, collect.y
+Sleep, 250
+Loop {
+    Click
+    if A_Index < 4
+        Sleep, 3000
+    else break
+}
 return
 
 overview_menu:
 ov := {x:winW*0.1, y:winH*0.2}
-MouseClick, left, ov.x, ov.y
+MouseMove, ov.x, ov.y
+Click,,,2
 Sleep, 3000
 return
 
@@ -84,8 +108,9 @@ if (amiya.found) {
 return
 
 replace_reception_room:
-saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png")
-utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png")
+var := 73
+saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png", var)
+utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", var)
 if (saria.found) {
     saria.click(1,3)
     Gosub, deselect_all
@@ -98,8 +123,9 @@ if (saria.found) {
 return
 
 replace_trading_post_1:
+var := 70
 exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png")
-gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", 70)
+gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", var)
 if (exu.found) {
     exu.click(1,3)
     Gosub, deselect_all
@@ -136,7 +162,7 @@ greythroat := A_ScriptDir . "\Arknights\greythroat.png"
 red := A_ScriptDir . "\Arknights\red.png"
 
 array := [swire, dobermann, scavenger, greythroat, red]
-replaceOps(array)
+replaceOps(array, 115)
 return
 
 ; Control Center config with Amiya
@@ -148,7 +174,7 @@ tachanka := A_ScriptDir . "\Arknights\tachanka.png"
 nearl := A_ScriptDir . "\Arknights\nearl.png"
 
 array := [amiya, ash, blitz, tachanka, nearl]
-replaceOps(array)
+replaceOps(array, 100)
 return
 
 ; Reception Room config with Utage
@@ -157,7 +183,7 @@ utage := A_ScriptDir . "\Arknights\utage.png"
 rope := A_ScriptDir . "\Arknights\rope.png"
 
 array := [utage, rope]
-replaceOps(array)
+replaceOps(array, 125)
 return
 
 ; Reception Room config with Saria
@@ -166,7 +192,7 @@ saria := A_ScriptDir . "\Arknights\saria.png"
 gitano := A_ScriptDir . "\Arknights\gitano.png"
 
 array := [saria, gitano]
-replaceOps(array)
+replaceOps(array, 115)
 return
 
 ; Trading Post config with Exu
@@ -176,7 +202,7 @@ lappland := A_ScriptDir . "\Arknights\lappland.png"
 texas := A_ScriptDir . "\Arknights\texas.png"
 
 array := [exu, lappland, texas]
-replaceOps(array)
+replaceOps(array, 120)
 return
 
 ; Trading Post config with Gummy
@@ -262,9 +288,9 @@ scrollUntilFound(img, tolerance=70) {
     return
 }
 
-replaceOps(operators) {
+replaceOps(operators, var=100) {
     for _, image in operators {
-        scrollUntilFound(image, 100)
+        scrollUntilFound(image, var)
         scrollRight(1)
     }
     return
