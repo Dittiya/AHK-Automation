@@ -10,21 +10,6 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
 ExitApp
 return
 
-; Find and click Base
-^q::
-basePath := A_ScriptDir . "\Arknights\base_icon.png"
-base := new ImgSearch(basePath)
-base.click()
-return
-
-; Continuously find Bell then click when found
-^w::
-bellPath := A_ScriptDir . "\Arknights\bell.png"
-bell := new ImgSearch(bellPath, 70, 1)
-Sleep, 4000
-bell.click(1,0.5)
-return
-
 ^e::
 collectPath := A_ScriptDir . "\Arknights\collect.png"
 collect := new ImgSearch(collectPath, 100)
@@ -32,41 +17,13 @@ collect.click(3,3)
 collect.click(1,0.5,0,-50)
 return
 
-^a::
-ov := new ImgSearch(A_ScriptDir . "\Arknights\ov_icon.png", 70)
-ov.click(1,1)
-ov.click(1,4)
-return 
-
-; This should find amiya_work.png then Gosub to amiya config
-; If not found then should search for swire_work.png then Gosub to swire config
 ^s::
-amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png")
-swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png")
-if (amiya.found) {
-    amiya.click(1,3)
-    Gosub, deselect_all
-    Gosub, swire_config
-} else {
-    swire.click(1,3)
-    Gosub, deselect_all
-    Gosub, amiya_config
-}
+Gosub, replace_control_center
 
 confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
 confirm.click(1,1.5)
 
-saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png")
-utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png")
-if (saria.found) {
-    saria.click(1,3)
-    Gosub, deselect_all
-    Gosub, utage_config
-} else {
-    utage.click(1,3)
-    Gosub, deselect_all
-    Gosub, saria_config
-}
+Gosub, replace_reception_room
 confirm.click(1,1.5)
 
 Gosub, replace_trading_post_1
@@ -78,11 +35,66 @@ confirm.click(1,1.5)
 return
 
 ^g::
+Gosub, base
+Gosub, collect_resources
+Gosub, overview_menu
+Gosub, replace_control_center
 return
 
 ; Hotkey for autohire process
 ^d::
 Gosub, autohire
+return
+
+base:
+base := {x:winW*0.8, y:winH*0.85}
+MouseClick, left, base.x, base.y
+return 
+
+collect_resources:
+bell := {x:winW*0.915, y:winH*0.15}
+pc := 0xFFFFFF
+Loop {
+    PixelSearch, px, py, bell.x, bell.y, bell.x+10, bell.y+10, pc, Fast
+} until ErrorLevel = 0
+MouseMove, px, py
+Sleep, 3000
+MouseClick, left, px, py, 2
+return
+
+overview_menu:
+ov := {x:winW*0.1, y:winH*0.2}
+MouseClick, left, ov.x, ov.y
+Sleep, 3000
+return
+
+replace_control_center:
+var := 73
+amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png", var)
+swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png", var)
+if (amiya.found) {
+    amiya.click(1,3)
+    Gosub, deselect_all
+    Gosub, swire_config
+} else {
+    swire.click(1,3)
+    Gosub, deselect_all
+    Gosub, amiya_config
+}
+return
+
+replace_reception_room:
+saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png")
+utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png")
+if (saria.found) {
+    saria.click(1,3)
+    Gosub, deselect_all
+    Gosub, utage_config
+} else {
+    utage.click(1,3)
+    Gosub, deselect_all
+    Gosub, saria_config
+}
 return
 
 replace_trading_post_1:
@@ -113,15 +125,6 @@ if (gravel.found) {
     Gosub, deselect_all
     Gosub, gravel_config
 }
-return
-
-; Prototype all
-^o::
-Gosub, ^q
-Gosub, ^w
-Gosub, ^e
-Gosub, ^a
-MsgBox, , Done, Task done, 3
 return
 
 ; Control Center config with Swire
@@ -229,7 +232,7 @@ for _, coord in coords {
 return
 
 deselect_all:
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png")
+des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 70)
 des.click()
 return
 
@@ -254,16 +257,15 @@ scrollUntilFound(img, tolerance=70) {
             Gosub, scroll_left
             image := new ImgSearch(img, tolerance)
         } Until ErrorLevel = 0
-        
     } 
     image.click()
     return
 }
 
 replaceOps(operators) {
-    for i, image in operators {
+    for _, image in operators {
         scrollUntilFound(image, 100)
-        scrollRight(2)
+        scrollRight(1)
     }
     return
 }
