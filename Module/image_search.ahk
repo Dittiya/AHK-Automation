@@ -1,12 +1,6 @@
 class ImgSearch {
     __New( img, tolerance=20, continuous=0 ) {
         this.imagePath := img
-        WinGetPos winX, winY, winW, winH, BlueStacks 10
-        this.winX := winX
-        this.winY := winY
-        this.winW := winW
-        this.winH := winH
-
 
         If (continuous = 1)
             this.continuousSearch(this.imagePath, tolerance)
@@ -38,7 +32,7 @@ class ImgSearch {
     }
 
     doImgSearch(imagePath, n) {
-        ImageSearch, X, Y, this.winX, this.winY, this.winW, this.winH, *%n% %imagePath%
+        ImageSearch, X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, *%n% %imagePath%
         if (ErrorLevel = 2)
             MsgBox, , ErrorLevel 2, Image not available, 2
         else if (ErrorLevel = 1) {
