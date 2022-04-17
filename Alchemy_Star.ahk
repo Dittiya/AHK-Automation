@@ -1,6 +1,5 @@
 #SingleInstance, Force
 #NoEnv
-#Include, Module\image_search.ahk
 SendMode Input
 SetWorkingDir, Alchemy Star
 
