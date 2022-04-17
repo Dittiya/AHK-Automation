@@ -1,8 +1,5 @@
 #NoEnv
 SetWorkingDir, Arknights
-#Include, Module\image_search.ahk
-
-
 #IfWinActive BlueStacks 10
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 
