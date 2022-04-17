@@ -240,18 +240,15 @@ autohire:
 coords := [{x:winW*0.4, y:winH*0.55}, {x:winW*0.65, y:winH*0.55}, {x:winW*0.4, y:winH*0.9}]
 mx := winW*0.61
 my := winH*0.075
-MouseMove, mx, my
-MouseGetPos, mx, my
-PixelGetColor, col, %mx%, %my% 
 
 for _, coord in coords {
     MouseMove, coord.x, coord.y
-    MouseClick, left
+    Click
     Sleep, 3000
     MouseClick, left, winW*0.9, winH*0.1
     Loop {
-        PixelSearch, px, py, mx, my, mx+20, my+20, col
-        MouseClick, left
+        PixelSearch, px, py, mx, my, mx+10, my+10, 0xFFFFFF
+        Click
     } until ErrorLevel = 0
     Sleep, 500
 }
