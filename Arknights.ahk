@@ -242,7 +242,7 @@ lappland := A_ScriptDir . "\Arknights\lappland.png"
 texas := A_ScriptDir . "\Arknights\texas.png"
 
 array := [exu, lappland, texas]
-replaceOps(array, 120)
+replaceOps(array, 115)
 return
 
 ; Trading Post config with Gummy
@@ -354,6 +354,7 @@ scrollUntilFound(img, tolerance=70) {
 }
 
 replaceOps(operators, var=100) {
+    scrollRight(1)
     for _, image in operators {
         scrollUntilFound(image, var)
     }
