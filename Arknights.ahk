@@ -207,6 +207,7 @@ return
 
 ; Control Center config with Amiya
 amiya_config:
+var := 100
 amiya := A_ScriptDir . "\Arknights\amiya.png"
 ash := A_ScriptDir . "\Arknights\ash.png"
 blitz := A_ScriptDir . "\Arknights\blitz.png"
@@ -214,35 +215,38 @@ tachanka := A_ScriptDir . "\Arknights\tachanka.png"
 nearl := A_ScriptDir . "\Arknights\nearl.png"
 
 array := [amiya, ash, blitz, tachanka, nearl]
-replaceOps(array, 100)
+replaceOps(array, var)
 return
 
 ; Reception Room config with Utage
 utage_config:
+var := 125
 utage := A_ScriptDir . "\Arknights\utage.png"
 rope := A_ScriptDir . "\Arknights\rope.png"
 
 array := [utage, rope]
-replaceOps(array, 125)
+replaceOps(array, var)
 return
 
 ; Reception Room config with Saria
 saria_config:
+var := 115
 saria := A_ScriptDir . "\Arknights\saria.png"
 gitano := A_ScriptDir . "\Arknights\gitano.png"
 
 array := [saria, gitano]
-replaceOps(array, 115)
+replaceOps(array, var)
 return
 
 ; Trading Post config with Exu
 exu_config:
+var := 115
 exu := A_ScriptDir . "\Arknights\exu.png"
 lappland := A_ScriptDir . "\Arknights\lappland.png"
 texas := A_ScriptDir . "\Arknights\texas.png"
 
 array := [exu, lappland, texas]
-replaceOps(array, 115)
+replaceOps(array, var)
 return
 
 ; Trading Post config with Gummy
