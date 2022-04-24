@@ -195,6 +195,7 @@ return
 
 ; Control Center config with Swire
 swire_config:
+var := 115
 swire := A_ScriptDir . "\Arknights\swire.png"
 dobermann := A_ScriptDir . "\Arknights\dobermann.png"
 scavenger := A_ScriptDir . "\Arknights\scavanger.png"
@@ -202,7 +203,7 @@ greythroat := A_ScriptDir . "\Arknights\greythroat.png"
 red := A_ScriptDir . "\Arknights\red.png"
 
 array := [swire, dobermann, scavenger, greythroat, red]
-replaceOps(array, 115)
+replaceOps(array, var)
 return
 
 ; Control Center config with Amiya
