@@ -1,10 +1,14 @@
 #NoEnv
-SetWorkingDir, Arknights
 #IfWinActive BlueStacks 10
+#SingleInstance Force
+#Include Lib/image_search.ahk
+SetWorkingDir, Arknights
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 
 Esc::
-ExitApp
+Reload
+Sleep, 1000
+MsgBox, Failed to reload
 return
 
 ^e::
@@ -32,28 +36,53 @@ confirm.click(1,1.5)
 return
 
 ^g::
-; Gosub, base
-; Gosub, collect_resources
-; Gosub, overview_menu
+Gosub, base
+Gosub, collect_resources
+Gosub, overview_menu
 
 confirm := {x:winW*0.9, y:winH*0.95}
-; Gosub, replace_control_center
-; MouseMove, confirm.x, confirm.y
-; Click
+Gosub, replace_control_center
+MouseMove, confirm.x, confirm.y
+Click
+Sleep, 750
 
-; Gosub, replace_reception_room
-; MouseMove, confirm.x, confirm.y
-; Click
+Gosub, replace_reception_room
+MouseMove, confirm.x, confirm.y
+Click
+Sleep, 750
 
 Gosub, replace_trading_post_1
 MouseMove, confirm.x, confirm.y
 Click
+Sleep, 750
+
+MouseMove, winW*0.5, winH*0.5
+Send, {WheelDown}
+Gosub, replace_factory_gold_1
+MouseMove, confirm.x, confirm.y
+Click
+Sleep, 750
+
+
 
 return
 
 ; Hotkey for autohire process
 ^d::
 Gosub, autohire
+return
+
+^f::
+MouseGetPos, mx, my
+MouseMove, mx, my
+PixelGetColor, pc, mx, my
+MsgBox, % pc
+return
+
+; Testing keybind
+^v::
+Send, {WheelDown}
+Gosub, replace_factory_gold_1
 return
 
 base:
@@ -85,7 +114,9 @@ return
 overview_menu:
 ov := {x:winW*0.1, y:winH*0.2}
 MouseMove, ov.x, ov.y
-Click,,,2
+Click
+Sleep, 500
+Click
 Sleep, 3000
 return
 
@@ -140,13 +171,27 @@ gravel := new ImgSearch(A_WorkingDir . "\gravel_work.png", variance)
 cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
 
 if (gravel.found) {
-    gravel.click(1,3)
+    gravel.click(1)
     Gosub, deselect_all
     Gosub, cuora_config
 } else {
-    cuora.click(1,3)
+    cuora.click(1)
     Gosub, deselect_all
     Gosub, gravel_config
+}
+return
+
+replace_power_1:
+variance := 70
+greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance)
+ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
+
+if (greyy.found) {
+    greyy.click(1,3)
+    Gosub, deselect_all
+} else {
+    ifrit.click(1,3)
+    Gosub, deselect_all
 }
 return
 
@@ -214,12 +259,13 @@ return
 
 ; Factory gold config with Gravel
 gravel_config:
+var := 120
 gravel := A_WorkingDir . "\gravel.png"
 spot := A_WorkingDir . "\spot.png"
 haze := A_WorkingDir . "\haze.png"
 
 array := [gravel, spot, haze]
-replaceOps(array)
+replaceOps(array, var)
 return 
 
 ; Factory gold config with Cuora
@@ -244,7 +290,7 @@ for _, coord in coords {
     Sleep, 3000
     MouseClick, left, winW*0.9, winH*0.1
     Loop {
-        PixelSearch, px, py, mx, my, mx+10, my+10, 0xFFFFFF
+        PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
         Click
     } until ErrorLevel = 0
     Sleep, 500
@@ -252,6 +298,11 @@ for _, coord in coords {
 return
 
 deselect_all:
+pos :=  {x:winW*0.86, y:winH*0.95}
+color := 0xA87500
+
+pixelDif(color, pos.x, pos.y)
+
 des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 70)
 des.click()
 return
@@ -287,5 +338,20 @@ replaceOps(operators, var=100) {
         scrollUntilFound(image, var)
         scrollRight(1)
     }
+    return
+}
+
+click(x, y, count=1) {
+    Loop, count {
+        MouseMove, x, y
+        Click
+    }
+    return
+}
+
+pixelDif(color, x, y, rx=0, ry=0) {
+    Loop {
+        PixelSearch, px, py, x, y, x+rx, y+ry, color
+    } Until ErrorLevel = 0
     return
 }
