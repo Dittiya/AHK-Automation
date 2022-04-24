@@ -28,31 +28,31 @@ return
 ^g::
 confirm := {x:winW*0.1, y:winH*0.1}
 Gosub, replace_control_center
-MouseMove, confirm.x, confirm.y
-Click
-Sleep, 750
+click(confirm.x, confirm.y)
+Gosub, check_overview
 
 Gosub, replace_reception_room
 MouseMove, confirm.x, confirm.y
 Click
-Sleep, 750
+Gosub, check_overview
 
 Gosub, replace_trading_post_1
 MouseMove, confirm.x, confirm.y
 Click
-Sleep, 750
+Gosub, check_overview
 
 MouseMove, winW*0.5, winH*0.5
 Send, {WheelDown}
+Sleep, 500
 Gosub, replace_factory_gold_1
 MouseMove, confirm.x, confirm.y
 Click
-Sleep, 750
+Gosub, check_overview
 
 Gosub, replace_power_1
 MouseMove, confirm.x, confirm.y
 Click
-Sleep, 750
+Gosub, check_overview
 
 MouseMove, winW*0.5, winH*0.5
 Loop, 4 {
@@ -77,7 +77,7 @@ return
 ; Testing keybind
 ^v::
 
-Gosub, replace_control_center
+Gosub, check_overview
 
 return
 
@@ -241,7 +241,7 @@ return
 
 ; Trading Post config with Exu
 exu_config:
-var := 115
+var := 100
 exu := A_ScriptDir . "\Arknights\exu.png"
 lappland := A_ScriptDir . "\Arknights\lappland.png"
 texas := A_ScriptDir . "\Arknights\texas.png"
@@ -325,6 +325,13 @@ return
 operators_menu:
 pos :=  {x:winW*0.86, y:winH*0.95}
 color := 0xA87500
+
+pixelDif(color, pos.x, pos.y)
+return
+
+check_overview:
+pos := {x:winW*0.07, y:winH*0.52}
+color := 0xFFCC33
 
 pixelDif(color, pos.x, pos.y)
 return
