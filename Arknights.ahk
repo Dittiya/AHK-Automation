@@ -19,28 +19,14 @@ collect.click(1,0.5,0,-50)
 return
 
 ^s::
-Gosub, replace_control_center
-
-confirm := new ImgSearch(A_ScriptDir . "\Arknights\confirm.png")
-confirm.click(1,1.5)
-
-Gosub, replace_reception_room
-confirm.click(1,1.5)
-
-Gosub, replace_trading_post_1
-confirm.click(1,1.5)
-
-Gosub, replace_factory_gold_1
-confirm.click(1,1.5)
-
-return
-
-^g::
 Gosub, base
 Gosub, collect_resources
 Gosub, overview_menu
 
-confirm := {x:winW*0.9, y:winH*0.95}
+return
+
+^g::
+confirm := {x:winW*0.1, y:winH*0.1}
 Gosub, replace_control_center
 MouseMove, confirm.x, confirm.y
 Click
@@ -67,6 +53,12 @@ Gosub, replace_power_1
 MouseMove, confirm.x, confirm.y
 Click
 Sleep, 750
+
+MouseMove, winW*0.5, winH*0.5
+Loop, 4 {
+    Send, {WheelDown}
+    Sleep, 400
+}
 
 return
 
@@ -84,13 +76,6 @@ return
 
 ; Testing keybind
 ^v::
-MouseMove, winW*0.5, winH*0.5
-Send, {WheelDown}
-Sleep, 750
-
-Gosub, replace_power_1
-click(winW*0.1, winH*0.1)
-Sleep, 750
 
 MouseMove, winW*0.5, winH*0.5
 Loop, 4 {
@@ -140,11 +125,11 @@ var := 73
 amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png", var)
 swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png", var)
 if (amiya.found) {
-    amiya.click(1,3)
+    amiya.click(1)
     Gosub, deselect_all
     Gosub, swire_config
 } else {
-    swire.click(1,3)
+    swire.click(1)
     Gosub, deselect_all
     Gosub, amiya_config
 }
@@ -155,11 +140,11 @@ var := 73
 saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png", var)
 utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", var)
 if (saria.found) {
-    saria.click(1,3)
+    saria.click(1)
     Gosub, deselect_all
     Gosub, utage_config
 } else {
-    utage.click(1,3)
+    utage.click(1)
     Gosub, deselect_all
     Gosub, saria_config
 }
@@ -170,11 +155,11 @@ var := 70
 exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png")
 gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", var)
 if (exu.found) {
-    exu.click(1,3)
+    exu.click(1)
     Gosub, deselect_all
     Gosub, gummy_config
 } else {
-    gummy.click(1,3)
+    gummy.click(1)
     Gosub, deselect_all
     Gosub, exu_config
 }
