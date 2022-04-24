@@ -63,7 +63,10 @@ MouseMove, confirm.x, confirm.y
 Click
 Sleep, 750
 
-
+Gosub, replace_power_1
+MouseMove, confirm.x, confirm.y
+Click
+Sleep, 750
 
 return
 
@@ -76,13 +79,25 @@ return
 MouseGetPos, mx, my
 MouseMove, mx, my
 PixelGetColor, pc, mx, my
-MsgBox, % pc
+MsgBox, % pc " at " mx "x" my
 return
 
 ; Testing keybind
 ^v::
+MouseMove, winW*0.5, winH*0.5
 Send, {WheelDown}
-Gosub, replace_factory_gold_1
+Sleep, 750
+
+Gosub, replace_power_1
+click(winW*0.1, winH*0.1)
+Sleep, 750
+
+MouseMove, winW*0.5, winH*0.5
+Loop, 4 {
+    Send, {WheelDown}
+    Sleep, 400
+}
+
 return
 
 base:
@@ -187,11 +202,13 @@ greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance)
 ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
 
 if (greyy.found) {
-    greyy.click(1,3)
-    Gosub, deselect_all
+    greyy.click(1)
+    Gosub, operators_menu
+    Gosub, ifrit_config
 } else {
-    ifrit.click(1,3)
-    Gosub, deselect_all
+    ifrit.click(1)
+    Gosub, operators_menu
+    Gosub, greyy_config
 }
 return
 
@@ -278,6 +295,22 @@ array := [cuora, noir, bubble]
 replaceOps(array)
 return 
 
+ifrit_config:
+var := 70
+ifrit := A_WorkingDir . "\ifrit.png"
+
+array := [ifrit]
+replaceOps(array, var)
+return
+
+greyy_config:
+var := 70
+greyy := A_WorkingDir . "\greyy.png"
+
+array := [greyy]
+replaceOps(array, var)
+return
+
 ; Hiring process
 autohire:
 coords := [{x:winW*0.4, y:winH*0.55}, {x:winW*0.65, y:winH*0.55}, {x:winW*0.4, y:winH*0.9}]
@@ -298,13 +331,16 @@ for _, coord in coords {
 return
 
 deselect_all:
+Gosub, operators_menu
+des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 70)
+des.click()
+return
+
+operators_menu:
 pos :=  {x:winW*0.86, y:winH*0.95}
 color := 0xA87500
 
 pixelDif(color, pos.x, pos.y)
-
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 70)
-des.click()
 return
 
 scroll_left:
@@ -342,7 +378,7 @@ replaceOps(operators, var=100) {
 }
 
 click(x, y, count=1) {
-    Loop, count {
+    Loop %count% {
         MouseMove, x, y
         Click
     }
