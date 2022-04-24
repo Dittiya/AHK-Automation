@@ -26,6 +26,7 @@ Gosub, overview_menu
 return
 
 ^g::
+; confirm := {x:winW*0.9, y:winH*0.95}
 confirm := {x:winW*0.1, y:winH*0.1}
 Gosub, replace_control_center
 click(confirm.x, confirm.y)
