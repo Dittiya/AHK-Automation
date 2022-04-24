@@ -77,11 +77,7 @@ return
 ; Testing keybind
 ^v::
 
-MouseMove, winW*0.5, winH*0.5
-Loop, 4 {
-    Send, {WheelDown}
-    Sleep, 400
-}
+Gosub, replace_control_center
 
 return
 
@@ -346,6 +342,9 @@ scrollUntilFound(img, tolerance=70) {
     image := new ImgSearch(img, tolerance)
     if (!image.found) {
         Loop {
+            If (A_Index = 1) {
+                scrollRight(1)
+            }
             Gosub, scroll_left
             image := new ImgSearch(img, tolerance)
         } Until ErrorLevel = 0
@@ -357,7 +356,6 @@ scrollUntilFound(img, tolerance=70) {
 replaceOps(operators, var=100) {
     for _, image in operators {
         scrollUntilFound(image, var)
-        scrollRight(1)
     }
     return
 }
