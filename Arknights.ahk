@@ -40,9 +40,11 @@ MouseMove, confirm.x, confirm.y
 Click
 Gosub, check_overview
 
-MouseMove, winW*0.5, winH*0.5
+MouseMove, winW*0.9, winH*0.5
 Send, {WheelDown}
-Sleep, 500
+Sleep, 750
+Click
+
 Gosub, replace_factory_gold_1
 MouseMove, confirm.x, confirm.y
 Click
@@ -53,11 +55,16 @@ MouseMove, confirm.x, confirm.y
 Click
 Gosub, check_overview
 
-MouseMove, winW*0.5, winH*0.5
+MouseMove, winW*0.9, winH*0.5
 Loop, 4 {
     Send, {WheelDown}
-    Sleep, 400
+    Sleep, 475
+    If (A_Index = 4)
+        Click
 }
+
+Gosub, replace_trading_post_2
+click(confirm.x, confirm.y)
 
 return
 
@@ -195,10 +202,12 @@ ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
 if (greyy.found) {
     greyy.click(1)
     Gosub, operators_menu
+    scrollRight(3)
     Gosub, ifrit_config
 } else {
     ifrit.click(1)
     Gosub, operators_menu
+    scrollRight(3)
     Gosub, greyy_config
 }
 return
@@ -222,7 +231,7 @@ return
 
 ; Control Center config with Swire
 swire_config:
-var := 115
+var := 120
 swire := A_ScriptDir . "\Arknights\swire.png"
 dobermann := A_ScriptDir . "\Arknights\dobermann.png"
 scavenger := A_ScriptDir . "\Arknights\scavanger.png"
@@ -309,7 +318,7 @@ replaceOps(array)
 return 
 
 ifrit_config:
-var := 70
+var := 100
 ifrit := A_WorkingDir . "\ifrit.png"
 
 array := [ifrit]
@@ -317,7 +326,7 @@ replaceOps(array, var)
 return
 
 greyy_config:
-var := 70
+var := 100
 greyy := A_WorkingDir . "\greyy.png"
 
 array := [greyy]
