@@ -6,9 +6,7 @@ SetWorkingDir, Arknights
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 
 Esc::
-Reload
-Sleep, 1000
-MsgBox, Failed to reload
+ExitApp
 return
 
 ^e::
@@ -77,9 +75,20 @@ return
 
 ; Testing keybind
 ^v::
+MouseMove, winW*0.9, winH*0.5
+Send, {WheelDown}
+Sleep, 1000
 
-Gosub, check_overview
+MouseMove, winW*0.9, winH*0.5
+Loop, 4 {
+    Send, {WheelDown}
+    Sleep, 475
+    If (A_Index = 4)
+        Click
+}
 
+Gosub, replace_trading_post_2
+click(winW*0.1, winH*0.1)
 return
 
 base:
@@ -194,6 +203,23 @@ if (greyy.found) {
 }
 return
 
+replace_trading_post_2:
+variance := 73
+mousse := new ImgSearch(A_WorkingDir . "\mousse_work.png", variance)
+melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
+
+if(mousse.found) {
+    mousse.click(1)
+    Gosub, deselect_all
+    Gosub, melantha_config
+} else {
+    melantha.click(1)
+    Gosub, deselect_all
+    Gosub, mousse_config
+}
+
+return
+
 ; Control Center config with Swire
 swire_config:
 var := 115
@@ -295,6 +321,26 @@ var := 70
 greyy := A_WorkingDir . "\greyy.png"
 
 array := [greyy]
+replaceOps(array, var)
+return
+
+melantha_config:
+var := 100
+melantha := A_WorkingDir . "\melantha.png"
+orchid := A_WorkingDir . "\orchid.png"
+jaye := A_WorkingDir . "\jaye.png"
+
+array := [melantha, orchid, jaye]
+replaceOps(array, var)
+return
+
+mousse_config:
+var := 100
+mousse := A_WorkingDir . "\mousse.png"
+fang := A_WorkingDir . "\fang.png"
+matoimaru := A_WorkingDir . "\matoimaru.png"
+
+array := [mousse, fang, matoimaru]
 replaceOps(array, var)
 return
 
