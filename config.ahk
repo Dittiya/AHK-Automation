@@ -135,3 +135,19 @@ ptilo(var=100) {
     replaceOps(array, var)
     return
 }
+
+liskarm(var=100) {
+    liskarm := A_WorkingDir . "\liskarm.png"
+
+    array := [liskarm]
+    replaceOps(array, var)
+    return
+}
+
+indigo(var=100) {
+    indigo := A_WorkingDir . "\indigo.png"
+
+    array := [indigo]
+    replaceOps(array, var)
+    return
+}
