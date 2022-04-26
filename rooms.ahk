@@ -13,3 +13,20 @@ factoryGold2(variance=60) {
     }
     return
 }
+
+powerPlant2(variance=30) {
+    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", variance)
+    indigo := new ImgSearch(A_WorkingDir . "\indigo_work.png", variance)
+
+    if (liskarm.found) {
+        liskarm.click(1)
+        Gosub, operators_menu
+        scrollRight(3)
+        indigo()
+    } else {
+        indigo.click(1)
+        Gosub, operators_menu
+        scrollRight(3)
+        liskarm()
+    }
+}
