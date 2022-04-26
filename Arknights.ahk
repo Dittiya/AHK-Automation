@@ -362,7 +362,6 @@ my := winH*0.075
 for _, coord in coords {
     MouseMove, coord.x, coord.y
     Click
-    Sleep, 3000
     MouseClick, left, winW*0.9, winH*0.1
     Loop {
         PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
