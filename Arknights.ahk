@@ -144,11 +144,11 @@ utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", var)
 if (saria.found) {
     saria.click(1)
     Gosub, deselect_all
-    Gosub, utage_config
+    utage()
 } else {
     utage.click(1)
     Gosub, deselect_all
-    Gosub, saria_config
+    saria()
 }
 return
 
@@ -216,26 +216,6 @@ if(mousse.found) {
     Gosub, mousse_config
 }
 
-return
-
-; Reception Room config with Utage
-utage_config:
-var := 125
-utage := A_ScriptDir . "\Arknights\utage.png"
-rope := A_ScriptDir . "\Arknights\rope.png"
-
-array := [utage, rope]
-replaceOps(array, var)
-return
-
-; Reception Room config with Saria
-saria_config:
-var := 115
-saria := A_ScriptDir . "\Arknights\saria.png"
-gitano := A_ScriptDir . "\Arknights\gitano.png"
-
-array := [saria, gitano]
-replaceOps(array, var)
 return
 
 ; Trading Post config with Exu
