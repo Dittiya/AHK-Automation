@@ -115,3 +115,23 @@ mousse(var=100) {
     replaceOps(array, var)
     return
 }
+
+roberta(var=100) {
+    roberta := A_WorkingDir . "\roberta.png"
+    steward := A_WorkingDir . "\steward.png"
+    perfumer := A_WorkingDir . "\perfumer.png"
+
+    array := [roberta, steward, perfumer]
+    replaceOps(array, var)
+    return
+}
+
+ptilo(var=100) {
+    ptilo := A_WorkingDir . "\ptilo.png"
+    vanilla := A_WorkingDir . "\vanilla.png"
+    scene := A_WorkingDir . "\scene.png"
+
+    array := [ptilo, vanilla, scene]
+    replaceOps(array, var)
+    return
+}

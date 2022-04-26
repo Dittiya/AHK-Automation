@@ -5,6 +5,7 @@ SetWorkingDir, Arknights
 WinGetPos winX, winY, winW, winH, BlueStacks 10
 #Include Lib/image_search.ahk
 #Include config.ahk
+#Include rooms.ahk
 
 Esc::
 ExitApp
@@ -66,6 +67,10 @@ Loop, 4 {
 
 Gosub, replace_trading_post_2
 click(confirm.x, confirm.y)
+Gosub, check_overview
+
+factoryGold2()
+click(confirm.x, confirm.y)
 
 return
 
@@ -83,8 +88,7 @@ return
 
 ; Testing keybind
 ^v::
-Gosub, replace_reception_room
-click(winW*0.1, winH*0.1)
+factoryGold2()
 return
 
 base:
