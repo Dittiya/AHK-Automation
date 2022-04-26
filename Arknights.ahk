@@ -60,7 +60,7 @@ Gosub, check_overview
 MouseMove, winW*0.9, winH*0.5
 Loop, 4 {
     Send, {WheelDown}
-    Sleep, 475
+    Sleep, 490
     If (A_Index = 4)
         Click
 }
@@ -71,6 +71,11 @@ Gosub, check_overview
 
 factoryGold2()
 click(confirm.x, confirm.y)
+Gosub, check_overview
+
+powerPlant2()
+click(confirm.x, confirm.y)
+Gosub, check_overview
 
 return
 
@@ -88,7 +93,7 @@ return
 
 ; Testing keybind
 ^v::
-factoryGold2()
+powerPlant2()
 return
 
 base:
@@ -231,6 +236,7 @@ my := winH*0.075
 for _, coord in coords {
     MouseMove, coord.x, coord.y
     Click
+    Sleep, 1000
     MouseClick, left, winW*0.9, winH*0.1
     Loop {
         PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
