@@ -83,7 +83,7 @@ return
 
 ; Testing keybind
 ^v::
-Gosub, replace_control_center
+Gosub, replace_reception_room
 click(winW*0.1, winH*0.1)
 return
 
@@ -159,11 +159,11 @@ gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", var)
 if (exu.found) {
     exu.click(1)
     Gosub, deselect_all
-    Gosub, gummy_config
+    gummy()
 } else {
     gummy.click(1)
     Gosub, deselect_all
-    Gosub, exu_config
+    exu()
 }
 return
 
@@ -175,11 +175,11 @@ cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
 if (gravel.found) {
     gravel.click(1)
     Gosub, deselect_all
-    Gosub, cuora_config
+    cuora()
 } else {
     cuora.click(1)
     Gosub, deselect_all
-    Gosub, gravel_config
+    gravel()
 }
 return
 
@@ -192,12 +192,12 @@ if (greyy.found) {
     greyy.click(1)
     Gosub, operators_menu
     scrollRight(3)
-    Gosub, ifrit_config
+    ifrit()
 } else {
     ifrit.click(1)
     Gosub, operators_menu
     scrollRight(3)
-    Gosub, greyy_config
+    greyy()
 }
 return
 
@@ -209,91 +209,13 @@ melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
 if(mousse.found) {
     mousse.click(1)
     Gosub, deselect_all
-    Gosub, melantha_config
+    melantha()
 } else {
     melantha.click(1)
     Gosub, deselect_all
-    Gosub, mousse_config
+    mousse()
 }
 
-return
-
-; Trading Post config with Exu
-exu_config:
-var := 100
-exu := A_ScriptDir . "\Arknights\exu.png"
-lappland := A_ScriptDir . "\Arknights\lappland.png"
-texas := A_ScriptDir . "\Arknights\texas.png"
-
-array := [exu, lappland, texas]
-replaceOps(array, var)
-return
-
-; Trading Post config with Gummy
-gummy_config:
-gummy := A_ScriptDir . "\Arknights\gummy.png"
-midnight := A_ScriptDir . "\Arknights\midnight.png"
-catapult := A_ScriptDir . "\Arknights\Catapult.png"
-
-array := [gummy, midnight, catapult]
-replaceOps(array)
-return
-
-; Factory gold config with Gravel
-gravel_config:
-var := 120
-gravel := A_WorkingDir . "\gravel.png"
-spot := A_WorkingDir . "\spot.png"
-haze := A_WorkingDir . "\haze.png"
-
-array := [gravel, spot, haze]
-replaceOps(array, var)
-return 
-
-; Factory gold config with Cuora
-cuora_config:
-cuora := A_WorkingDir . "\cuora.png"
-noir := A_WorkingDir . "\noir.png"
-bubble := A_WorkingDir . "\bubble.png"
-
-array := [cuora, noir, bubble]
-replaceOps(array)
-return 
-
-ifrit_config:
-var := 100
-ifrit := A_WorkingDir . "\ifrit.png"
-
-array := [ifrit]
-replaceOps(array, var)
-return
-
-greyy_config:
-var := 100
-greyy := A_WorkingDir . "\greyy.png"
-
-array := [greyy]
-replaceOps(array, var)
-return
-
-melantha_config:
-var := 100
-melantha := A_WorkingDir . "\melantha.png"
-orchid := A_WorkingDir . "\orchid.png"
-jaye := A_WorkingDir . "\jaye.png"
-
-array := [melantha, orchid, jaye]
-replaceOps(array, var)
-return
-
-mousse_config:
-var := 100
-mousse := A_WorkingDir . "\mousse.png"
-fang := A_WorkingDir . "\fang.png"
-matoimaru := A_WorkingDir . "\matoimaru.png"
-
-array := [mousse, fang, matoimaru]
-replaceOps(array, var)
 return
 
 ; Hiring process

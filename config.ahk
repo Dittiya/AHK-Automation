@@ -22,7 +22,6 @@ amiya(var=100){
     return
 }
 
-; Reception Room config with Utage
 utage(var=125) {
     utage := A_ScriptDir . "\Arknights\utage.png"
     rope := A_ScriptDir . "\Arknights\rope.png"
@@ -32,12 +31,87 @@ utage(var=125) {
     return
 }
 
-; Reception Room config with Saria
 saria(var=115) {
     saria := A_ScriptDir . "\Arknights\saria.png"
     gitano := A_ScriptDir . "\Arknights\gitano.png"
 
     array := [saria, gitano]
+    replaceOps(array, var)
+    return
+}
+
+exu(var=100) {
+    exu := A_ScriptDir . "\Arknights\exu.png"
+    lappland := A_ScriptDir . "\Arknights\lappland.png"
+    texas := A_ScriptDir . "\Arknights\texas.png"
+
+    array := [exu, lappland, texas]
+    replaceOps(array, var)
+    return
+}
+
+gummy(var=100) {
+    gummy := A_ScriptDir . "\Arknights\gummy.png"
+    midnight := A_ScriptDir . "\Arknights\midnight.png"
+    catapult := A_ScriptDir . "\Arknights\Catapult.png"
+
+    array := [gummy, midnight, catapult]
+    replaceOps(array, var)
+    return
+}
+
+gravel(var=120) {
+    gravel := A_WorkingDir . "\gravel.png"
+    spot := A_WorkingDir . "\spot.png"
+    haze := A_WorkingDir . "\haze.png"
+
+    array := [gravel, spot, haze]
+    replaceOps(array, var)
+    return 
+}
+
+cuora(var=100) {
+    cuora := A_WorkingDir . "\cuora.png"
+    noir := A_WorkingDir . "\noir.png"
+    bubble := A_WorkingDir . "\bubble.png"
+
+    array := [cuora, noir, bubble]
+    replaceOps(array, var)
+    return 
+}
+
+ifrit(var=100) {
+    ifrit := A_WorkingDir . "\ifrit.png"
+
+    array := [ifrit]
+    replaceOps(array, var)
+    return
+}
+
+greyy(var=100) {
+    greyy := A_WorkingDir . "\greyy.png"
+
+    array := [greyy]
+    replaceOps(array, var)
+    return
+}
+
+melantha(var=100) {
+    melantha := A_WorkingDir . "\melantha.png"
+    orchid := A_WorkingDir . "\orchid.png"
+    jaye := A_WorkingDir . "\jaye.png"
+
+    array := [melantha, orchid, jaye]
+    replaceOps(array, var)
+    return
+}
+
+mousse(var=100) {
+    mousse := A_WorkingDir . "\mousse.png"
+    fang := A_WorkingDir . "\fang.png"
+    matoimaru := A_WorkingDir . "\matoimaru.png"
+
+    array := [mousse, fang, matoimaru]
     replaceOps(array, var)
     return
 }
