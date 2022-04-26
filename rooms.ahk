@@ -15,7 +15,7 @@ factoryGold2(variance=60) {
 }
 
 powerPlant2(variance=30) {
-    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", variance)
+    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", 70)
     indigo := new ImgSearch(A_WorkingDir . "\indigo_work.png", variance)
 
     if (liskarm.found) {
@@ -28,5 +28,20 @@ powerPlant2(variance=30) {
         Gosub, operators_menu
         scrollRight(3)
         liskarm()
+    }
+}
+
+office(variance=70) {
+    eyja := new ImgSearch(A_WorkingDir . "\eyja_work.png", variance)
+    ethan := new ImgSearch(A_WorkingDir . "\ethan_work.png", variance)
+
+    if (eyja.found) {
+        eyja.click(1)
+        Gosub, operators_menu
+        ethan()
+    } else {
+        ethan.click(1)
+        Gosub, operators_menu
+        eyja()
     }
 }

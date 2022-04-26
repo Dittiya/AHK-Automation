@@ -93,7 +93,40 @@ return
 
 ; Testing keybind
 ^v::
+MouseMove, winW*0.9, winH*0.5
+Send, {WheelDown}
+Sleep, 750
+Click
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 4 {
+    Send, {WheelDown}
+    Sleep, 490
+    If (A_Index = 4)
+        Click
+}
+
 powerPlant2()
+click(winW*0.1, winH*0.1)
+Gosub, check_overview
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 3 {
+    Send, {WheelDown}
+    Sleep, 490
+    If (A_Index = 3)
+        Click
+}
+
+office()
+click(winW*0.1, winH*0.1)
+Gosub, check_overview
+
+MouseMove, winW*0.9, winH*0.5
+Send, {WheelDown}
+Sleep, 750
+Click
+
 return
 
 base:

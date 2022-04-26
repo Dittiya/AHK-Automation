@@ -151,3 +151,19 @@ indigo(var=100) {
     replaceOps(array, var)
     return
 }
+
+eyja(var=100) {
+    eyja := A_WorkingDir . "\eyja.png"
+
+    array := [eyja]
+    replaceOps(array, var)
+    return
+}
+
+ethan(var=100) {
+    ethan := A_WorkingDir . "\ethan.png"
+
+    array := [ethan]
+    replaceOps(array, var)
+    return
+}
