@@ -11,11 +11,11 @@ swire(var=120) {
 }
 
 amiya(var=100){
-    amiya := A_ScriptDir . "\Arknights\amiya.png"
-    ash := A_ScriptDir . "\Arknights\ash.png"
-    blitz := A_ScriptDir . "\Arknights\blitz.png"
-    tachanka := A_ScriptDir . "\Arknights\tachanka.png"
-    nearl := A_ScriptDir . "\Arknights\nearl.png"
+    amiya := A_ScriptDir . "\Arknights\amiya1.png"
+    ash := A_ScriptDir . "\Arknights\ash1.png"
+    blitz := A_ScriptDir . "\Arknights\blitz1.png"
+    tachanka := A_ScriptDir . "\Arknights\tachanka1.png"
+    nearl := A_ScriptDir . "\Arknights\nearl1.png"
 
     array := [amiya, ash, blitz, tachanka, nearl]
     replaceOps(array, var)
