@@ -28,18 +28,16 @@ return
 ^g::
 ; confirm := {x:winW*0.9, y:winH*0.95}
 confirm := {x:winW*0.1, y:winH*0.1}
-Gosub, replace_control_center
+controlCenter()
 click(confirm.x, confirm.y)
 Gosub, check_overview
 
-Gosub, replace_reception_room
-MouseMove, confirm.x, confirm.y
-Click
+reception()
+click(confirm.x, confirm.y)
 Gosub, check_overview
 
-Gosub, replace_trading_post_1
-MouseMove, confirm.x, confirm.y
-Click
+tradingPost1()
+click(confirm.x, confirm.y)
 Gosub, check_overview
 
 MouseMove, winW*0.9, winH*0.5
@@ -47,14 +45,12 @@ Send, {WheelDown}
 Sleep, 750
 Click
 
-Gosub, replace_factory_gold_1
-MouseMove, confirm.x, confirm.y
-Click
+factoryGold1()
+click(confirm.x, confirm.y)
 Gosub, check_overview
 
-Gosub, replace_power_1
-MouseMove, confirm.x, confirm.y
-Click
+powerPlant1()
+click(confirm.x, confirm.y)
 Gosub, check_overview
 
 MouseMove, winW*0.9, winH*0.5
@@ -65,7 +61,7 @@ Loop, 4 {
         Click
 }
 
-Gosub, replace_trading_post_2
+tradingPost2()
 click(confirm.x, confirm.y)
 Gosub, check_overview
 
@@ -164,101 +160,11 @@ Click
 Sleep, 3000
 return
 
-replace_control_center:
-var := 73
-amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png", var)
-swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png", var)
-if (amiya.found) {
-    amiya.click()
-    Gosub, deselect_all
-    swire()
-} else {
-    swire.click(1)
-    Gosub, deselect_all
-    amiya()
-}
-return
 
-replace_reception_room:
-var := 73
-saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png", var)
-utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", var)
-if (saria.found) {
-    saria.click(1)
-    Gosub, deselect_all
-    utage()
-} else {
-    utage.click(1)
-    Gosub, deselect_all
-    saria()
-}
-return
 
-replace_trading_post_1:
-var := 70
-exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png", 60)
-gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", var)
-if (exu.found) {
-    exu.click(1)
-    Gosub, deselect_all
-    gummy()
-} else {
-    gummy.click(1)
-    Gosub, deselect_all
-    exu()
-}
-return
 
-replace_factory_gold_1:
-variance := 73
-gravel := new ImgSearch(A_WorkingDir . "\gravel_work.png", variance)
-cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
 
-if (gravel.found) {
-    gravel.click(1)
-    Gosub, deselect_all
-    cuora()
-} else {
-    cuora.click(1)
-    Gosub, deselect_all
-    gravel()
-}
-return
 
-replace_power_1:
-variance := 70
-greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance)
-ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
-
-if (greyy.found) {
-    greyy.click(1)
-    Gosub, operators_menu
-    scrollRight(3)
-    ifrit()
-} else {
-    ifrit.click(1)
-    Gosub, operators_menu
-    scrollRight(3)
-    greyy()
-}
-return
-
-replace_trading_post_2:
-variance := 73
-mousse := new ImgSearch(A_WorkingDir . "\mousse_work.png", variance)
-melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
-
-if(mousse.found) {
-    mousse.click(1)
-    Gosub, deselect_all
-    melantha()
-} else {
-    melantha.click(1)
-    Gosub, deselect_all
-    mousse()
-}
-
-return
 
 ; Hiring process
 autohire:
