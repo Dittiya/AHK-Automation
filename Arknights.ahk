@@ -12,10 +12,7 @@ ExitApp
 return
 
 ^e::
-collectPath := A_ScriptDir . "\Arknights\collect.png"
-collect := new ImgSearch(collectPath, 100)
-collect.click(3,3)
-collect.click(1,0.5,0,-50)
+
 return
 
 ^s::
@@ -90,7 +87,15 @@ return
 ; Testing keybind
 ^v::
 confirm := {x:winW*0.1, y:winH*0.1}
-Gosub, replace_control_center
+tradingPost2()
+click(confirm.x, confirm.y)
+Gosub, check_overview
+
+factoryGold2()
+click(confirm.x, confirm.y)
+Gosub, check_overview
+
+powerPlant2()
 click(confirm.x, confirm.y)
 Gosub, check_overview
 return
@@ -201,7 +206,7 @@ scrollUntilFound(img, tolerance=70) {
             image := new ImgSearch(img, tolerance)
         } Until ErrorLevel = 0
     } 
-    image.click()
+    image.click(1,0,-10,-50)
     return
 }
 

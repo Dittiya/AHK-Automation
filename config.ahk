@@ -10,12 +10,12 @@ swire(var=120) {
     return
 }
 
-amiya(var=100){
-    amiya := A_ScriptDir . "\Arknights\amiya1.png"
-    ash := A_ScriptDir . "\Arknights\ash1.png"
-    blitz := A_ScriptDir . "\Arknights\blitz1.png"
-    tachanka := A_ScriptDir . "\Arknights\tachanka1.png"
-    nearl := A_ScriptDir . "\Arknights\nearl1.png"
+amiya(var=115){
+    amiya := A_ScriptDir . "\Arknights\amiya.png"
+    ash := A_ScriptDir . "\Arknights\ash.png"
+    blitz := A_ScriptDir . "\Arknights\blitz.png"
+    tachanka := A_ScriptDir . "\Arknights\tachanka.png"
+    nearl := A_ScriptDir . "\Arknights\nearl.png"
 
     array := [amiya, ash, blitz, tachanka, nearl]
     replaceOps(array, var)
@@ -31,7 +31,7 @@ utage(var=125) {
     return
 }
 
-saria(var=115) {
+saria(var=110) {
     saria := A_ScriptDir . "\Arknights\saria.png"
     gitano := A_ScriptDir . "\Arknights\gitano.png"
 
@@ -40,7 +40,7 @@ saria(var=115) {
     return
 }
 
-exu(var=100) {
+exu(var=110) {
     exu := A_ScriptDir . "\Arknights\exu.png"
     lappland := A_ScriptDir . "\Arknights\lappland.png"
     texas := A_ScriptDir . "\Arknights\texas.png"
@@ -60,7 +60,7 @@ gummy(var=115) {
     return
 }
 
-gravel(var=120) {
+gravel(var=110) {
     gravel := A_WorkingDir . "\gravel.png"
     spot := A_WorkingDir . "\spot.png"
     haze := A_WorkingDir . "\haze.png"
@@ -106,7 +106,7 @@ melantha(var=100) {
     return
 }
 
-mousse(var=100) {
+mousse(var=110) {
     mousse := A_WorkingDir . "\mousse.png"
     fang := A_WorkingDir . "\fang.png"
     matoimaru := A_WorkingDir . "\matoimaru.png"
@@ -126,7 +126,7 @@ roberta(var=100) {
     return
 }
 
-ptilo(var=100) {
+ptilo(var=110) {
     ptilo := A_WorkingDir . "\ptilo.png"
     vanilla := A_WorkingDir . "\vanilla.png"
     scene := A_WorkingDir . "\scene.png"

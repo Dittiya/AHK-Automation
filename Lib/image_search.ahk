@@ -39,14 +39,14 @@ class ImgSearch {
         if (ErrorLevel = 2)
             MsgBox, , ErrorLevel 2, Image not available, 2
         else if (ErrorLevel = 1) {
-            MsgBox, , ErrorLevel 1, %imagePath% Image not found, 0.5
+            ; MsgBox, , ErrorLevel 1, %imagePath% Image not found, 0.5
             this.found := False
         }
         else {
             this.found := True
             this.X := X
             this.Y := Y
-            this.move()
+            ; this.move()
         }
     }
 
