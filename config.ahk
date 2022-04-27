@@ -50,7 +50,7 @@ exu(var=100) {
     return
 }
 
-gummy(var=100) {
+gummy(var=115) {
     gummy := A_ScriptDir . "\Arknights\gummy.png"
     midnight := A_ScriptDir . "\Arknights\midnight.png"
     catapult := A_ScriptDir . "\Arknights\Catapult.png"

@@ -169,7 +169,7 @@ var := 73
 amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png", var)
 swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png", var)
 if (amiya.found) {
-    amiya.click(1)
+    amiya.click()
     Gosub, deselect_all
     swire()
 } else {
@@ -196,7 +196,7 @@ return
 
 replace_trading_post_1:
 var := 70
-exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png")
+exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png", 60)
 gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", var)
 if (exu.found) {
     exu.click(1)
@@ -269,9 +269,10 @@ my := winH*0.075
 for _, coord in coords {
     MouseMove, coord.x, coord.y
     Click
-    Sleep, 1000
     MouseClick, left, winW*0.9, winH*0.1
     Loop {
+        if (A_Index = 1)
+            Sleep, 3000
         PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
         Click
     } until ErrorLevel = 0
@@ -281,7 +282,7 @@ return
 
 deselect_all:
 Gosub, operators_menu
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 70)
+des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 100)
 des.click()
 return
 
