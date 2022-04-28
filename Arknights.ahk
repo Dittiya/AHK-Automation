@@ -206,7 +206,7 @@ scrollUntilFound(img, tolerance=70) {
             image := new ImgSearch(img, tolerance)
         } Until ErrorLevel = 0
     } 
-    image.click(1,0,-10,-50)
+    image.click()
     return
 }
 

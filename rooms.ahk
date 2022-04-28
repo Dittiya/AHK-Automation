@@ -110,7 +110,7 @@ factoryGold2(variance=60) {
     return
 }
 
-powerPlant2(variance=30) {
+powerPlant2(variance=50) {
     liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", 70)
     indigo := new ImgSearch(A_WorkingDir . "\indigo_work.png", variance)
 
