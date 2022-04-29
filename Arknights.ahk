@@ -44,7 +44,7 @@ checkOverview()
 
 MouseMove, winW*0.9, winH*0.5
 Send, {WheelDown}
-Sleep, 750
+Sleep, 800
 Click
 
 factoryGold1()
@@ -93,7 +93,13 @@ return
 ^v::
 changeSize()
 confirm := {x:winW*0.1, y:winH*0.1}
-factoryGold1()
+
+MouseMove, winW*0.9, winH*0.5
+Send, {WheelDown}
+Sleep, 750
+Click
+
+powerPlant1()
 click(confirm.x, confirm.y)
 checkOverview()
 return
