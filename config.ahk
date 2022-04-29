@@ -70,12 +70,12 @@ gravel(var=110) {
     return 
 }
 
-cuora(var=100) {
+cuora(var=75) {
+    bubble := A_WorkingDir . "\bubble.png"
     cuora := A_WorkingDir . "\cuora.png"
     noir := A_WorkingDir . "\noir.png"
-    bubble := A_WorkingDir . "\bubble.png"
 
-    array := [cuora, noir, bubble]
+    array := [bubble, cuora, noir]
     replaceOps(array, var)
     return 
 }
