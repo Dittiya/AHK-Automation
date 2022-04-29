@@ -1,16 +1,16 @@
-swire(var=120) {
+swire(var=90) {
     swire := A_ScriptDir . "\Arknights\swire.png"
-    dobermann := A_ScriptDir . "\Arknights\dobermann.png"
-    scavenger := A_ScriptDir . "\Arknights\scavanger.png"
-    greythroat := A_ScriptDir . "\Arknights\greythroat.png"
     red := A_ScriptDir . "\Arknights\red.png"
+    scavenger := A_ScriptDir . "\Arknights\scavenger.png"
+    dobermann := A_ScriptDir . "\Arknights\dobermann.png"
+    greythroat := A_ScriptDir . "\Arknights\greythroat.png"
 
-    array := [swire, dobermann, scavenger, greythroat, red]
+    array := [swire, red, scavenger, dobermann, greythroat]
     replaceOps(array, var)
     return
 }
 
-amiya(var=115){
+amiya(var=73){
     amiya := A_ScriptDir . "\Arknights\amiya.png"
     ash := A_ScriptDir . "\Arknights\ash.png"
     blitz := A_ScriptDir . "\Arknights\blitz.png"
