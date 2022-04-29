@@ -12,7 +12,9 @@ ExitApp
 return
 
 ^e::
-
+changeSize()
+WinGetPos, x, y, w, h, BlueStacks 10
+; MsgBox, % "loc: " x "x" y ", with size: " w "x" h
 return
 
 ^s::
@@ -23,6 +25,9 @@ Gosub, overview_menu
 return
 
 ^g::
+changeSize()
+Sleep, 250
+
 ; confirm := {x:winW*0.9, y:winH*0.95}
 confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
@@ -86,16 +91,11 @@ return
 
 ; Testing keybind
 ^v::
+Gosub, ^e
+Sleep, 500
+
 confirm := {x:winW*0.1, y:winH*0.1}
-tradingPost2()
-click(confirm.x, confirm.y)
-Gosub, check_overview
-
-factoryGold2()
-click(confirm.x, confirm.y)
-Gosub, check_overview
-
-powerPlant2()
+controlCenter()
 click(confirm.x, confirm.y)
 Gosub, check_overview
 return
@@ -136,11 +136,6 @@ Sleep, 3000
 return
 
 
-
-
-
-
-
 ; Hiring process
 autohire:
 coords := [{x:winW*0.4, y:winH*0.55}, {x:winW*0.65, y:winH*0.55}, {x:winW*0.4, y:winH*0.9}]
@@ -151,9 +146,9 @@ for _, coord in coords {
     MouseMove, coord.x, coord.y
     Click
     MouseClick, left, winW*0.9, winH*0.1
-    Loop {
-        if (A_Index = 1)
+    if (_ = 1)
             Sleep, 3000
+    Loop {
         PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
         Click
     } until ErrorLevel = 0
@@ -163,7 +158,7 @@ return
 
 deselect_all:
 Gosub, operators_menu
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 100)
+des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73)
 des.click()
 return
 
@@ -230,5 +225,10 @@ pixelDif(color, x, y, rx=0, ry=0) {
     Loop {
         PixelSearch, px, py, x, y, x+rx, y+ry, color
     } Until ErrorLevel = 0
+    return
+}
+
+changeSize() {
+    WinMove, BlueStacks 10, , 150, 125, 1280, 735
     return
 }
