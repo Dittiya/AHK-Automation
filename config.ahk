@@ -22,7 +22,7 @@ amiya(var=73){
     return
 }
 
-utage(var=125) {
+utage(var=90) {
     utage := A_ScriptDir . "\Arknights\utage.png"
     rope := A_ScriptDir . "\Arknights\rope.png"
 

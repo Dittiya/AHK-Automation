@@ -1,6 +1,6 @@
-controlCenter(variance=73) {
-    amiya := new ImgSearch(A_ScriptDir . "\Arknights\amiya_work.png", variance)
-    swire := new ImgSearch(A_ScriptDir . "\Arknights\swire_work.png", variance)
+controlCenter(variance=75) {
+    amiya := new ImgSearch(A_WorkingDir . "\amiya_work.png", variance)
+    swire := new ImgSearch(A_WorkingDir . "\swire_work.png", variance)
     if (amiya.found) {
         amiya.click()
         Gosub, deselect_all
@@ -14,8 +14,8 @@ controlCenter(variance=73) {
 }
 
 reception(variance=73) {
-    saria := new ImgSearch(A_ScriptDir . "\Arknights\saria_work.png", variance)
-    utage := new ImgSearch(A_ScriptDir . "\Arknights\utage_work.png", variance)
+    saria := new ImgSearch(A_WorkingDir . "\saria_work.png", variance)
+    utage := new ImgSearch(A_WorkingDir . "\utage_work.png", variance)
     if (saria.found) {
         saria.click()
         Gosub, deselect_all
@@ -29,9 +29,9 @@ reception(variance=73) {
 }
 
 
-tradingPost1(variance=70) {
-    exu := new ImgSearch(A_ScriptDir . "\Arknights\exu_work.png", 60)
-    gummy := new ImgSearch(A_ScriptDir . "\Arknights\gummy_work.png", variance)
+tradingPost1(variance=75) {
+    exu := new ImgSearch(A_WorkingDir . "\exu_work.png", variance)
+    gummy := new ImgSearch(A_WorkingDir . "\gummy_work.png", variance)
     if (exu.found) {
         exu.click()
         Gosub, deselect_all
