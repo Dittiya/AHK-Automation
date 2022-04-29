@@ -78,23 +78,23 @@ powerPlant1(variance=73) {
     return
 }
 
-tradingPost2(variance=73) {
+tradingPost2(variance=75) {
     mousse := new ImgSearch(A_WorkingDir . "\mousse_work.png", variance)
     melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
 
     if(mousse.found) {
-        mousse.click(1)
+        mousse.click()
         Gosub, deselect_all
         melantha()
     } else {
-        melantha.click(1)
+        melantha.click()
         Gosub, deselect_all
         mousse()
     }
     return
 }
 
-factoryGold2(variance=60) {
+factoryGold2(variance=70) {
     roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", variance)
     ptilo := new ImgSearch(A_WorkingDir . "\ptilo_work.png", variance)
 

@@ -44,7 +44,7 @@ checkOverview()
 
 MouseMove, winW*0.9, winH*0.5
 Send, {WheelDown}
-Sleep, 800
+Sleep, 805
 Click
 
 factoryGold1()
@@ -58,7 +58,7 @@ checkOverview()
 MouseMove, winW*0.9, winH*0.5
 Loop, 4 {
     Send, {WheelDown}
-    Sleep, 490
+    Sleep, 495
     If (A_Index = 4)
         Click
 }
