@@ -39,7 +39,7 @@ class ImgSearch {
         if (ErrorLevel = 2)
             MsgBox, , ErrorLevel 2, Image not available, 2
         else if (ErrorLevel = 1) {
-            ; MsgBox, , ErrorLevel 1, %imagePath% Image not found, 0.75
+            ; MsgBox, , ErrorLevel 1, %imagePath% Image not found, 0.95
             this.found := False
         }
         else {
@@ -52,13 +52,13 @@ class ImgSearch {
 
     continuousSearch(imagePath, n) {
         Loop {
-            ImageSearch, X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, *%n% %imagePath%
+            ImageSearch, X, Y, 0, 0, this.winW, this.winH, *%n% %imagePath%
             this.found := False
         } Until ErrorLevel = 0
         this.found := True
         this.X := X
         this.Y := Y
-        this.move()
+        ; this.move()
     }
     
 }
