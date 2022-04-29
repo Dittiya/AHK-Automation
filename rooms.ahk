@@ -44,7 +44,7 @@ tradingPost1(variance=75) {
     return
 }
 
-factoryGold1(variance=73) {
+factoryGold1(variance=70) {
     gravel := new ImgSearch(A_WorkingDir . "\gravel_work.png", variance)
     cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
 
@@ -60,7 +60,7 @@ factoryGold1(variance=73) {
     return
 }
 
-powerPlant1(variance=70) {
+powerPlant1(variance=73) {
     greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance)
     ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
 

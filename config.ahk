@@ -1,4 +1,4 @@
-swire(var=90) {
+swire(var=100) {
     swire := A_ScriptDir . "\Arknights\swire.png"
     red := A_ScriptDir . "\Arknights\red.png"
     scavenger := A_ScriptDir . "\Arknights\scavenger.png"
