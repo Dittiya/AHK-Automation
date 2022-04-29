@@ -32,15 +32,15 @@ Sleep, 250
 confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 reception()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 tradingPost1()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 MouseMove, winW*0.9, winH*0.5
 Send, {WheelDown}
@@ -49,11 +49,11 @@ Click
 
 factoryGold1()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 powerPlant1()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 MouseMove, winW*0.9, winH*0.5
 Loop, 4 {
@@ -65,15 +65,15 @@ Loop, 4 {
 
 tradingPost2()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 factoryGold2()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 powerPlant2()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 
 return
 
@@ -91,13 +91,11 @@ return
 
 ; Testing keybind
 ^v::
-Gosub, ^e
-Sleep, 500
-
+changeSize()
 confirm := {x:winW*0.1, y:winH*0.1}
-controlCenter()
+factoryGold1()
 click(confirm.x, confirm.y)
-Gosub, check_overview
+checkOverview()
 return
 
 base:
@@ -169,12 +167,10 @@ color := 0xA87500
 pixelDif(color, pos.x, pos.y)
 return
 
-check_overview:
-pos := {x:winW*0.07, y:winH*0.52}
-color := 0xFFCC33
-
-pixelDif(color, pos.x, pos.y)
-return
+checkOverview() {
+    assigned := new ImgSearch(A_WorkingDir . "\assigned.png", 73, 1)
+    return
+}
 
 scroll_left:
 MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 10
@@ -223,7 +219,7 @@ click(x, y, count=1) {
 
 pixelDif(color, x, y, rx=0, ry=0) {
     Loop {
-        PixelSearch, px, py, x, y, x+rx, y+ry, color
+        PixelSearch, px, py, x, y, x+rx, y+ry, color,, Fast
     } Until ErrorLevel = 0
     return
 }
