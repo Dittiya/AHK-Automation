@@ -10,14 +10,14 @@ swire(var=100) {
     return
 }
 
-amiya(var=73){
+amiya(var=90){
     amiya := A_ScriptDir . "\Arknights\amiya.png"
     ash := A_ScriptDir . "\Arknights\ash.png"
     blitz := A_ScriptDir . "\Arknights\blitz.png"
     tachanka := A_ScriptDir . "\Arknights\tachanka.png"
-    nearl := A_ScriptDir . "\Arknights\nearl.png"
+    flametail := A_ScriptDir . "\Arknights\flametail.png"
 
-    array := [amiya, ash, blitz, tachanka, nearl]
+    array := [amiya, tachanka, ash, blitz, flametail]
     replaceOps(array, var)
     return
 }
@@ -127,11 +127,11 @@ roberta(var=100) {
 }
 
 ptilo(var=110) {
-    ptilo := A_WorkingDir . "\ptilo.png"
-    vanilla := A_WorkingDir . "\vanilla.png"
     scene := A_WorkingDir . "\scene.png"
+    vanilla := A_WorkingDir . "\vanilla.png"
+    ptilo := A_WorkingDir . "\ptilo.png"
 
-    array := [ptilo, vanilla, scene]
+    array := [scene, vanilla, ptilo]
     replaceOps(array, var)
     return
 }

@@ -58,7 +58,7 @@ class ImgSearch {
         this.found := True
         this.X := X
         this.Y := Y
-        ; this.move()
+        this.move()
     }
     
 }

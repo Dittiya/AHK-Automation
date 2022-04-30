@@ -12,9 +12,6 @@ ExitApp
 return
 
 ^e::
-changeSize()
-WinGetPos, x, y, w, h, BlueStacks 10
-; MsgBox, % "loc: " x "x" y ", with size: " w "x" h
 return
 
 ^s::
@@ -28,8 +25,8 @@ return
 changeSize()
 Sleep, 250
 
-; confirm := {x:winW*0.9, y:winH*0.95}
-confirm := {x:winW*0.1, y:winH*0.1}
+confirm := {x:winW*0.9, y:winH*0.95}
+; confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
 click(confirm.x, confirm.y)
 checkOverview()
