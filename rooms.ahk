@@ -127,18 +127,18 @@ powerPlant2(variance=50) {
     }
 }
 
-office(variance=73) {
+office(variance=70) {
     eyja := new ImgSearch(A_WorkingDir . "\eyja_work.png", variance)
     ethan := new ImgSearch(A_WorkingDir . "\ethan_work.png", variance)
 
-    if (eyja.found) {
-        eyja.click(1)
-        Gosub, operators_menu
-        ethan()
-    } else {
+    if (ethan.found) {
         ethan.click(1)
         Gosub, operators_menu
         eyja()
+    } else {
+        eyja.click(1)
+        Gosub, operators_menu
+        ethan()
     }
 }
 
