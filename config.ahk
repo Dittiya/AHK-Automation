@@ -70,7 +70,7 @@ gravel(var=110) {
     return 
 }
 
-cuora(var=75) {
+cuora(var=80) {
     bubble := A_WorkingDir . "\bubble.png"
     cuora := A_WorkingDir . "\cuora.png"
     noir := A_WorkingDir . "\noir.png"

@@ -72,8 +72,8 @@ return
 changeSize()
 Sleep, 250
 
-; confirm := {x:winW*0.9, y:winH*0.95}
-confirm := {x:winW*0.1, y:winH*0.1}
+confirm := {x:winW*0.9, y:winH*0.95}
+; confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
 click(confirm.x, confirm.y)
 checkOverview()
