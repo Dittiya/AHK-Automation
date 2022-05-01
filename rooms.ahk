@@ -127,7 +127,7 @@ powerPlant2(variance=50) {
     }
 }
 
-office(variance=70) {
+office(variance=73) {
     eyja := new ImgSearch(A_WorkingDir . "\eyja_work.png", variance)
     ethan := new ImgSearch(A_WorkingDir . "\ethan_work.png", variance)
 
@@ -141,3 +141,49 @@ office(variance=70) {
         eyja()
     }
 }
+
+xp1(variance=60) {
+    shirayuki := new ImgSearch(A_WorkingDir . "\shirayuki_work.png", variance)
+    cardigan := new ImgSearch(A_WorkingDir . "\cardigan_work.png", variance)
+
+    if(shirayuki.found) {
+        shirayuki.click()
+        Gosub, deselect_all
+        cardigan()
+    } else {
+        cardigan.click()
+        Gosub, deselect_all
+        shirayuki()
+    }
+}
+
+xp2(variance=70) {
+    vigna := new ImgSearch(A_WorkingDir . "\vigna_work.png", variance)
+    beagle := new ImgSearch(A_WorkingDir . "\beagle_work.png", variance)
+
+    if(vigna.found) {
+        vigna.click()
+        Gosub, deselect_all
+        beagle()
+    } else {
+        beagle.click()
+        Gosub, deselect_all
+        vigna()
+    }
+}
+
+xp3(variance=60) {
+    feater := new ImgSearch(A_WorkingDir . "\feater_work.png", variance)
+    beanstalk := new ImgSearch(A_WorkingDir . "\beanstalk_work.png", variance)
+
+    if(feater.found) {
+        feater.click()
+        Gosub, deselect_all
+        beanstalk()
+    } else {
+        beanstalk.click()
+        Gosub, deselect_all
+        feater()
+    }
+}
+
