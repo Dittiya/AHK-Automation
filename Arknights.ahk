@@ -12,6 +12,53 @@ ExitApp
 return
 
 ^e::
+MouseMove, winW*0.9, winH*0.5
+Send, {WheelDown}
+Sleep, 805
+Click
+
+Sleep, 200
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 4 {
+    Send, {WheelDown}
+    Sleep, 495
+    If (A_Index = 4)
+        Click
+}
+
+Sleep, 200
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 2 {
+    Send, {WheelDown}
+    Sleep, 495
+    If (A_Index = 2)
+        Click
+}
+
+office()
+click(confirm.x, confirm.y)
+checkOverview()
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 2 {
+    Send, {WheelDown}
+    Sleep, 480
+    If (A_Index = 2)
+        Click
+}
+
+xp1()
+click(confirm.x, confirm.y)
+checkOverview()
+xp2()
+click(confirm.x, confirm.y)
+checkOverview()
+xp3()
+click(confirm.x, confirm.y)
+checkOverview()
+
 return
 
 ^s::
@@ -25,8 +72,8 @@ return
 changeSize()
 Sleep, 250
 
-confirm := {x:winW*0.9, y:winH*0.95}
-; confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
+confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
 click(confirm.x, confirm.y)
 checkOverview()
@@ -72,6 +119,38 @@ powerPlant2()
 click(confirm.x, confirm.y)
 checkOverview()
 
+MouseMove, winW*0.9, winH*0.5
+Loop, 2 {
+    Send, {WheelDown}
+    Sleep, 495
+    If (A_Index = 2)
+        Click
+}
+
+office()
+click(confirm.x, confirm.y)
+checkOverview()
+
+MouseMove, winW*0.9, winH*0.5
+Loop, 2 {
+    Send, {WheelDown}
+    Sleep, 480
+    If (A_Index = 2)
+        Click
+}
+
+xp1()
+click(confirm.x, confirm.y)
+checkOverview()
+
+xp2()
+click(confirm.x, confirm.y)
+checkOverview()
+
+xp3()
+click(confirm.x, confirm.y)
+checkOverview()
+
 return
 
 ; Hotkey for autohire process
@@ -88,15 +167,7 @@ return
 
 ; Testing keybind
 ^v::
-changeSize()
-confirm := {x:winW*0.1, y:winH*0.1}
-
-MouseMove, winW*0.9, winH*0.5
-Send, {WheelDown}
-Sleep, 750
-Click
-
-powerPlant1()
+xp3()
 click(confirm.x, confirm.y)
 checkOverview()
 return
@@ -147,8 +218,7 @@ for _, coord in coords {
     MouseMove, coord.x, coord.y
     Click
     MouseClick, left, winW*0.9, winH*0.1
-    if (_ = 1)
-            Sleep, 3000
+    Sleep, 2000
     Loop {
         PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
         Click
