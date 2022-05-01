@@ -167,3 +167,51 @@ ethan(var=100) {
     replaceOps(array, var)
     return
 }
+
+cardigan(var=100) {
+    cardigan := A_WorkingDir . "\cardigan.png"
+    silence := A_WorkingDir . "\silence.png"
+
+    array := [cardigan, silence]
+    replaceOps(array, var)
+}
+
+shirayuki(var=100) {
+    shirayuki := A_WorkingDir . "\shirayuki.png"
+    frostleaf := A_WorkingDir . "\frostleaf.png"
+
+    array := [shirayuki, frostleaf]
+    replaceOps(array, var)
+}
+
+vigna(var=100) {
+    vigna := A_WorkingDir . "\vigna.png"
+    castle := A_WorkingDir . "\castle.png"
+
+    array := [vigna, castle]
+    replaceOps(array, var)
+}
+
+beagle(var=100) {
+    beagle := A_WorkingDir . "\beagle.png"
+    meteor := A_WorkingDir . "\meteor.png"
+
+    array := [beagle, meteor]
+    replaceOps(array, var)
+}
+
+feater(var=100) {
+    feater := A_WorkingDir . "\feater.png"
+    kroos := A_WorkingDir . "\kroos.png"
+
+    array := [feater, kroos]
+    replaceOps(array, var)
+}
+
+beanstalk(var=100) {
+    beanstalk := A_WorkingDir . "\beanstalk.png"
+    click := A_WorkingDir . "\click.png"
+
+    array := [beanstalk, click]
+    replaceOps(array, var)
+}
