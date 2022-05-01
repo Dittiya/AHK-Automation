@@ -168,8 +168,6 @@ return
 ; Testing keybind
 ^v::
 xp3()
-click(confirm.x, confirm.y)
-checkOverview()
 return
 
 base:
