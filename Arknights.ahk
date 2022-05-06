@@ -6,6 +6,7 @@ WinGetPos winX, winY, winW, winH, BlueStacks 10
 #Include Lib/image_search.ahk
 #Include config.ahk
 #Include rooms.ahk
+#Include testing.ahk
 
 Esc::
 ExitApp
@@ -36,8 +37,8 @@ return
 changeSize()
 Sleep, 250
 
-confirm := {x:winW*0.9, y:winH*0.95}
-; confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
+confirm := {x:winW*0.1, y:winH*0.1}
 controlCenter()
 click(confirm.x, confirm.y)
 checkOverview()
@@ -127,16 +128,6 @@ MouseGetPos, mx, my
 MouseMove, mx, my
 PixelGetColor, pc, mx, my
 MsgBox, % pc " at " mx "x" my
-return
-
-; Testing keybind
-^v::
-confirm := {x:winW*0.1, y:winH*0.1}
-
-powerPlant2()
-
-click(confirm.x, confirm.y)
-checkOverview()
 return
 
 base:
