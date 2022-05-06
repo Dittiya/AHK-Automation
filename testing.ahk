@@ -20,6 +20,7 @@ return
 confirm := {x:winW*0.1, y:winH*0.1}
 
 MouseMove, winW*0.9, winH*0.5
+Sleep, 300
 Send, {WheelDown}
 Sleep, 805
 Click
@@ -44,6 +45,7 @@ return
 confirm := {x:winW*0.1, y:winH*0.1}
 
 MouseMove, winW*0.9, winH*0.5
+Sleep, 300
 Send, {WheelDown}
 Sleep, 805
 Click
@@ -80,6 +82,7 @@ return
 confirm := {x:winW*0.1, y:winH*0.1}
 
 MouseMove, winW*0.9, winH*0.5
+Sleep, 300
 Send, {WheelDown}
 Sleep, 805
 Click
@@ -117,6 +120,7 @@ return
 confirm := {x:winW*0.1, y:winH*0.1}
 
 MouseMove, winW*0.9, winH*0.5
+Sleep, 300
 Send, {WheelDown}
 Sleep, 805
 Click
@@ -146,9 +150,11 @@ Loop, 2 {
 xp1()
 click(confirm.x, confirm.y)
 checkOverview()
+
 xp2()
 click(confirm.x, confirm.y)
 checkOverview()
+
 xp3()
 click(confirm.x, confirm.y)
 checkOverview()
