@@ -202,9 +202,9 @@ beagle(var=100) {
 
 feater(var=100) {
     feater := A_WorkingDir . "\feater.png"
-    kroos := A_WorkingDir . "\kroos.png"
+    conviction := A_WorkingDir . "\conviction.png"
 
-    array := [feater, kroos]
+    array := [feater, conviction]
     replaceOps(array, var)
 }
 
