@@ -61,7 +61,7 @@ factoryGold1(variance=70) {
 }
 
 powerPlant1(variance=73) {
-    greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance)
+    greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance-5)
     ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", variance)
 
     if (greyy.found) {
