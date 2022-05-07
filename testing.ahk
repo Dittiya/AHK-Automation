@@ -1,6 +1,7 @@
 ; Testing keybind
 ^v::
 confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
 
 controlCenter()
 click(confirm.x, confirm.y)
@@ -18,6 +19,7 @@ return
 ; Testing keybind for the 1st scroll
 ^y::
 confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
 
 MouseMove, winW*0.9, winH*0.5
 Sleep, 300
@@ -43,6 +45,7 @@ return
 ; Testing keybind for the 2nd scroll
 ^u::
 confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
 
 MouseMove, winW*0.9, winH*0.5
 Sleep, 300
@@ -80,6 +83,7 @@ return
 ; Testing keybind for the 3rd scroll
 ^i::
 confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
 
 MouseMove, winW*0.9, winH*0.5
 Sleep, 300
@@ -118,6 +122,7 @@ return
 ; Testing keybind for the 4th scroll
 ^o::
 confirm := {x:winW*0.1, y:winH*0.1}
+; confirm := {x:winW*0.9, y:winH*0.95}
 
 MouseMove, winW*0.9, winH*0.5
 Sleep, 300
