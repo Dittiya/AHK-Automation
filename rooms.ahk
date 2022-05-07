@@ -173,11 +173,11 @@ xp2(variance=70) {
 }
 
 xp3(variance=60) {
-    feater := new ImgSearch(A_WorkingDir . "\feater_work.png", variance)
+    conviction := new ImgSearch(A_WorkingDir . "\conviction_work.png", variance)
     beanstalk := new ImgSearch(A_WorkingDir . "\beanstalk_work.png", variance)
 
-    if(feater.found) {
-        feater.click()
+    if(conviction.found) {
+        conviction.click()
         Gosub, deselect_all
         beanstalk()
     } else {
