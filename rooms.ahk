@@ -157,9 +157,9 @@ xp1(variance=60) {
     }
 }
 
-xp2(variance=70) {
+xp2(variance=60) {
     vigna := new ImgSearch(A_WorkingDir . "\vigna_work.png", variance)
-    beagle := new ImgSearch(A_WorkingDir . "\beagle_work.png", variance-10)
+    beagle := new ImgSearch(A_WorkingDir . "\beagle_work.png", variance)
 
     if(vigna.found) {
         vigna.click()
