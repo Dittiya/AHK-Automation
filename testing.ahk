@@ -140,6 +140,7 @@ Loop, 2 {
     If (A_Index = 2)
         Click
 }
+Sleep, 300
 Loop, 2 {
     Send, {WheelDown}
     Sleep, 480
