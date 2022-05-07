@@ -96,7 +96,7 @@ tradingPost2(variance=75) {
 
 factoryGold2(variance=70) {
     roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", variance)
-    ptilo := new ImgSearch(A_WorkingDir . "\ptilo_work.png", variance)
+    ptilo := new ImgSearch(A_WorkingDir . "\ptilo_work.png", variance-5)
 
     if (roberta.found) {
         roberta.click(1)
@@ -111,7 +111,7 @@ factoryGold2(variance=70) {
 }
 
 powerPlant2(variance=50) {
-    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", 70)
+    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", variance+10)
     indigo := new ImgSearch(A_WorkingDir . "\indigo_work.png", variance)
 
     if (liskarm.found) {
