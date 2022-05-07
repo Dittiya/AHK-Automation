@@ -129,16 +129,16 @@ powerPlant2(variance=50) {
 
 office(variance=70) {
     eyja := new ImgSearch(A_WorkingDir . "\eyja_work.png", variance)
-    ethan := new ImgSearch(A_WorkingDir . "\ethan_work.png", variance)
+    aciddrop := new ImgSearch(A_WorkingDir . "\aciddrop_work.png", variance)
 
-    if (ethan.found) {
-        ethan.click(1)
+    if (aciddrop.found) {
+        aciddrop.click()
         Gosub, operators_menu
         eyja()
     } else {
-        eyja.click(1)
+        eyja.click()
         Gosub, operators_menu
-        ethan()
+        aciddrop()
     }
 }
 

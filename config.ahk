@@ -160,10 +160,10 @@ eyja(var=100) {
     return
 }
 
-ethan(var=100) {
-    ethan := A_WorkingDir . "\ethan.png"
+aciddrop(var=100) {
+    aciddrop := A_WorkingDir . "\aciddrop.png"
 
-    array := [ethan]
+    array := [aciddrop]
     replaceOps(array, var)
     return
 }
