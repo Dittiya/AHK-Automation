@@ -37,85 +37,16 @@ return
 changeSize()
 Sleep, 250
 
+confirm := {x:winW*0.1, y:winH*0.1}
+baseAutomation(confirm)
+return
+
++g::
+changeSize()
+Sleep, 250
+
 confirm := {x:winW*0.9, y:winH*0.95}
-; confirm := {x:winW*0.1, y:winH*0.1}
-controlCenter()
-click(confirm.x, confirm.y)
-checkOverview()
-
-reception()
-click(confirm.x, confirm.y)
-checkOverview()
-
-tradingPost1()
-click(confirm.x, confirm.y)
-checkOverview()
-
-MouseMove, winW*0.9, winH*0.5
-Send, {WheelDown}
-Sleep, 805
-Click
-
-factoryGold1()
-click(confirm.x, confirm.y)
-checkOverview()
-
-powerPlant1()
-click(confirm.x, confirm.y)
-checkOverview()
-
-MouseMove, winW*0.9, winH*0.5
-Loop, 4 {
-    Send, {WheelDown}
-    Sleep, 495
-    If (A_Index = 4)
-        Click
-}
-
-tradingPost2()
-click(confirm.x, confirm.y)
-checkOverview()
-
-factoryGold2()
-click(confirm.x, confirm.y)
-checkOverview()
-
-powerPlant2()
-click(confirm.x, confirm.y)
-checkOverview()
-
-MouseMove, winW*0.9, winH*0.5
-Loop, 2 {
-    Send, {WheelDown}
-    Sleep, 495
-    If (A_Index = 2)
-        Click
-}
-
-office()
-click(confirm.x, confirm.y)
-checkOverview()
-
-MouseMove, winW*0.9, winH*0.5
-Loop, 2 {
-    Send, {WheelDown}
-    Sleep, 480
-    If (A_Index = 2)
-        Click
-}
-
-xp1()
-click(confirm.x, confirm.y)
-checkOverview()
-
-xp2()
-click(confirm.x, confirm.y)
-checkOverview()
-
-xp3()
-click(confirm.x, confirm.y)
-checkOverview()
-
+baseAutomation(confirm)
 return
 
 ; Hotkey for autohire process
@@ -257,5 +188,88 @@ pixelDif(color, x, y, rx=0, ry=0) {
 
 changeSize() {
     WinMove, BlueStacks 10, , 150, 125, 1280, 735
+    return
+}
+
+baseAutomation(confirm) {
+    global winW, winH
+
+    controlCenter()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    reception()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    tradingPost1()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    MouseMove, winW*0.9, winH*0.5
+    Send, {WheelDown}
+    Sleep, 805
+    Click
+
+    factoryGold1()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    powerPlant1()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    MouseMove, winW*0.9, winH*0.5
+    Loop, 4 {
+        Send, {WheelDown}
+        Sleep, 495
+        If (A_Index = 4)
+            Click
+    }
+
+    tradingPost2()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    factoryGold2()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    powerPlant2()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    MouseMove, winW*0.9, winH*0.5
+    Loop, 2 {
+        Send, {WheelDown}
+        Sleep, 495
+        If (A_Index = 2)
+            Click
+    }
+
+    office()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    MouseMove, winW*0.9, winH*0.5
+    Loop, 2 {
+        Send, {WheelDown}
+        Sleep, 480
+        If (A_Index = 2)
+            Click
+    }
+
+    xp1()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    xp2()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
+    xp3()
+    click(confirm.x, confirm.y)
+    checkOverview()
+
     return
 }
