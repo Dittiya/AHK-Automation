@@ -79,11 +79,11 @@ powerPlant1(variance=73) {
 }
 
 tradingPost2(variance=75) {
-    mousse := new ImgSearch(A_WorkingDir . "\mousse_work.png", variance)
+    matoimaru := new ImgSearch(A_WorkingDir . "\matoimaru_work.png", variance-5)
     melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
 
-    if(mousse.found) {
-        mousse.click()
+    if(matoimaru.found) {
+        matoimaru.click()
         Gosub, deselect_all
         melantha()
     } else {
