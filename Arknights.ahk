@@ -14,12 +14,14 @@ return
 
 ^w::
 initLoc := {x:458, y:181}
+confirm := {x:winW*0.9, y:winH*0.95}
 
 click(initLoc.x, initLoc.y)
 click(initLoc.x, initLoc.y+300)
 click(initLoc.x+150, initLoc.y)
 click(initLoc.x+150, initLoc.y+300)
 click(initLoc.x+300, initLoc.y)
+click(confirm.x, confirm.y)
 return
 
 ^e::
