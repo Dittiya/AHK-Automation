@@ -72,11 +72,9 @@ firstPageTest(confirm) {
 secondPageTest(confirm) {
     global winW, winH
 
-    MouseMove, winW*0.9, winH*0.5
-    Sleep, 300
-    Send, {WheelDown}
-    Sleep, 805
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
+    Sleep, 100
 
     factoryGold1()
     click(confirm.x, confirm.y)
@@ -98,19 +96,15 @@ secondPageTest(confirm) {
 thirdPageTest(confirm) {
     global winW, winH
 
-    MouseMove, winW*0.9, winH*0.5
-    Sleep, 300
-    Send, {WheelDown}
-    Sleep, 805
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
-    Sleep, 300
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 4 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 4)
-            Click
-    }
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
     tradingPost2()
     click(confirm.x, confirm.y)
@@ -137,27 +131,18 @@ thirdPageTest(confirm) {
 fourthPageTest(confirm) {
     global winW, winH
 
-    MouseMove, winW*0.9, winH*0.5
-    Sleep, 300
-    Send, {WheelDown}
-    Sleep, 805
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
-    Sleep, 300
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 4 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 4)
-            Click
-    }
-    Sleep, 300
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 2 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 2)
-            Click
-    }
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
     office()
 
@@ -176,34 +161,21 @@ fourthPageTest(confirm) {
 fifthPageTest(confirm) {
     global winW, winH
 
-    MouseMove, winW*0.9, winH*0.5
-    Sleep, 300
-    Send, {WheelDown}
-    Sleep, 805
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
-    Sleep, 300
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 4 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 4)
-            Click
-    }
-    Sleep, 300
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 2 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 2)
-            Click
-    }
-    Sleep, 300
-    Loop, 2 {
-        Send, {WheelDown}
-        Sleep, 480
-        If (A_Index = 2)
-            Click
-    }
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
     xp1()
     click(confirm.x, confirm.y)

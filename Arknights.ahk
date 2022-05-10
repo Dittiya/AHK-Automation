@@ -26,6 +26,10 @@ return
 changeSize()
 return
 
++r::
+scrollDown()
+return
+
 ^s::
 Gosub, base
 Gosub, collect_resources
@@ -191,9 +195,40 @@ changeSize() {
     return
 }
 
+scrollDown() {
+    global winW, winH
+    speed := 12
+
+    ; B1
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, speed
+    Click
+    Sleep, 100
+
+
+    ; B2
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
+    Click
+    Sleep, 100
+
+
+    ; B3
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
+    Click
+    Sleep, 100
+
+    return
+}
+
 baseAutomation(confirm) {
     global winW, winH
 
+    ; 1F
     controlCenter()
     click(confirm.x, confirm.y)
     checkOverview()
@@ -206,11 +241,11 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseMove, winW*0.9, winH*0.5
-    Send, {WheelDown}
-    Sleep, 805
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
+    Sleep, 100
 
+    ; B1
     factoryGold1()
     click(confirm.x, confirm.y)
     checkOverview()
@@ -219,14 +254,14 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 4 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 4)
-            Click
-    }
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
+    ; B3
     tradingPost2()
     click(confirm.x, confirm.y)
     checkOverview()
@@ -239,26 +274,19 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 2 {
-        Send, {WheelDown}
-        Sleep, 495
-        If (A_Index = 2)
-            Click
-    }
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
     office()
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseMove, winW*0.9, winH*0.5
-    Loop, 2 {
-        Send, {WheelDown}
-        Sleep, 480
-        If (A_Index = 2)
-            Click
-    }
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
+    Click
+    Sleep, 100
 
+    ; B4
     xp1()
     click(confirm.x, confirm.y)
     checkOverview()
