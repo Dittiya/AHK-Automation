@@ -110,17 +110,17 @@ factoryGold2(variance=70) {
     return
 }
 
-powerPlant2(variance=50) {
-    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", variance+10)
-    indigo := new ImgSearch(A_WorkingDir . "\indigo_work.png", variance)
+powerPlant2() {
+    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", 60)
+    pudding := new ImgSearch(A_WorkingDir . "\pudding_work.png", 70)
 
     if (liskarm.found) {
-        liskarm.click(1)
+        liskarm.click()
         Gosub, operators_menu
         scrollRight(3)
-        indigo()
+        pudding()
     } else {
-        indigo.click(1)
+        pudding.click()
         Gosub, operators_menu
         scrollRight(3)
         liskarm()

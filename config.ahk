@@ -144,10 +144,10 @@ liskarm(var=100) {
     return
 }
 
-indigo(var=100) {
-    indigo := A_WorkingDir . "\indigo.png"
+pudding(var=100) {
+    pudding := A_WorkingDir . "\pudding.png"
 
-    array := [indigo]
+    array := [pudding]
     replaceOps(array, var)
     return
 }
