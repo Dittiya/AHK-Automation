@@ -96,14 +96,14 @@ tradingPost2(variance=75) {
 
 factoryGold2(variance=70) {
     roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", variance)
-    ptilo := new ImgSearch(A_WorkingDir . "\ptilo_work.png", variance-12)
+    vanilla := new ImgSearch(A_WorkingDir . "\vanilla_work.png", 70)
 
     if (roberta.found) {
-        roberta.click(1)
+        roberta.click()
         Gosub, deselect_all
         ptilo()
     } else {
-        ptilo.click(1)
+        vanilla.click()
         Gosub, deselect_all
         roberta()
     }
