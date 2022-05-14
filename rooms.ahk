@@ -94,8 +94,8 @@ tradingPost2(variance=75) {
     return
 }
 
-factoryGold2(variance=70) {
-    roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", variance)
+factoryGold2() {
+    roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", 60)
     vanilla := new ImgSearch(A_WorkingDir . "\vanilla_work.png", 70)
 
     if (roberta.found) {
