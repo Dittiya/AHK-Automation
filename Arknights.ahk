@@ -122,9 +122,16 @@ for _, coord in coords {
 }
 return
 
+deselectAll() {
+    Gosub, operators_menu
+    des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73, 1)
+    des.click()
+    return
+}
+
 deselect_all:
 Gosub, operators_menu
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73)
+des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73, 1)
 des.click()
 return
 
@@ -230,16 +237,27 @@ scrollDown() {
 baseAutomation(confirm) {
     global winW, winH
 
+    config := baseConfig()
+
     ; 1F
-    controlCenter()
+    cc := new ImgSearch(A_WorkingDir . "\control_center.png", 100)
+    if (!cc.found) {
+        MsgBox, Img not found
+        return
+    }
+
+    click(cc.X+250, cc.Y+50)
+    controlCenter(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    reception()
+    click(cc.X+250, cc.Y+200)
+    reception(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    tradingPost1()
+    click(cc.X+250, cc.Y+400)
+    tradingPost1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -248,11 +266,19 @@ baseAutomation(confirm) {
     Sleep, 100
 
     ; B1
-    factoryGold1()
+    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
+    if (!tp.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(tp.X+100, tp.Y+200)
+    factoryGold1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    powerPlant1()
+    click(tp.X+100, tp.Y+350)
+    powerPlant1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -264,15 +290,24 @@ baseAutomation(confirm) {
     Sleep, 100
 
     ; B3
-    tradingPost2()
+    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
+    if (!tp.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(tp.X+100, tp.Y+50)
+    tradingPost2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    factoryGold2()
+    click(tp.X+100, tp.Y+200)
+    factoryGold2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    powerPlant2()
+    click(tp.X+100, tp.Y+350)
+    powerPlant2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -280,7 +315,14 @@ baseAutomation(confirm) {
     Click
     Sleep, 100
 
-    office()
+    office := new ImgSearch(A_WorkingDir . "\office.png", 100)
+    if (!office.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(office.X+150, office.Y+50)
+    office(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -289,15 +331,24 @@ baseAutomation(confirm) {
     Sleep, 100
 
     ; B4
-    xp1()
+    ft := new ImgSearch(A_WorkingDir . "\factory.png", 100)
+    if (!ft.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(ft.X+150, ft.Y+50)
+    xp1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    xp2()
+    click(ft.X+150, ft.Y+200)
+    xp2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    xp3()
+    click(ft.X+150, ft.Y+350)
+    xp3(config)
     click(confirm.x, confirm.y)
     checkOverview()
 

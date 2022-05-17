@@ -54,15 +54,26 @@ fifthPageTest(confirm)
 return
 
 firstPageTest(confirm) {
-    controlCenter()
+    cc := new ImgSearch(A_WorkingDir . "\control_center.png", 100)
+    if (!cc.found) {
+        MsgBox, Img not found
+        return
+    }
+
+    config := baseConfig()
+
+    click(cc.X+250, cc.Y+50)
+    controlCenter(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    reception()
+    click(cc.X+250, cc.Y+200)
+    reception(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    tradingPost1()
+    click(cc.X+250, cc.Y+400)
+    tradingPost1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -72,15 +83,25 @@ firstPageTest(confirm) {
 secondPageTest(confirm) {
     global winW, winH
 
+    config := baseConfig()
+
     MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
     Sleep, 100
 
-    factoryGold1()
+    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
+    if (!tp.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(tp.X+100, tp.Y+200)
+    factoryGold1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    powerPlant1()
+    click(tp.X+100, tp.Y+350)
+    powerPlant1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -96,6 +117,8 @@ secondPageTest(confirm) {
 thirdPageTest(confirm) {
     global winW, winH
 
+    config := baseConfig()
+
     MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
     Sleep, 100
@@ -106,15 +129,24 @@ thirdPageTest(confirm) {
     Click
     Sleep, 100
 
-    tradingPost2()
+    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
+    if (!tp.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(tp.X+100, tp.Y+50)
+    tradingPost2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    factoryGold2()
+    click(tp.X+100, tp.Y+200)
+    factoryGold2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    powerPlant2()
+    click(tp.X+100, tp.Y+350)
+    powerPlant2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -131,6 +163,8 @@ thirdPageTest(confirm) {
 fourthPageTest(confirm) {
     global winW, winH
 
+    config := baseConfig()
+
     MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
     Sleep, 100
@@ -144,8 +178,14 @@ fourthPageTest(confirm) {
     Click
     Sleep, 100
 
-    office()
+    office := new ImgSearch(A_WorkingDir . "\office.png", 100)
+    if (!office.found) {
+        MsgBox, img not found
+        return
+    }
 
+    click(office.X+150, office.Y+50)
+    office(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
@@ -161,6 +201,8 @@ fourthPageTest(confirm) {
 fifthPageTest(confirm) {
     global winW, winH
 
+    config := baseConfig()
+
     MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
     Click
     Sleep, 100
@@ -177,15 +219,24 @@ fifthPageTest(confirm) {
     Click
     Sleep, 100
 
-    xp1()
+    ft := new ImgSearch(A_WorkingDir . "\factory.png", 100)
+    if (!ft.found) {
+        MsgBox, img not found
+        return
+    }
+
+    click(ft.X+150, ft.Y+50)
+    xp1(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    xp2()
+    click(ft.X+150, ft.Y+200)
+    xp2(config)
     click(confirm.x, confirm.y)
     checkOverview()
 
-    xp3()
+    click(ft.X+150, ft.Y+350)
+    xp3(config)
     click(confirm.x, confirm.y)
     checkOverview()
 

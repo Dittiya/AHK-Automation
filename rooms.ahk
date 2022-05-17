@@ -1,189 +1,207 @@
-controlCenter(variance=75) {
-    amiya := new ImgSearch(A_WorkingDir . "\amiya_work.png", variance)
-    swire := new ImgSearch(A_WorkingDir . "\swire_work.png", variance)
+baseConfig() {
+    amiya := new ImgSearch(A_WorkingDir . "\amiya_work.png", 75)
     if (amiya.found) {
-        amiya.click()
-        Gosub, deselect_all
-        swire()
+        return 1
     } else {
-        swire.click()
-        Gosub, deselect_all
-        amiya()
+        swire := new ImgSearch(A_WorkingDir . "\swire_work.png", 75)
+        if (!swire.found) break
+        return 2    
+    }
+    return 0
+}
+
+controlCenter(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            swire()
+            return
+        case 2:
+            amiya()
+            return
+        default:
+            MsgBox, No config found
+            return
+    }
+
+    return
+}
+
+reception(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            utage()
+            return
+        case 2:
+            saria()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-reception(variance=73) {
-    saria := new ImgSearch(A_WorkingDir . "\saria_work.png", variance)
-    utage := new ImgSearch(A_WorkingDir . "\utage_work.png", variance)
-    if (saria.found) {
-        saria.click()
-        Gosub, deselect_all
-        utage()
-    } else {
-        utage.click()
-        Gosub, deselect_all
-        saria()
+
+tradingPost1(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            gummy()
+            return
+        case 2:
+            exu()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-
-tradingPost1(variance=75) {
-    exu := new ImgSearch(A_WorkingDir . "\exu_work.png", variance)
-    gummy := new ImgSearch(A_WorkingDir . "\gummy_work.png", variance)
-    if (exu.found) {
-        exu.click()
-        Gosub, deselect_all
-        gummy()
-    } else {
-        gummy.click()
-        Gosub, deselect_all
-        exu()
+factoryGold1(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            cuora()
+            return
+        case 2:
+            gravel()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-factoryGold1(variance=70) {
-    gravel := new ImgSearch(A_WorkingDir . "\gravel_work.png", variance)
-    cuora := new ImgSearch(A_WorkingDir . "\cuora_work.png", variance)
-
-    if (gravel.found) {
-        gravel.click()
-        Gosub, deselect_all
-        cuora()
-    } else {
-        cuora.click()
-        Gosub, deselect_all
-        gravel()
+powerPlant1(config) {
+    Sleep, 500
+    scrollRight(3)
+    switch (config) {
+        case 1:
+            ifrit()
+            return
+        case 2:
+            greyy()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-powerPlant1(variance=73) {
-    greyy := new ImgSearch(A_WorkingDir . "\greyy_work.png", variance-5)
-    ifrit := new ImgSearch(A_WorkingDir . "\ifrit_work.png", 66)
-
-    if (greyy.found) {
-        greyy.click(1)
-        Gosub, operators_menu
-        scrollRight(3)
-        ifrit()
-    } else {
-        ifrit.click(1)
-        Gosub, operators_menu
-        scrollRight(3)
-        greyy()
+tradingPost2(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            melantha()
+            return
+        case 2:
+            mousse()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-tradingPost2(variance=75) {
-    matoimaru := new ImgSearch(A_WorkingDir . "\matoimaru_work.png", variance-5)
-    melantha := new ImgSearch(A_WorkingDir . "\melantha_work.png", variance)
-
-    if(matoimaru.found) {
-        matoimaru.click()
-        Gosub, deselect_all
-        melantha()
-    } else {
-        melantha.click()
-        Gosub, deselect_all
-        mousse()
+factoryGold2(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            roberta()
+            return
+        case 2:
+            ptilo()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-factoryGold2() {
-    roberta:= new ImgSearch(A_WorkingDir . "\roberta_work.png", 60)
-    vanilla := new ImgSearch(A_WorkingDir . "\vanilla_work.png", 70)
-
-    if (roberta.found) {
-        roberta.click()
-        Gosub, deselect_all
-        ptilo()
-    } else {
-        vanilla.click()
-        Gosub, deselect_all
-        roberta()
+powerPlant2(config) {
+    Sleep, 500
+    scrollRight(3)
+    switch (config) {
+        case 1:
+            pudding()
+            return
+        case 2:
+            liskarm()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
     return
 }
 
-powerPlant2() {
-    liskarm := new ImgSearch(A_WorkingDir . "\liskarm_work.png", 60)
-    pudding := new ImgSearch(A_WorkingDir . "\pudding_work.png", 70)
-
-    if (liskarm.found) {
-        liskarm.click()
-        Gosub, operators_menu
-        scrollRight(3)
-        pudding()
-    } else {
-        pudding.click()
-        Gosub, operators_menu
-        scrollRight(3)
-        liskarm()
+office(config) {
+    Sleep, 500
+    switch (config) {
+        case 1:
+            aciddrop()
+            return
+        case 2:
+            eyja()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
+    return
 }
 
-office(variance=70) {
-    eyja := new ImgSearch(A_WorkingDir . "\eyja_work.png", variance)
-    aciddrop := new ImgSearch(A_WorkingDir . "\aciddrop_work.png", variance)
-
-    if (aciddrop.found) {
-        aciddrop.click()
-        Gosub, operators_menu
-        eyja()
-    } else {
-        eyja.click()
-        Gosub, operators_menu
-        aciddrop()
+xp1(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            cardigan()
+            return
+        case 2:
+            shirayuki()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
+    return
 }
 
-xp1(variance=60) {
-    shirayuki := new ImgSearch(A_WorkingDir . "\shirayuki_work.png", variance)
-    cardigan := new ImgSearch(A_WorkingDir . "\cardigan_work.png", variance)
-
-    if(shirayuki.found) {
-        shirayuki.click()
-        Gosub, deselect_all
-        cardigan()
-    } else {
-        cardigan.click()
-        Gosub, deselect_all
-        shirayuki()
+xp2(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            beagle()
+            return
+        case 2:
+            vigna()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
+    return
 }
 
-xp2(variance=60) {
-    vigna := new ImgSearch(A_WorkingDir . "\vigna_work.png", variance)
-    beagle := new ImgSearch(A_WorkingDir . "\beagle_work.png", variance)
-
-    if(vigna.found) {
-        vigna.click()
-        Gosub, deselect_all
-        beagle()
-    } else {
-        beagle.click()
-        Gosub, deselect_all
-        vigna()
+xp3(config) {
+    deselectAll()
+    switch (config) {
+        case 1:
+            beanstalk()
+            return
+        case 2:
+            feater()
+            return
+        default:
+            MsgBox, No config found
+            return
     }
+    return
 }
-
-xp3(variance=60) {
-    conviction := new ImgSearch(A_WorkingDir . "\conviction_work.png", variance)
-    beanstalk := new ImgSearch(A_WorkingDir . "\beanstalk_work.png", variance)
-
-    if(conviction.found) {
-        conviction.click()
-        Gosub, deselect_all
-        beanstalk()
-    } else {
-        beanstalk.click()
-        Gosub, deselect_all
-        feater()
-    }
-}
-
