@@ -4,8 +4,8 @@ baseConfig() {
         return 1
     } else {
         swire := new ImgSearch(A_WorkingDir . "\swire_work.png", 75)
-        if (!swire.found) break
-        return 2    
+        if (swire.found) 
+            return 2    
     }
     return 0
 }

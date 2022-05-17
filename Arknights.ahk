@@ -44,7 +44,11 @@ changeSize()
 Sleep, 250
 
 confirm := {x:winW*0.1, y:winH*0.1}
+startTime := A_TickCount
 baseAutomation(confirm)
+elapsedTime := A_TickCount - startTime
+elapsedTime /= 1000
+MsgBox, % elapsedTime "s Have passed."
 return
 
 +g::
