@@ -127,7 +127,7 @@ factoryGold2(config) {
 
 powerPlant2(config) {
     Sleep, 500
-    scrollRight(3)
+    scrollRight(2)
     switch (config) {
         case 1:
             pudding()

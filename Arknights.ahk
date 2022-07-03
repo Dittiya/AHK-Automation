@@ -204,7 +204,10 @@ pixelDif(color, x, y, rx=0, ry=0) {
 }
 
 changeSize() {
+    global winW, winH
     WinMove, BlueStacks 10, , 150, 125, 1280, 735
+    ; WinMove, BlueStacks 10, , 150, 125, 1280, 720
+    MsgBox, % winW . "x" . winH
     return
 }
 
