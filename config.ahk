@@ -96,7 +96,7 @@ greyy(var=100) {
     return
 }
 
-melantha(var=100) {
+melantha(var=110) {
     melantha := A_WorkingDir . "\melantha.png"
     orchid := A_WorkingDir . "\orchid.png"
     jaye := A_WorkingDir . "\jaye.png"
@@ -168,14 +168,6 @@ aciddrop(var=100) {
     return
 }
 
-cardigan(var=100) {
-    cardigan := A_WorkingDir . "\cardigan.png"
-    silence := A_WorkingDir . "\silence.png"
-
-    array := [cardigan, silence]
-    replaceOps(array, var)
-}
-
 shirayuki(var=100) {
     shirayuki := A_WorkingDir . "\shirayuki.png"
     frostleaf := A_WorkingDir . "\frostleaf.png"
@@ -192,14 +184,6 @@ vigna(var=100) {
     replaceOps(array, var)
 }
 
-beagle(var=100) {
-    beagle := A_WorkingDir . "\beagle.png"
-    meteor := A_WorkingDir . "\meteor.png"
-
-    array := [beagle, meteor]
-    replaceOps(array, var)
-}
-
 feater(var=100) {
     feater := A_WorkingDir . "\feater.png"
     conviction := A_WorkingDir . "\conviction.png"
@@ -208,10 +192,26 @@ feater(var=100) {
     replaceOps(array, var)
 }
 
-beanstalk(var=100) {
-    beanstalk := A_WorkingDir . "\beanstalk.png"
-    click := A_WorkingDir . "\click.png"
+ashlock(var=100) {
+    ashlock := A_WorkingDir . "\ashlock.png"
+    wildmane := A_WorkingDir . "\wildmane.png"
 
-    array := [beanstalk, click]
+    array := [ashlock, wildmane]
+    replaceOps(array, var)
+}
+
+meteor(var=100) {
+    silence := A_WorkingDir . "\silence.png"
+    meteor := A_WorkingDir . "\meteor.png"
+
+    array := [silence, meteor]
+    replaceOps(array, var)
+}
+
+kroos(var=100) {
+    kroos := A_WorkingDir . "\kroos.png"
+    yato := A_WorkingDir . "\yato.png"
+
+    array := [kroos, yato]
     replaceOps(array, var)
 }

@@ -3,10 +3,11 @@
 #SingleInstance Force
 SetWorkingDir, Arknights
 WinGetPos winX, winY, winW, winH, BlueStacks 10
-#Include Lib/image_search.ahk
 #Include config.ahk
 #Include rooms.ahk
+#Include Lib/image_search.ahk
 #Include testing.ahk
+CoordMode, Mouse
 
 Esc::
 ExitApp
@@ -29,7 +30,7 @@ changeSize()
 return
 
 +r::
-scrollDown()
+MouseMove, 0, 0 
 return
 
 ^s::
@@ -165,6 +166,16 @@ scrollRight(n) {
     return
 }
 
+scrollDown(x, y) {
+    global winW, winH
+
+    MouseMove, winW*0.9, winH*0.9
+    Sleep, 100
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*x, winH*y, 12
+    Click
+    Sleep, 100
+}
+
 scrollUntilFound(img, tolerance=70) {
     image := new ImgSearch(img, tolerance)
     if (!image.found) {
@@ -181,7 +192,6 @@ scrollUntilFound(img, tolerance=70) {
 }
 
 replaceOps(operators, var=100) {
-    scrollRight(1)
     for _, image in operators {
         scrollUntilFound(image, var)
     }
@@ -209,7 +219,7 @@ changeSize() {
     return
 }
 
-scrollDown() {
+scrollDownConfig() {
     global winW, winH
     speed := 12
 
@@ -266,9 +276,7 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, 12
-    Click
-    Sleep, 100
+    scrollDown(0.9, 0.4)
 
     ; B1
     tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
@@ -287,12 +295,8 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
-    Click
-    Sleep, 100
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
-    Click
-    Sleep, 100
+    scrollDown(0.9, 0.25)
+    scrollDown(0.9, 0.25)
 
     ; B3
     tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
@@ -316,9 +320,7 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
-    Click
-    Sleep, 100
+    scrollDown(0.9, 0.25)
 
     office := new ImgSearch(A_WorkingDir . "\office.png", 100)
     if (!office.found) {
@@ -331,9 +333,7 @@ baseAutomation(confirm) {
     click(confirm.x, confirm.y)
     checkOverview()
 
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, 12
-    Click
-    Sleep, 100
+    scrollDown(0.9, 0.25)
 
     ; B4
     ft := new ImgSearch(A_WorkingDir . "\factory.png", 100)

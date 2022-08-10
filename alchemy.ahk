@@ -1,6 +1,5 @@
 #NoEnv
 #SingleInstance Force
-#IfWinActive Alchemy Stars
 #Include Lib/image_search.ahk
 
 Esc::

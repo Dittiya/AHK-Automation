@@ -78,7 +78,6 @@ factoryGold1(config) {
 
 powerPlant1(config) {
     Sleep, 500
-    scrollRight(3)
     switch (config) {
         case 1:
             ifrit()
@@ -127,7 +126,6 @@ factoryGold2(config) {
 
 powerPlant2(config) {
     Sleep, 500
-    scrollRight(2)
     switch (config) {
         case 1:
             pudding()
@@ -162,7 +160,7 @@ xp1(config) {
     deselectAll()
     switch (config) {
         case 1:
-            cardigan()
+            ashlock()
             return
         case 2:
             shirayuki()
@@ -178,7 +176,7 @@ xp2(config) {
     deselectAll()
     switch (config) {
         case 1:
-            beagle()
+            meteor()
             return
         case 2:
             vigna()
@@ -194,7 +192,7 @@ xp3(config) {
     deselectAll()
     switch (config) {
         case 1:
-            beanstalk()
+            kroos()
             return
         case 2:
             feater()
