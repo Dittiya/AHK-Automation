@@ -116,28 +116,11 @@ lessons() {
 
 daily() {
     ; click tasks from menu
-    MouseMove, 72, 262
-    Click
-    Loop {
-        PixelSearch, px, py, 137, 255, 137, 255, 0xF6F5F4
-    } until ErrorLevel = 0
-    Sleep, 500
-    MouseMove, 1101, 677
-    Click
-    Loop, 20 {
-        Click
-    }
+    click(72, 262)
+    pixelSearchCont(0xF6F5F4, 137, 255)
+    click(1101, 677,, 500)
 
-    ; return to menu
-    MouseMove, 1202, 57
-    Click
-    Loop {
-        PixelSearch, px, py, 237, 66, 237, 66, 0x533413
-    } until ErrorLevel = 0
-    MouseMove, px, py
-    Sleep, 2000
-
-    return 
+    returnMenu()
 }
 
 campaign() {
