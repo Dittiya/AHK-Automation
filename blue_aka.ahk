@@ -16,7 +16,7 @@ MsgBox, % pc " at " mx "x" my
 return
 
 ^g::
-club()
+mail()
 return
 
 returnMenu() {
@@ -24,6 +24,7 @@ returnMenu() {
         PixelSearch, px, py, 237, 66, 237, 66, 0x533413
         click(1200, 55)
     } until ErrorLevel = 0
+    Sleep, 2000
 }
 
 ; TODO
@@ -76,28 +77,11 @@ club() {
 
 mail() {
     ; click mail from menu
-    MouseMove, 1112, 72
-    Click
-    Loop {
-        PixelSearch, px, py, 125, 603, 125, 603, 0xF6F5F4
-    } until ErrorLevel = 0
-    Sleep, 500
-    MouseMove, 1103, 689
-    Click
+    click(1112, 72)
+    pixelSearchCont(0xF6F5F4, 120, 600)
+    click(1103, 689,, 500)
 
-    ; return to menu
-    Loop, 10 {
-        Click
-    }
-    MouseMove, 1200, 55
-    Click
-    Loop {
-        PixelSearch, px, py, 237, 66, 237, 66, 0x533413
-    } until ErrorLevel = 0
-    MouseMove, px, py
-    Sleep, 2000
-
-    return
+    returnMenu()
 }
 
 lessons() {
