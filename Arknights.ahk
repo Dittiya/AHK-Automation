@@ -1,28 +1,15 @@
 #NoEnv
-#IfWinActive BlueStacks 10
+#IfWinActive BlueStacks App Player
 #SingleInstance Force
 SetWorkingDir, Arknights
-WinGetPos winX, winY, winW, winH, BlueStacks 10
+WinGetPos winX, winY, winW, winH, BlueStacks App Player
 #Include config.ahk
 #Include rooms.ahk
 #Include Lib/image_search.ahk
 #Include testing.ahk
-CoordMode, Mouse
 
 Esc::
 ExitApp
-return
-
-^w::
-initLoc := {x:458, y:181}
-confirm := {x:winW*0.9, y:winH*0.95}
-
-click(initLoc.x, initLoc.y)
-click(initLoc.x, initLoc.y+300)
-click(initLoc.x+150, initLoc.y)
-click(initLoc.x+150, initLoc.y+300)
-click(initLoc.x+300, initLoc.y)
-click(confirm.x, confirm.y)
 return
 
 ^e::
@@ -153,7 +140,7 @@ checkOverview() {
 }
 
 scroll_left:
-MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 10
+MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 8
 return
 
 scrollRight(n) {
@@ -171,7 +158,7 @@ scrollDown(x, y) {
 
     MouseMove, winW*0.9, winH*0.9
     Sleep, 100
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*x, winH*y, 12
+    MouseClickDrag, left, winW*0.9, winH*0.9, winW*x, winH*y, 10
     Click
     Sleep, 100
 }
@@ -214,8 +201,8 @@ pixelDif(color, x, y, rx=0, ry=0) {
 }
 
 changeSize() {
-    WinMove, BlueStacks 10, , 150, 125, 1280, 735
-    ; WinMove, BlueStacks 10, , 150, 125, 1280, 720
+    WinMove, BlueStacks App Player, , 150, 125, 1280, 735
+    ; WinMove, BlueStacks App Player, , 150, 125, 1280, 720
     return
 }
 
@@ -255,9 +242,9 @@ baseAutomation(confirm) {
     config := baseConfig()
 
     ; 1F
-    cc := new ImgSearch(A_WorkingDir . "\control_center.png", 100)
+    cc := new ImgSearch(A_WorkingDir . "\control_center.png", 90)
     if (!cc.found) {
-        MsgBox, Img not found
+        MsgBox, Img not found %config%
         return
     }
 
@@ -336,7 +323,7 @@ baseAutomation(confirm) {
     scrollDown(0.9, 0.25)
 
     ; B4
-    ft := new ImgSearch(A_WorkingDir . "\factory.png", 100)
+    ft := new ImgSearch(A_WorkingDir . "\factory.png", 110)
     if (!ft.found) {
         MsgBox, img not found
         return
