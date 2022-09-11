@@ -10,7 +10,7 @@ swire(var=100) {
     return
 }
 
-amiya(var=90){
+amiya(var=100){
     amiya := A_ScriptDir . "\Arknights\amiya.png"
     ash := A_ScriptDir . "\Arknights\ash.png"
     blitz := A_ScriptDir . "\Arknights\blitz.png"
