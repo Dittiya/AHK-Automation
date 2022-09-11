@@ -1,9 +1,9 @@
 #NoEnv
 #SingleInstance, Force
-#IfWinActive BlueStacks 10
+#IfWinActive BlueStacks App Player
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
-WinGetPos winX, winY, winW, winH, BlueStacks 10
+WinGetPos winX, winY, winW, winH, BlueStacks App Player
 
 Esc::
 ExitApp
@@ -15,43 +15,41 @@ PixelGetColor, pc, mx, my
 MsgBox, % pc " at " mx "x" my
 return
 
-^e::
-autoplay()
-return
-
 ^g::
-daily()
+cafe()
 return
 
-cafe() {
-    ; click cafe from menu
-    cafeLoc := {x:88, y:668}
-    MouseMove, cafeLoc.x, cafeLoc.y
-    Click
-
-    ; click confirm when cafe loaded
-    cafe := {col: 0xEFEFEF, x: 467, y: 440}
-    Loop {
-        PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, Fast
-    } until ErrorLevel = 0
-    Sleep, 750
-    MouseMove, 630, 460
-    Click
-
-    ; receive stamina from cafe
-    MouseMove, 1121, 654
-    Click
-    Sleep, 750
-    MouseMove, 630, 520
-    Click
-
-    ; return to menu
-    MouseMove, 1200, 55
-    Click
+returnMenu() {
     Loop {
         PixelSearch, px, py, 237, 66, 237, 66, 0x533413
+        click(1200, 55)
     } until ErrorLevel = 0
-    MouseMove, px, py
+
+    return
+}
+
+cafe() {
+    ; ; click cafe from menu
+    ; cafeLoc := {x:90, y:670}
+    ; MouseMove, cafeLoc.x, cafeLoc.y
+    ; Click
+
+    ; ; click confirm when cafe loaded
+    ; cafe := {col: 0xF0F0F0, x: 400, y: 450}
+    ; Loop {
+    ;     PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, Fast
+    ; } until ErrorLevel = 0
+    ; Sleep, 750
+    ; click(895, 215, 2)
+
+    ; receive stamina from cafe
+    click(1120, 660)
+    click(630, 520, 1, 750)
+    click(630, 670, 1, 750)
+
+    ; return to menu
+    returnMenu()
+    MouseMove, 237, 66
     Sleep, 2000
 
     return 
@@ -204,44 +202,11 @@ mission() {
     return
 }
 
-autoplay() {
-    loc := {x:414, y:324}
-    yellow := {col:0x0BBEE1}E
-
-    Loop {
-        Loop {
-            PixelSearch, px, py, 418, 323, 440, 325, 0x08BEE1, 2, Fast
-            if (ErrorLevel = 0) {
-                Sleep, 250
-                Send, E
-            }
-
-            PixelSearch, px, py, 418, 323, 440, 325, 0xBBC237, 2, Fast
-            if (ErrorLevel = 0) {
-                Sleep, 250
-                Send, Q
-            }
-        }
+click(x, y, count=1, wait=0) {
+    Sleep, wait
+    Loop %count% {
+        MouseMove, x, y
+        Click
     }
-
-    ; SetTimer, right_tile
-    ; SetTimer, left_tile
-
     return
 }
-
-right_tile:
-Loop {
-    PixelSearch, px, py, 418, 323, 440, 325, 0x08BEE1, 2, Fast
-} until ErrorLevel = 0
-Sleep, 125
-Send, E
-return
-
-left_tile:
-Loop {
-    PixelSearch, px, py, 418, 323, 440, 325, 0xBBC237, 2, Fast
-} until ErrorLevel = 0
-Sleep, 125
-Send, Q
-return
