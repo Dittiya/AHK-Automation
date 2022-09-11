@@ -1,7 +1,7 @@
 class ImgSearch {
     __New( img, tolerance=20, continuous=0 ) {
         this.imagePath := img
-        WinGetPos winX, winY, winW, winH, BlueStacks 10
+        WinGetPos winX, winY, winW, winH, BlueStacks App Player
         this.winW := winW
         this.winH := winH
 
@@ -39,7 +39,7 @@ class ImgSearch {
         if (ErrorLevel = 2)
             MsgBox, , ErrorLevel 2, Image not available, 2
         else if (ErrorLevel = 1) {
-            ; MsgBox, , ErrorLevel 1, %imagePath% Image not found, 0.95
+            ; MsgBox, , ErrorLevel 1, %imagePath% Image not found, 2
             this.found := False
         }
         else {
