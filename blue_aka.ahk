@@ -16,7 +16,7 @@ MsgBox, % pc " at " mx "x" my
 return
 
 ^g::
-cafe()
+lessons()
 return
 
 returnMenu() {
@@ -24,23 +24,34 @@ returnMenu() {
         PixelSearch, px, py, 237, 66, 237, 66, 0x533413
         click(1200, 55)
     } until ErrorLevel = 0
+}
 
-    return
+pixelSearchCont(colorId, X1, Y1, range=0, move=0) {
+    X2 := X1 + range
+    Y2 := Y1 + range
+    Loop {
+        PixelSearch, outX, outY, X1, Y1, X2, Y2, colorId, Fast
+    } until ErrorLevel = 0
+    If (move = 1) {
+        MouseMove, outX, outY
+    }
+
+    return ErrorLevel
 }
 
 cafe() {
-    ; ; click cafe from menu
-    ; cafeLoc := {x:90, y:670}
-    ; MouseMove, cafeLoc.x, cafeLoc.y
-    ; Click
+    ; click cafe from menu
+    cafeLoc := {x:90, y:670}
+    MouseMove, cafeLoc.x, cafeLoc.y
+    Click
 
-    ; ; click confirm when cafe loaded
-    ; cafe := {col: 0xF0F0F0, x: 400, y: 450}
-    ; Loop {
-    ;     PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, Fast
-    ; } until ErrorLevel = 0
-    ; Sleep, 750
-    ; click(895, 215, 2)
+    ; click confirm when cafe loaded
+    cafe := {col: 0xF0F0F0, x: 400, y: 450}
+    Loop {
+        PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, Fast
+    } until ErrorLevel = 0
+    Sleep, 750
+    click(895, 215, 2)
 
     ; receive stamina from cafe
     click(1120, 660)
@@ -51,8 +62,6 @@ cafe() {
     returnMenu()
     MouseMove, 237, 66
     Sleep, 2000
-
-    return 
 }
 
 club() {
@@ -102,60 +111,33 @@ mail() {
 }
 
 lessons() {
-    MouseMove, 208, 670
-    Click
-    Loop {
-        PixelSearch, OutputVarX, OutputVarY, 68, 82, 68, 82, 0x986346
-    } until ErrorLevel = 0
-    Sleep, 500
+    ; Enter lessons menu
+    click(208, 670)
+    pixelSearchCont(0xFFFFFF, 360, 330)
 
-    so := {x:727, y:218}
-    MouseMove, so.x, so.y
-    Click
-    Loop {
-        PixelSearch, OutputVarX, OutputVarY, 1091, 230, 1091, 230, 0xDFD4C9
-    } until ErrorLevel = 0
-    MouseMove, 1127, 673
-    Click
-    Loop {
-        PixelSearch, OutputVarX, OutputVarY, 688, 262, 688, 262, 0xFFFFFF
-    } until ErrorLevel = 0
-    Sleep, 500
+    ; Click on the first location (Schale Office)
+    click(900, 200,, 250)
 
-    ; click lesson location 1
-    MouseMove, 301, 267
-    Click
-    Sleep, 1000
-    MouseMove, 625, 565
-    Click
-    Sleep, 2000
-    Loop, 200 {
-        Click
-    }
-    ; click lesson location 2
-    MouseMove, 641, 267
-    Click
-    Sleep, 1000
-    MouseMove, 625, 565
-    Click
-    Sleep, 3000
-    Loop, 200 {
-        Click
-    }
+    ; Wait after loading
+    pixelSearchCont(0xE0D4CA, 1000, 240)
+    click(1150, 675,, 250)
 
-    ; return to menu
-    MouseMove, 1109, 145
-    Click
-    Sleep, 500
-    MouseMove, 1202, 57
-    Click
-    Loop {
-        PixelSearch, px, py, 237, 66, 237, 66, 0x533413
+    ; Select best class (last 2) regardless of students
+    click(350, 550,, 500)
+    pixelSearchCont(0xF7F7F7, 400, 550)
+    loop {
+        click(600, 550)
+        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, Fast
     } until ErrorLevel = 0
-    MouseMove, px, py
-    Sleep, 2000
 
-    return
+    click(900, 400,, 500)
+    pixelSearchCont(0xF7F7F7, 400, 550)
+    loop {
+        click(600, 550)
+        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, Fast
+    } until ErrorLevel = 0
+
+    returnMenu()
 }
 
 daily() {
