@@ -16,7 +16,7 @@ MsgBox, % pc " at " mx "x" my
 return
 
 ^g::
-lessons()
+club()
 return
 
 returnMenu() {
@@ -26,7 +26,9 @@ returnMenu() {
     } until ErrorLevel = 0
 }
 
-pixelSearchCont(colorId, X1, Y1, range=0, move=0) {
+; TODO
+; Make this function able to process continuous click until pixel is found
+pixelSearchCont(colorId, X1, Y1, range=0, move=0, clicker=0) {
     X2 := X1 + range
     Y2 := Y1 + range
     Loop {
@@ -60,28 +62,16 @@ cafe() {
 
     ; return to menu
     returnMenu()
-    MouseMove, 237, 66
-    Sleep, 2000
 }
 
 club() {
     ; click club from menu
-    clubLoc := {x: 560, y: 666}
-    MouseMove, clubLoc.x, clubLoc.y
-    Click
+    click(560, 666)
 
     ; accept energy
+    pixelSearchCont(0xF7F7F7, 850, 300)
 
-    ; return to menu
-    MouseMove, 1200, 55
-    Click
-    Loop {
-        PixelSearch, px, py, 237, 66, 237, 66, 0x533413
-    } until ErrorLevel = 0
-    MouseMove, px, py
-    Sleep, 2000
-
-    return 
+    returnMenu()
 }
 
 mail() {
