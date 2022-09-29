@@ -185,11 +185,16 @@ replaceOps(operators, var=100) {
     return
 }
 
-click(x, y, count=1) {
+click(x, y, count=1, wait=100) {
+    SendMode, Input
+
+    Sleep, wait
     Loop %count% {
         MouseMove, x, y
         Click
     }
+
+    SendMode, Event
     return
 }
 

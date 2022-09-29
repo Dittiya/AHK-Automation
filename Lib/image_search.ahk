@@ -1,7 +1,7 @@
 class ImgSearch {
     __New( img, tolerance=20, continuous=0 ) {
-        this.imagePath := img
         WinGetPos winX, winY, winW, winH, BlueStacks App Player
+        this.imagePath := img
         this.winW := winW
         this.winH := winH
 
@@ -24,10 +24,16 @@ class ImgSearch {
     }
 
     click(count=1, delay=0, padX=20, padY=20) {
+        SendMode, Input
+
+        Sleep, 50
         Loop, %count% {
-            MouseClick, left, this.X+padX, this.Y+padY
+            this.move(padX, padY)
+            Click
             Sleep, delay*1000
         }
+
+        SendMode, Event
     }
 
     move(padX=20, padY=20) {

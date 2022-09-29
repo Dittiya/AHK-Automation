@@ -16,7 +16,15 @@ MsgBox, % pc " at " mx "x" my
 return
 
 ^g::
+cafe()
+Sleep, 250
+lessons()
+Sleep, 250
+club()
+Sleep, 250
 mail()
+Sleep, 250
+daily()
 return
 
 returnMenu() {
@@ -57,7 +65,7 @@ cafe() {
     click(895, 215, 2)
 
     ; receive stamina from cafe
-    click(1120, 660)
+    click(1120, 660,, 1000)
     click(630, 520, 1, 750)
     click(630, 670, 1, 750)
 
@@ -104,7 +112,7 @@ lessons() {
         PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, Fast
     } until ErrorLevel = 0
 
-    click(900, 400,, 500)
+    click(900, 400, 50, 500)
     pixelSearchCont(0xF7F7F7, 400, 550)
     loop {
         click(600, 550)
@@ -117,7 +125,7 @@ lessons() {
 daily() {
     ; click tasks from menu
     click(72, 262)
-    pixelSearchCont(0xF6F5F4, 137, 255)
+    pixelSearchCont(0xFFFFFF, 137, 255)
     click(1101, 677,, 500)
 
     returnMenu()
