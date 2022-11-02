@@ -20,6 +20,10 @@ return
 MouseMove, 0, 0 
 return
 
+^r::
+dorm()
+return
+
 ^s::
 Gosub, base
 Gosub, collect_resources
@@ -45,6 +49,7 @@ Sleep, 250
 
 confirm := {x:winW*0.9, y:winH*0.95}
 baseAutomation(confirm)
+exitApp()
 return
 
 ; Hotkey for autohire process
@@ -143,6 +148,11 @@ scroll_left:
 MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 8
 return
 
+exitApp() {
+    MsgBox, , Finished, Automation done!, 0.5
+    ExitApp
+}
+
 scrollRight(n) {
     global winW, winH
 
@@ -159,6 +169,16 @@ scrollDown(x, y) {
     MouseMove, winW*0.9, winH*0.9
     Sleep, 100
     MouseClickDrag, left, winW*0.9, winH*0.9, winW*x, winH*y, 10
+    Click
+    Sleep, 100
+}
+
+scrollUp(x, y) {
+    global winW, winH
+
+    MouseMove, winW, winH
+    Sleep, 100
+    MouseClickDrag, left, winW*x, winH*y, winW*0.9, winH*0.9, 10
     Click
     Sleep, 100
 }
@@ -348,6 +368,34 @@ baseAutomation(confirm) {
     xp3(config)
     click(confirm.x, confirm.y)
     checkOverview()
+    
+    return
+}
+
+dorm() {
+    scrollDown(0.9, 0.25)
+    scrollDown(0.9, 0.25)
+
+    click(660, 600)
+    deselectAll()
+    Send, ^w
+
+    click(660, 225)
+    deselectAll()
+    Send, ^w
+
+    scrollUp(0.9, 0.25)
+
+    click(660, 385)
+    deselectAll()
+    Send, ^w
+
+    scrollUp(0.9, 0.25)
+    scrollUp(0.9, 0.25)
+
+    click(660, 406)
+    deselectAll()
+    Send, ^w
 
     return
 }
