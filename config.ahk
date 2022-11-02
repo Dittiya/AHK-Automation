@@ -5,7 +5,7 @@ swire(var=100) {
     dobermann := A_ScriptDir . "\Arknights\dobermann.png"
     greythroat := A_ScriptDir . "\Arknights\greythroat.png"
 
-    array := [swire, red, scavenger, dobermann, greythroat]
+    array := [swire, scavenger, red, dobermann, greythroat]
     replaceOps(array, var)
     return
 }
