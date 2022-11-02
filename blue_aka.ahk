@@ -25,7 +25,17 @@ Sleep, 250
 mail()
 Sleep, 250
 daily()
+exitApp()
 return
+
++g::
+campaign()
+return
+
+exitApp() {
+    MsgBox, , Finished, Automation done!, 0.5
+    ExitApp
+}
 
 returnMenu() {
     Loop {
@@ -41,7 +51,7 @@ pixelSearchCont(colorId, X1, Y1, range=0, move=0, clicker=0) {
     X2 := X1 + range
     Y2 := Y1 + range
     Loop {
-        PixelSearch, outX, outY, X1, Y1, X2, Y2, colorId, Fast
+        PixelSearch, outX, outY, X1, Y1, X2, Y2, colorId, 2, Fast
     } until ErrorLevel = 0
     If (move = 1) {
         MouseMove, outX, outY
@@ -59,7 +69,7 @@ cafe() {
     ; click confirm when cafe loaded
     cafe := {col: 0xF0F0F0, x: 400, y: 450}
     Loop {
-        PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, Fast
+        PixelSearch, px, py, cafe.x, cafe.y, cafe.x, cafe.y, cafe.col, 2, Fast
     } until ErrorLevel = 0
     Sleep, 750
     click(895, 215, 2)
@@ -109,14 +119,14 @@ lessons() {
     pixelSearchCont(0xF7F7F7, 400, 550)
     loop {
         click(600, 550)
-        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, Fast
+        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, 2, Fast
     } until ErrorLevel = 0
 
     click(900, 400, 50, 500)
     pixelSearchCont(0xF7F7F7, 400, 550)
     loop {
         click(600, 550)
-        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, Fast
+        PixelSearch, px, py, 500, 225, 500, 225, 0x724C2D, 2, Fast
     } until ErrorLevel = 0
 
     returnMenu()
@@ -135,6 +145,9 @@ campaign() {
     MouseMove, 1166, 572
     Click
 
+    pixelSearchCont(0xFBFAF8, 400, 60)
+    Sleep, 200
+
     bounty()
     mission()
 
@@ -142,6 +155,36 @@ campaign() {
 }
 
 bounty() {
+    ; find bounty button
+    click(730, 450)
+    pixelSearchCont(0xFFFFFF, 650, 185)
+    Sleep, 200
+
+    locations := [300, 420, 555]
+
+    for _, loc in locations {
+        click(800, loc)
+        pixelSearchCont(0xFFE48D, 1045, 555)
+        Sleep, 200
+        click(1045, 555)
+
+        pixelSearchCont(0xF6F7F7, 500, 300)
+        Sleep, 200
+        click(1000, 320)
+        Sleep, 200
+
+        click(900, 430)
+        Sleep, 500
+        click(700, 500)
+
+        loop {
+            click(555, 600, 1, 500)
+            PixelSearch, px, py, 280, 555, 280, 555, 0xFDFEF6, 2, Fast
+        } until ErrorLevel = 0
+
+        Sleep, 1500
+    }
+
     return
 }
 
@@ -150,8 +193,10 @@ mission() {
 }
 
 click(x, y, count=1, wait=0) {
-    Sleep, wait
     Loop %count% {
+        if (A_Index < 2) {
+            Sleep, wait
+        }
         MouseMove, x, y
         Click
     }
