@@ -25,11 +25,13 @@ Sleep, 250
 mail()
 Sleep, 250
 daily()
+Sleep, 250
+campaign()
 exitApp()
 return
 
 +g::
-campaign()
+daily()
 return
 
 exitApp() {
@@ -135,7 +137,8 @@ lessons() {
 daily() {
     ; click tasks from menu
     click(72, 262)
-    pixelSearchCont(0xFFFFFF, 137, 255)
+    pixelSearchCont(0x63462D, 600, 140)
+    Sleep, 250
     click(1101, 677,, 500)
 
     returnMenu()
@@ -149,6 +152,15 @@ campaign() {
     Sleep, 200
 
     bounty()
+    click(55, 69)
+    pixelSearchCont(0xFBFAF8, 400, 60)
+    Sleep, 1000
+
+    scrimmage()
+    click(55, 69)
+    pixelSearchCont(0xFBFAF8, 400, 60)
+    Sleep, 200
+
     mission()
 
     return
@@ -161,7 +173,6 @@ bounty() {
     Sleep, 200
 
     locations := [300, 420, 555]
-
     for _, loc in locations {
         click(800, loc)
         pixelSearchCont(0xFFE48D, 1045, 555)
@@ -182,13 +193,46 @@ bounty() {
             PixelSearch, px, py, 280, 555, 280, 555, 0xFDFEF6, 2, Fast
         } until ErrorLevel = 0
 
-        Sleep, 1500
+        Sleep, 200
     }
 
     return
 }
 
 mission() {
+    return
+}
+
+scrimmage() {
+    ; find bounty button
+    click(730, 600)
+    pixelSearchCont(0x51331A, 1200, 180)
+    Sleep, 200
+
+    locations := [300, 420, 555]
+    for _, loc in locations {
+        click(800, loc)
+        pixelSearchCont(0x724C2D, 1100, 130)
+        Sleep, 200
+        click(1045, 210)
+
+        pixelSearchCont(0xF6F7F7, 500, 300)
+        Sleep, 200
+        click(1000, 320)
+        Sleep, 200
+
+        click(900, 430)
+        Sleep, 500
+        click(700, 500)
+
+        loop {
+            click(555, 700, 1, 100)
+            PixelSearch, px, py, 1200, 180, 1200, 180, 0x51331A, 2, Fast
+        } until ErrorLevel = 0
+
+        Sleep, 250
+    }
+
     return
 }
 
