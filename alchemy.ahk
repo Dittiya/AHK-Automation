@@ -1,6 +1,8 @@
 #NoEnv
 #SingleInstance Force
 #IfWinActive Alchemy Stars
+SetWorkingDir, Alchemy
+WinGetPos winX, winY, winW, winH, Alchemy Stars
 
 Esc::
 ExitApp
@@ -28,9 +30,14 @@ pixelSearchDiff(0xFFFFFF, 819, 523)
 return
 
 ^g::
-click(1250, 865)
 aurorian()
+Sleep, 1500
+colossus()
 return
+
+^t::
+dispatch()
+return 
 
 click(x, y, count=1, wait=0) {
     loop, %count% {
@@ -93,7 +100,7 @@ aurorian() {
 
     ; Select character with level below 80 and affinity below 10
     character := {x: 1400, y: 275}
-    click(character.x, character.y,, 500)
+    click(character.x, character.y,, 1000)
 
     ; Level up 
     pixelSearchDiff(0xFFFFFF, 1530, 500)
@@ -111,5 +118,37 @@ aurorian() {
 }
 
 colossus() {
-    
+    ; Enter colossus
+    click(1150, 500,, 500)
+    pixelSearchDiff(0xFFFF3C, 946, 72)
+
+    ; Claim resources
+    click(1524, 500,, 500)
+    click(1480, 335,, 750)
+
+    Sleep, 1000
+    dispatch()
+}
+
+imgSearch(filename, var) {
+    global winW, winH
+
+    ImageSearch, outX, outY, 0, 0, winW, winH, *%var% %filename%
+    if (ErrorLevel = 2) {
+        MsgBox, , ErrorLevel 2, Image not available, 2
+    }
+    else if (ErrorLevel = 1) {
+        MsgBox, , ErrorLevel 1, %filename% Image not found on %var%, 1
+    } else {
+        click(outX+5, outY+5, , 100)
+    }
+    Sleep, 250
+}
+
+dispatch() {
+    complete := A_ScriptDir . "\Alchemy\c.png"
+    Loop, 4 {
+        imgSearch(complete, 85)
+        click(400, 200, 5, 100)
+    }
 }
