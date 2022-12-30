@@ -136,7 +136,7 @@ ptilo(var=110) {
     return
 }
 
-liskarm(var=100) {
+liskarm(var=90) {
     liskarm := A_WorkingDir . "\liskarm.png"
 
     array := [liskarm]
@@ -144,7 +144,7 @@ liskarm(var=100) {
     return
 }
 
-pudding(var=100) {
+pudding(var=90) {
     pudding := A_WorkingDir . "\pudding.png"
 
     array := [pudding]
