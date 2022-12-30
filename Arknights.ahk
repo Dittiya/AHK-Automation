@@ -7,6 +7,8 @@ WinGetPos winX, winY, winW, winH, BlueStacks App Player
 #Include rooms.ahk
 #Include Lib/image_search.ahk
 #Include testing.ahk
+CoordMode, Pixel, Screen
+CoordMode, Mouse, Screen
 
 Esc::
 ExitApp
@@ -49,19 +51,17 @@ Sleep, 250
 
 confirm := {x:winW*0.9, y:winH*0.95}
 baseAutomation(confirm)
+dorm()
 exitApp()
 return
 
 ; Hotkey for autohire process
 ^d::
-Gosub, autohire
+autohire()
 return
 
 ^f::
-MouseGetPos, mx, my
-MouseMove, mx, my
-PixelGetColor, pc, mx, my
-MsgBox, % pc " at " mx "x" my
+base()
 return
 
 base:
@@ -101,23 +101,19 @@ return
 
 
 ; Hiring process
-autohire:
-coords := [{x:winW*0.4, y:winH*0.55}, {x:winW*0.65, y:winH*0.55}, {x:winW*0.4, y:winH*0.9}]
-mx := winW*0.61
-my := winH*0.075
+autohire() {
+    coords := [{x:300, y:400}, {x:900, y:400}, {x:300, y:670}]
 
-for _, coord in coords {
-    MouseMove, coord.x, coord.y
-    Click
-    MouseClick, left, winW*0.9, winH*0.1
-    Sleep, 2000
-    Loop {
-        PixelSearch, px, py, mx, my, mx+1, my+1, 0xFFFFFF
-        Click
-    } until ErrorLevel = 0
-    Sleep, 500
+    for _, coord in coords {
+        click(coord.x, coord.y)
+        Sleep, 1000
+        Loop {
+            PixelSearch, px, py, 790, 50, 790, 50, 0xFFFFFF
+            click(1180, 76, 1, 500)
+        } until ErrorLevel = 0
+    }
+    return
 }
-return
 
 deselectAll() {
     Gosub, operators_menu
@@ -176,7 +172,7 @@ scrollDown(x, y) {
 scrollUp(x, y) {
     global winW, winH
 
-    MouseMove, winW, winH
+    MouseMove, winW*x, winH*y
     Sleep, 100
     MouseClickDrag, left, winW*x, winH*y, winW*0.9, winH*0.9, 10
     Click
@@ -208,8 +204,8 @@ replaceOps(operators, var=100) {
 click(x, y, count=1, wait=100) {
     SendMode, Input
 
-    Sleep, wait
     Loop %count% {
+        Sleep, wait
         MouseMove, x, y
         Click
     }
@@ -218,9 +214,9 @@ click(x, y, count=1, wait=100) {
     return
 }
 
-pixelDif(color, x, y, rx=0, ry=0) {
+pixelDif(colorId, x, y, rx=0, ry=0) {
     Loop {
-        PixelSearch, px, py, x, y, x+rx, y+ry, color,, Fast
+        PixelSearch, px, py, x, y, x+rx, y+ry, colorId,, Fast
     } Until ErrorLevel = 0
     return
 }
@@ -376,26 +372,46 @@ dorm() {
     scrollDown(0.9, 0.25)
     scrollDown(0.9, 0.25)
 
+    Sleep, 500
+
     click(660, 600)
     deselectAll()
     Send, ^w
+    checkOverview()
 
     click(660, 225)
     deselectAll()
     Send, ^w
+    checkOverview()
 
     scrollUp(0.9, 0.25)
+    scrollUp(0.9, 0.25)
 
-    click(660, 385)
+    click(660, 270)
     deselectAll()
     Send, ^w
+    checkOverview()
 
     scrollUp(0.9, 0.25)
     scrollUp(0.9, 0.25)
 
-    click(660, 406)
+    click(660, 270)
     deselectAll()
     Send, ^w
+    checkOverview()
 
+    return
+}
+
+base() {
+    click(1000, 650)
+    pixelDif(0xFFFFFF, 175, 135)
+    Loop {
+        PixelSearch, _x, _y, 175, 135, 175, 135, 0xFFFFFF,, Fast
+        click(1200, 150)
+    } until ErrorLevel = 1
+    MouseMove, 250, 700
+    click(250, 700, 50)
+    click(250, 600)
     return
 }
