@@ -9,13 +9,10 @@ Esc::
 ExitApp
 return
 
-^f::
-MouseGetPos, mx, my
-PixelGetColor, pc, mx, my 
-MsgBox, % pc " at " mx "x" my
-return
-
 ^g::
+changeSize()
+startTime := A_TickCount
+
 cafe()
 Sleep, 250
 lessons()
@@ -27,12 +24,22 @@ Sleep, 250
 daily()
 Sleep, 250
 campaign()
+
+elapsedTime := A_TickCount - startTime
+elapsedTime /= 1000
+MsgBox, , Elapse Time, % elapsedTime "s Have passed.", 2
+
 exitApp()
 return
 
 +g::
-daily()
+campaign()
 return
+
+changeSize() {
+    WinMove, BlueStacks App Player, , 150, 125, 1280, 735
+    return
+}
 
 exitApp() {
     MsgBox, , Finished, Automation done!, 0.5
@@ -153,8 +160,8 @@ campaign() {
 
     bounty()
     click(55, 69)
+    Sleep, 500
     pixelSearchCont(0xFBFAF8, 400, 60)
-    Sleep, 1000
 
     scrimmage()
     click(55, 69)
@@ -169,8 +176,8 @@ campaign() {
 bounty() {
     ; find bounty button
     click(730, 450)
-    pixelSearchCont(0xFFFFFF, 650, 185)
-    Sleep, 200
+    pixelSearchCont(0xFFFFFF, 655, 185)
+    Sleep, 300
 
     locations := [300, 420, 555]
     for _, loc in locations {
@@ -207,7 +214,7 @@ scrimmage() {
     ; find bounty button
     click(730, 600)
     pixelSearchCont(0x51331A, 1200, 180)
-    Sleep, 200
+    Sleep, 300
 
     locations := [300, 420, 555]
     for _, loc in locations {
