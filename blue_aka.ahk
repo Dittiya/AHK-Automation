@@ -33,7 +33,7 @@ exitApp()
 return
 
 +g::
-campaign()
+scrimmage()
 return
 
 changeSize() {
@@ -156,7 +156,7 @@ campaign() {
     Click
 
     pixelSearchCont(0xFBFAF8, 400, 60)
-    Sleep, 200
+    Sleep, 300
 
     bounty()
     click(55, 69)
@@ -176,15 +176,15 @@ campaign() {
 bounty() {
     ; find bounty button
     click(730, 450)
-    pixelSearchCont(0xFFFFFF, 655, 185)
-    Sleep, 300
+    pixelSearchCont(0xFFFFFF, 730, 190)
+    Sleep, 500
 
     locations := [300, 420, 555]
     for _, loc in locations {
         click(800, loc)
         pixelSearchCont(0xFFE48D, 1045, 555)
         Sleep, 200
-        click(1045, 555)
+        click(1080, 640)
 
         pixelSearchCont(0xF6F7F7, 500, 300)
         Sleep, 200
@@ -200,7 +200,7 @@ bounty() {
             PixelSearch, px, py, 280, 555, 280, 555, 0xFDFEF6, 2, Fast
         } until ErrorLevel = 0
 
-        Sleep, 200
+        Sleep, 300
     }
 
     return
@@ -214,12 +214,12 @@ scrimmage() {
     ; find bounty button
     click(730, 600)
     pixelSearchCont(0x51331A, 1200, 180)
-    Sleep, 300
+    Sleep, 500
 
     locations := [300, 420, 555]
     for _, loc in locations {
         click(800, loc)
-        pixelSearchCont(0x724C2D, 1100, 130)
+        pixelSearchCont(0x724C2D, 1100, 150)
         Sleep, 200
         click(1045, 210)
 

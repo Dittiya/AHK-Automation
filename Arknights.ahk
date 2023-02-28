@@ -50,8 +50,14 @@ changeSize()
 Sleep, 250
 
 confirm := {x:winW*0.9, y:winH*0.95}
+startTime := A_TickCount
+
 baseAutomation(confirm)
 dorm()
+
+elapsedTime := A_TickCount - startTime
+elapsedTime /= 1000
+MsgBox, , Time, % elapsedTime "s Have passed.", 1
 exitApp()
 return
 
@@ -116,9 +122,8 @@ autohire() {
 }
 
 deselectAll() {
-    Gosub, operators_menu
-    des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73, 1)
-    des.click()
+    pixelDif(0xA87500, 1455, 675)
+    click(450, 680)
     return
 }
 
@@ -183,9 +188,9 @@ scrollUntilFound(img, tolerance=70) {
     image := new ImgSearch(img, tolerance)
     if (!image.found) {
         Loop {
-            If (A_Index = 1) {
-                scrollRight(1)
-            }
+            ; If (A_Index = 1) {
+            ;     scrollRight(1)
+            ; }
             Gosub, scroll_left
             image := new ImgSearch(img, tolerance)
         } Until ErrorLevel = 0
@@ -222,8 +227,8 @@ pixelDif(colorId, x, y, rx=0, ry=0) {
 }
 
 changeSize() {
-    WinMove, BlueStacks App Player, , 150, 125, 1280, 735
-    ; WinMove, BlueStacks App Player, , 150, 125, 1280, 720
+    WinMove, BlueStacks App Player, , , , 1649, 720
+    ; WinMove, BlueStacks App Player, , 150, 125, 1280, 735
     return
 }
 
@@ -269,7 +274,7 @@ baseAutomation(confirm) {
         return
     }
 
-    click(cc.X+250, cc.Y+50)
+    click(cc.X+200, cc.Y+50)
     controlCenter(config)
     click(confirm.x, confirm.y)
     checkOverview()

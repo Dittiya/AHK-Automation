@@ -14,10 +14,10 @@ controlCenter(config) {
     deselectAll()
     switch (config) {
         case 1:
-            swire()
+            CCconfig2()
             return
         case 2:
-            amiya()
+            CCconfig1()
             return
         default:
             MsgBox, No config found

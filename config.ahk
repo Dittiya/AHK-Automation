@@ -1,4 +1,4 @@
-swire(var=100) {
+CCconfig2(var=100) {
     swire := A_ScriptDir . "\Arknights\swire.png"
     red := A_ScriptDir . "\Arknights\red.png"
     scavenger := A_ScriptDir . "\Arknights\scavenger.png"
@@ -10,7 +10,7 @@ swire(var=100) {
     return
 }
 
-amiya(var=100){
+CCconfig1(var=100){
     amiya := A_ScriptDir . "\Arknights\amiya.png"
     ash := A_ScriptDir . "\Arknights\ash.png"
     blitz := A_ScriptDir . "\Arknights\blitz.png"
@@ -22,7 +22,7 @@ amiya(var=100){
     return
 }
 
-utage(var=90) {
+utage(var=95) {
     utage := A_ScriptDir . "\Arknights\utage.png"
     rope := A_ScriptDir . "\Arknights\rope.png"
 
@@ -71,11 +71,11 @@ gravel(var=110) {
 }
 
 cuora(var=90) {
-    bubble := A_WorkingDir . "\bubble.png"
-    cuora := A_WorkingDir . "\cuora.png"
-    noir := A_WorkingDir . "\noir.png"
+    ops1 := A_WorkingDir . "\jessica.png"
+    ops2 := A_WorkingDir . "\coebe.png"
+    ops3 := A_WorkingDir . "\vermeil.png"
 
-    array := [bubble, cuora, noir]
+    array := [ops1, ops2, ops3]
     replaceOps(array, var)
     return 
 }
@@ -97,11 +97,11 @@ greyy(var=100) {
 }
 
 melantha(var=110) {
-    melantha := A_WorkingDir . "\melantha.png"
-    orchid := A_WorkingDir . "\orchid.png"
-    jaye := A_WorkingDir . "\jaye.png"
+    ops1 := A_WorkingDir . "\shamare.png"
+    ops2 := A_WorkingDir . "\kafka.png"
+    ops3 := A_WorkingDir . "\bibeak.png"
 
-    array := [melantha, orchid, jaye]
+    array := [ops1, ops2, ops3]
     replaceOps(array, var)
     return
 }
