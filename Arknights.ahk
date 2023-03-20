@@ -30,7 +30,7 @@ class ImgSearch {
 
     search() {
         img := this.img
-        if ImageSearch(&imgx, &imgy, 0, 0, A_ScreenWidth, A_ScreenHeight, img) {
+        if ImageSearch(&imgx, &imgy, winx, winy, winWidth, winHeight, img) {
             this.found := true
             this.x := imgx
             this.y := imgy
@@ -53,7 +53,7 @@ controlCenter(config:=0) {
 
     operators := controlCenterConfig(config)
 
-    findOps(operators)
+    findOps(operators, 110)
 }
 
 tradingPost_1(config:=0) {
@@ -71,7 +71,7 @@ factoryGold_1(config:=0) {
     if (config = 0)
         return Error("Config not found")
 
-    factory := ImgSearch("factory", 80)
+    factory := ImgSearch("factory2")
     Click(factory.x+150, factory.y+50)
     checkOpsPage()
 
@@ -100,7 +100,7 @@ tradingPost_2(config:=0) {
         return Error("Config not found")
 
     trade := ImgSearch("trading")
-    Click(trade.x+150, trade.y+50)
+    Click(trade.x+100, trade.y+50)
     checkOpsPage()
 
     operators := tradingPostConfig_2(config)
@@ -116,7 +116,7 @@ factoryGold_2(config:=0, relative:=0) {
     if (relative = 0)
         return Error("Relative location not found")
     
-    Click(relative.x+150, relative.y+175)
+    Click(relative.x+100, relative.y+175)
     checkOpsPage()
     
     operators := factoryGoldConfig_2(config)
@@ -130,7 +130,7 @@ powerPlant_2(config:=0, relative:=0) {
     if (relative = 0)
         return Error("Relative location not found")
 
-    Click(relative.x+150, relative.y+150)
+    Click(relative.x+100, relative.y+320)
     checkOpsPage()
 
     operators := powerPlantConfig_2(config)
@@ -153,7 +153,7 @@ factoryExp_1(config:=0) {
     if (config = 0) 
         return Error("Config not found")
 
-    factory := ImgSearch("factory")
+    factory := ImgSearch("factory2")
     Click(factory.x+150, factory.y+50)
     checkOpsPage()
 
@@ -178,7 +178,7 @@ factoryExp_3(config:=0, relative:=0) {
     if (config = 0)
         return Error("Config not found")
 
-    Click(relative.x+150, relative.y+250)
+    Click(relative.x+150, relative.y+320)
     checkOpsPage()
 
     operators := factoryExpConfig_2(config)
@@ -258,8 +258,8 @@ factoryGoldConfig_2(conf:=0, var:=100) {
     if (conf = 0)
         return Error("Config not found")
 
-    amiya := ["jessica", "ceobe", "vermeil"]
-    swire := ["ptilo", "vanilla", "scene"]
+    amiya := ["ptilo", "vanilla", "scene"]
+    swire := ["jessica", "ceobe", "vermeil"]
 
     if (conf = 1)
         return swire
@@ -340,9 +340,9 @@ officeConfig(conf:=0, var:=100) {
     swire := ["aciddrop"]
 
     if (conf = 1)
-        return amiya
-    else
         return swire
+    else
+        return amiya
 }
 
 /* 
@@ -350,14 +350,12 @@ officeConfig(conf:=0, var:=100) {
  */
 
 changeSize(window) {
-    ; WinGetPos(&winX, &winY, &1649, &720, window) 
-    ; WinMove( , , 1280, 739, window, window)
     WinMove( , , 1280, 720, window)
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
 
-findOps(operators, var:=100) {
+findOps(operators, var:=110) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
@@ -414,7 +412,7 @@ checkOverviewPage() {
     while !pixSearch(230, 375, 0xFFFFFF) {
         Sleep 100
     }
-    Sleep 300
+    Sleep 500
 
     return true
 }
@@ -450,13 +448,15 @@ checkOverviewPage() {
 }
 
 ^r:: {
-    slideUp()
+
 }
 
 ^g:: {
     back := {x:50, y:75}
 
-    cfg := config(100)
+    cfg := config(50)
+
+    MsgBox("Config " cfg, "Config", "T1")
 
     controlCenter(cfg)
     Click(back.x, back.y)
@@ -493,17 +493,23 @@ checkOverviewPage() {
 
     slideUp()
 
+    office(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    slideUp()
+
     factory := factoryExp_1(cfg)
     Click(back.x, back.y)
-    checkOpsPage()
+    checkOverviewPage()
 
     factoryExp_2(cfg, factory)
     Click(back.x, back.y)
-    checkOpsPage()
+    checkOverviewPage()
 
     factoryExp_3(cfg, factory)
     Click(back.x, back.y)
-    checkOpsPage()
+    checkOverviewPage()
 
     loop 2
         slideUp()
