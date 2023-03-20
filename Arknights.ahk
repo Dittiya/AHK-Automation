@@ -1,422 +1,516 @@
-#NoEnv
-#IfWinActive BlueStacks App Player
+#Requires AutoHotkey v2.0
 #SingleInstance Force
-SetWorkingDir, Arknights
-WinGetPos winX, winY, winW, winH, BlueStacks App Player
-#Include config.ahk
-#Include rooms.ahk
-#Include Lib/image_search.ahk
-#Include testing.ahk
-CoordMode, Pixel, Screen
-CoordMode, Mouse, Screen
 
-Esc::
-ExitApp
-return
+CoordMode "Pixel", "Window"
+CoordMode "Mouse", "Window"
+SetWorkingDir A_ScriptDir "\arknights"
 
-^e::
-changeSize()
-return
+Esc::ExitApp
 
-+r::
-MouseMove, 0, 0 
-return
+/* 
+ * Constants
+ */
 
-^r::
-dorm()
-return
+WINDOW := "BlueStacks"
 
-^s::
-Gosub, base
-Gosub, collect_resources
-Gosub, overview_menu
+HotIfWinactive WINDOW
 
-return
+WinGetPos &winx, &winy, &winWidth, &winHeight, WINDOW
 
-^g::
-changeSize()
-Sleep, 250
+/*
+ * Image Search
+ */
 
-confirm := {x:winW*0.1, y:winH*0.1}
-startTime := A_TickCount
-baseAutomation(confirm)
-elapsedTime := A_TickCount - startTime
-elapsedTime /= 1000
-MsgBox, % elapsedTime "s Have passed."
-return
-
-+g::
-changeSize()
-Sleep, 250
-
-confirm := {x:winW*0.9, y:winH*0.95}
-startTime := A_TickCount
-
-baseAutomation(confirm)
-dorm()
-
-elapsedTime := A_TickCount - startTime
-elapsedTime /= 1000
-MsgBox, , Time, % elapsedTime "s Have passed.", 1
-exitApp()
-return
-
-; Hotkey for autohire process
-^d::
-autohire()
-return
-
-^f::
-base()
-return
-
-base:
-base := {x:winW*0.8, y:winH*0.85}
-MouseClick, left, base.x, base.y
-return 
-
-collect_resources:
-bell := {x:winW*0.915, y:winH*0.15}
-pc := 0xFFFFFF
-Loop {
-    PixelSearch, px, py, bell.x, bell.y, bell.x+10, bell.y+10, pc, Fast
-} until ErrorLevel = 0
-MouseMove, px, py
-Sleep, 3000
-MouseClick, left, px, py
-
-collect := {x:winW*0.2, y:winH*0.95}
-MouseMove, collect.x, collect.y
-Sleep, 250
-Loop {
-    Click
-    if A_Index < 4
-        Sleep, 3000
-    else break
-}
-return
-
-overview_menu:
-ov := {x:winW*0.1, y:winH*0.2}
-MouseMove, ov.x, ov.y
-Click
-Sleep, 500
-Click
-Sleep, 3000
-return
-
-
-; Hiring process
-autohire() {
-    coords := [{x:300, y:400}, {x:900, y:400}, {x:300, y:670}]
-
-    for _, coord in coords {
-        click(coord.x, coord.y)
-        Sleep, 1000
-        Loop {
-            PixelSearch, px, py, 790, 50, 790, 50, 0xFFFFFF
-            click(1180, 76, 1, 500)
-        } until ErrorLevel = 0
-    }
-    return
-}
-
-deselectAll() {
-    pixelDif(0xA87500, 1455, 675)
-    click(450, 680)
-    return
-}
-
-deselect_all:
-Gosub, operators_menu
-des := new ImgSearch(A_ScriptDir . "\Arknights\des_icon.png", 73, 1)
-des.click()
-return
-
-operators_menu:
-pos :=  {x:winW*0.86, y:winH*0.95}
-color := 0xA87500
-
-pixelDif(color, pos.x, pos.y)
-return
-
-checkOverview() {
-    assigned := new ImgSearch(A_WorkingDir . "\assigned.png", 73, 1)
-    return
-}
-
-scroll_left:
-MouseClickDrag, left, winW/2, winH/2, winW/2-200, winH/2, 8
-return
-
-exitApp() {
-    MsgBox, , Finished, Automation done!, 0.5
-    ExitApp
-}
-
-scrollRight(n) {
-    global winW, winH
-
-    loop, %n% {
-        MouseClickDrag, left, winW/2, winH/2, winW/2+550, winH/2, 5
-    }
-    Sleep, 500
-    return
-}
-
-scrollDown(x, y) {
-    global winW, winH
-
-    MouseMove, winW*0.9, winH*0.9
-    Sleep, 100
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*x, winH*y, 10
-    Click
-    Sleep, 100
-}
-
-scrollUp(x, y) {
-    global winW, winH
-
-    MouseMove, winW*x, winH*y
-    Sleep, 100
-    MouseClickDrag, left, winW*x, winH*y, winW*0.9, winH*0.9, 10
-    Click
-    Sleep, 100
-}
-
-scrollUntilFound(img, tolerance=70) {
-    image := new ImgSearch(img, tolerance)
-    if (!image.found) {
-        Loop {
-            ; If (A_Index = 1) {
-            ;     scrollRight(1)
-            ; }
-            Gosub, scroll_left
-            image := new ImgSearch(img, tolerance)
-        } Until ErrorLevel = 0
-    } 
-    image.click()
-    return
-}
-
-replaceOps(operators, var=100) {
-    for _, image in operators {
-        scrollUntilFound(image, var)
-    }
-    return
-}
-
-click(x, y, count=1, wait=100) {
-    SendMode, Input
-
-    Loop %count% {
-        Sleep, wait
-        MouseMove, x, y
-        Click
+class ImgSearch {
+    __New(img, var:=100) {
+        this.img := "*" var " " A_WorkingDir "\" img ".png"
+        this.found := false
+        this.search()
     }
 
-    SendMode, Event
-    return
+    search() {
+        img := this.img
+        if ImageSearch(&imgx, &imgy, winx, winy, winWidth, winHeight, img) {
+            this.found := true
+            this.x := imgx
+            this.y := imgy
+        } else {
+            this.found := false
+        }
+    }
 }
 
-pixelDif(colorId, x, y, rx=0, ry=0) {
-    Loop {
-        PixelSearch, px, py, x, y, x+rx, y+ry, colorId,, Fast
-    } Until ErrorLevel = 0
-    return
+/*
+ * Room
+ */
+
+controlCenter(config:=0) {
+    if (config = 0)
+        return Error("Config not found")
+
+    Click(650, 230)
+    checkOpsPage()
+
+    operators := controlCenterConfig(config)
+
+    findOps(operators, 110)
 }
 
-changeSize() {
-    WinMove, BlueStacks App Player, , , , 1649, 720
-    ; WinMove, BlueStacks App Player, , 150, 125, 1280, 735
-    return
+tradingPost_1(config:=0) {
+    if (config = 0)
+        return Error("Config not found")
+
+    Click(655, 570)
+    checkOpsPage()
+
+    operators := tradingPostConfig_1(config)
+    findOps(operators)
 }
 
-scrollDownConfig() {
-    global winW, winH
-    speed := 12
+factoryGold_1(config:=0) {
+    if (config = 0)
+        return Error("Config not found")
 
-    ; B1
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.4, speed
-    Click
-    Sleep, 100
+    factory := ImgSearch("factory2")
+    Click(factory.x+150, factory.y+50)
+    checkOpsPage()
 
+    operators := factoryGoldConfig_1(config)
+    findOps(operators)
 
-    ; B2
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
-    Click
-    Sleep, 100
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
-    Click
-    Sleep, 100
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
-    Click
-    Sleep, 100
-
-
-    ; B3
-    MouseClickDrag, left, winW*0.9, winH*0.9, winW*0.9, winH*0.25, speed
-    Click
-    Sleep, 100
-
-    return
+    return factory
 }
 
-baseAutomation(confirm) {
-    global winW, winH
+powerPlant_1(config:=0, relative:=0) {
+    if (config = 0) 
+        return Error("Config not found")
 
-    config := baseConfig()
+    if (relative = 0)
+        return Error("Relative location not found")
 
-    ; 1F
-    cc := new ImgSearch(A_WorkingDir . "\control_center.png", 90)
-    if (!cc.found) {
-        MsgBox, Img not found %config%
-        return
-    }
+    Click(relative.x+150, relative.y+175)
+    checkOpsPage()
 
-    click(cc.X+200, cc.Y+50)
-    controlCenter(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
+    operators := powerPlantConfig_1(config)
+    findOps(operators)
+}
 
-    click(cc.X+250, cc.Y+200)
-    reception(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
+tradingPost_2(config:=0) {
+    if (config = 0) 
+        return Error("Config not found")
 
-    click(cc.X+250, cc.Y+400)
-    tradingPost1(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
+    trade := ImgSearch("trading")
+    Click(trade.x+100, trade.y+50)
+    checkOpsPage()
 
-    scrollDown(0.9, 0.4)
+    operators := tradingPostConfig_2(config)
+    findOps(operators)
 
-    ; B1
-    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
-    if (!tp.found) {
-        MsgBox, img not found
-        return
-    }
+    return trade
+}
 
-    click(tp.X+100, tp.Y+200)
-    factoryGold1(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
+factoryGold_2(config:=0, relative:=0) {
+    if (config = 0)
+        return Error("Config not found")
 
-    click(tp.X+100, tp.Y+350)
-    powerPlant1(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    scrollDown(0.9, 0.25)
-    scrollDown(0.9, 0.25)
-
-    ; B3
-    tp := new ImgSearch(A_WorkingDir . "\trading_post.png", 100)
-    if (!tp.found) {
-        MsgBox, img not found
-        return
-    }
-
-    click(tp.X+100, tp.Y+50)
-    tradingPost2(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    click(tp.X+100, tp.Y+200)
-    factoryGold2(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    click(tp.X+100, tp.Y+350)
-    powerPlant2(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    scrollDown(0.9, 0.25)
-
-    office := new ImgSearch(A_WorkingDir . "\office.png", 100)
-    if (!office.found) {
-        MsgBox, img not found
-        return
-    }
-
-    click(office.X+150, office.Y+50)
-    office(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    scrollDown(0.9, 0.25)
-
-    ; B4
-    ft := new ImgSearch(A_WorkingDir . "\factory.png", 110)
-    if (!ft.found) {
-        MsgBox, img not found
-        return
-    }
-
-    click(ft.X+150, ft.Y+50)
-    xp1(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    click(ft.X+150, ft.Y+200)
-    xp2(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
-
-    click(ft.X+150, ft.Y+350)
-    xp3(config)
-    click(confirm.x, confirm.y)
-    checkOverview()
+    if (relative = 0)
+        return Error("Relative location not found")
     
-    return
+    Click(relative.x+100, relative.y+175)
+    checkOpsPage()
+    
+    operators := factoryGoldConfig_2(config)
+    findOps(operators)
 }
 
-dorm() {
-    scrollDown(0.9, 0.25)
-    scrollDown(0.9, 0.25)
+powerPlant_2(config:=0, relative:=0) {
+    if (config = 0)
+        return Error("Config not found")
+    
+    if (relative = 0)
+        return Error("Relative location not found")
 
-    Sleep, 500
+    Click(relative.x+100, relative.y+320)
+    checkOpsPage()
 
-    click(660, 600)
-    deselectAll()
-    Send, ^w
-    checkOverview()
-
-    click(660, 225)
-    deselectAll()
-    Send, ^w
-    checkOverview()
-
-    scrollUp(0.9, 0.25)
-    scrollUp(0.9, 0.25)
-
-    click(660, 270)
-    deselectAll()
-    Send, ^w
-    checkOverview()
-
-    scrollUp(0.9, 0.25)
-    scrollUp(0.9, 0.25)
-
-    click(660, 270)
-    deselectAll()
-    Send, ^w
-    checkOverview()
-
-    return
+    operators := powerPlantConfig_2(config)
+    findOps(operators)
 }
 
-base() {
-    click(1000, 650)
-    pixelDif(0xFFFFFF, 175, 135)
-    Loop {
-        PixelSearch, _x, _y, 175, 135, 175, 135, 0xFFFFFF,, Fast
-        click(1200, 150)
-    } until ErrorLevel = 1
-    MouseMove, 250, 700
-    click(250, 700, 50)
-    click(250, 600)
-    return
+office(config:=0) {
+    if (config = 0)
+        return Error("Config not found")
+
+    office := ImgSearch("office")
+    Click(office.x+150, office.y+50)
+    checkOpsPage()
+
+    operators := officeConfig(config)
+    findOps(operators)
+}
+
+factoryExp_1(config:=0) {
+    if (config = 0) 
+        return Error("Config not found")
+
+    factory := ImgSearch("factory2")
+    Click(factory.x+150, factory.y+50)
+    checkOpsPage()
+
+    operators := factoryExpConfig_1(config)
+    findOps(operators)
+
+    return factory
+} 
+
+factoryExp_2(config:=0, relative:=0) {
+    if (config = 0)
+        return Error("Config not found")
+
+    Click(relative.x+150, relative.y+175)
+    checkOpsPage()
+
+    operators := factoryExpConfig_2(config)
+    findOps(operators)
+}
+
+factoryExp_3(config:=0, relative:=0) {
+    if (config = 0)
+        return Error("Config not found")
+
+    Click(relative.x+150, relative.y+320)
+    checkOpsPage()
+
+    operators := factoryExpConfig_2(config)
+    findOps(operators)
+}
+
+/*
+ * Config
+ */
+
+config(var:=50) {
+    amiya := ImgSearch("amiya_work", var)
+    if (amiya.found) 
+        return 1
+    
+    swire := ImgSearch("swire_work", var)
+    if swire.found 
+        return 2
+
+    return 0
+}
+
+controlCenterConfig(conf:=0, var:=100) {
+    if (conf = 0) {
+        return Error("Config not found")
+    }
+
+    amiya := ["amiya", "pudding", "ash", "tachanka", "blitz"]
+    swire := ["swire", "kal", "dobermann", "red", "scavenger"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+tradingPostConfig_1(conf:=0, var:=100) {
+    if (conf = 0) 
+        return Error("Config not found")
+
+    amiya := ["exu", "lappland", "texas"]
+    swire := ["gummy", "midnight", "catapult"]
+
+    if (conf = 1) 
+        return swire
+    else 
+        return amiya
+}
+
+tradingPostConfig_2(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["fang", "mousse", "matoimaru"]
+    swire := ["shamare", "bibeak", "kafka"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+factoryGoldConfig_1(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["gravel", "haze", "spot"]
+    swire := ["perfumer", "roberta", "steward"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+factoryGoldConfig_2(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["ptilo", "vanilla", "scene"]
+    swire := ["jessica", "ceobe", "vermeil"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+powerPlantConfig_1(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["lancet"]
+    swire := ["greyy"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+powerPlantConfig_2(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["thrmex"]
+    swire := ["ifrit"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+factoryExpConfig_1(conf:=0, var:=100) {
+    if (conf = 0) 
+        return Error("Config not found")
+
+    amiya := ["conviction", "vigna"]
+    swire := ["mane", "ashlock"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+factoryExpConfig_2(conf:=0, var:=100) {
+    if (conf = 0) 
+        return Error("Config not found")
+
+    amiya := ["frostleaf", "castle"]
+    swire := ["silence", "meteor"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+factoryExpConfig_3(conf:=0, var:=100) {
+    if (conf = 0) 
+        return Error("Config not found")
+
+    amiya := ["shirayuki", "feater"]
+    swire := ["kroos", "yato"]
+
+    if (conf = 1)
+        return swire
+    else 
+        return amiya
+}
+
+officeConfig(conf:=0, var:=100) {
+    if (conf = 0)
+        return Error("Config not found")
+
+    amiya := ["eyja"]
+    swire := ["aciddrop"]
+
+    if (conf = 1)
+        return swire
+    else
+        return amiya
+}
+
+/* 
+ * Functions
+ */
+
+changeSize(window) {
+    WinMove( , , 1280, 720, window)
+    WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
+    MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
+}
+
+findOps(operators, var:=110) {
+    for _, operator in operators {
+        ops := ImgSearch(operator, var)
+        while !ops.found {
+            if (A_Index = 50)
+                break
+            slideLeft()
+            ops.search()
+        }
+        Click(ops.x, ops.y)
+    }
+}
+
+slideLeft() {
+    /* 
+     * god this is a pain
+     * whatever it's good enough
+     */
+
+    start := [winWidth*0.9, winHeight*0.5]
+    end := [winWidth*0.5, winHeight*0.5]
+    SendEvent "{Click " start[1] " " start[2] " Down}" . "{click " end[1] " " end[2] " Down}"
+    Sleep 200
+    SendEvent "{Click " end[1] " " end[2] " Up}"
+}
+
+slideUp() {
+    start := [winWidth*0.9, winHeight*0.8]
+    end := [winWidth*0.9, winHeight*0.2]
+
+    Click(start[1], start[2], 0)
+    SendMode "Event"
+    MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
+    SendMode "Input"
+    Click()
+}
+
+pixSearch(x, y, color, pad:=0) {
+    if PixelSearch(&px, &py, x, y, x+pad, y+pad, color, 2)
+        return true
+    return false
+}
+
+checkOpsPage() {
+    while !pixSearch(1080, 680, 0x0075A8) {
+        Sleep 100
+    }
+    Click(480, 675)
+    Sleep 300
+
+    return true
+}
+
+checkOverviewPage() {
+    while !pixSearch(230, 375, 0xFFFFFF) {
+        Sleep 100
+    }
+    Sleep 500
+
+    return true
+}
+
+/* 
+ * Hotkey
+ */
+
+^e:: {
+    changeSize(WINDOW)
+}
+
+^d:: {
+    /*
+     * Autohire
+     */
+
+    loc := [{x:300, y:400}, {x:800, y:400}, {x:300, y:650}]
+
+    for l in loc {
+        Click(l.x, l.y)
+
+        while pixSearch(770, 60, 0xFFFFFF) {
+            Sleep 100
+        }
+
+        while !pixSearch(770, 60, 0xFFFFFF) {
+            Sleep 100
+            Click(1140, 95)
+        }
+    }
+
+}
+
+^r:: {
+
+}
+
+^g:: {
+    back := {x:50, y:75}
+
+    cfg := config(50)
+
+    MsgBox("Config " cfg, "Config", "T1")
+
+    controlCenter(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+    
+    tradingPost_1(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    slideUp()
+    
+    factory := factoryGold_1(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+    
+    PowerPlant_1(cfg, factory)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    loop 2
+        slideUp()
+
+    trade := tradingPost_2(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    factoryGold_2(cfg, trade)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    powerPlant_2(cfg, trade)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    slideUp()
+
+    office(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    slideUp()
+
+    factory := factoryExp_1(cfg)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    factoryExp_2(cfg, factory)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    factoryExp_3(cfg, factory)
+    Click(back.x, back.y)
+    checkOverviewPage()
+
+    loop 2
+        slideUp()
 }
