@@ -15,8 +15,6 @@ HotIfWinactive WINDOW
  */
 
 changeSize(window) {
-    ; WinGetPos(&winX, &winY, &1649, &720, window)
-    ; WinMove( , , 1280, 739, window, window)
     WinMove( , , 1280, 720, window)
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
