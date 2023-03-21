@@ -191,10 +191,12 @@ factoryExp_3(config:=0, relative:=0) {
 
 config(var:=50) {
     amiya := ImgSearch("amiya_work", var)
+    Click(amiya.x, amiya.y, 0)
     if (amiya.found) 
         return 1
     
     swire := ImgSearch("swire_work", var)
+    Click(swire.x, swire.y, 0)
     if swire.found 
         return 2
 
@@ -298,7 +300,7 @@ factoryExpConfig_1(conf:=0, var:=100) {
         return Error("Config not found")
 
     amiya := ["conviction", "vigna"]
-    swire := ["mane", "ashlock"]
+    swire := ["wildmane", "ashlock"]
 
     if (conf = 1)
         return swire
@@ -350,7 +352,14 @@ officeConfig(conf:=0, var:=100) {
  */
 
 changeSize(window) {
-    WinMove( , , 1280, 720, window)
+    /*
+     * w: 1280	h: 739
+     * Because BlueStacks is the worst at this
+     */
+    WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
+    MsgBox("Original window size " winWidth "x" winHeight, "Resize window", "T1")
+
+    WinMove( , , 1280, 739, window)
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
@@ -365,6 +374,7 @@ findOps(operators, var:=110) {
             ops.search()
         }
         Click(ops.x, ops.y)
+        Sleep 200
     }
 }
 
@@ -402,7 +412,7 @@ checkOpsPage() {
     while !pixSearch(1080, 680, 0x0075A8) {
         Sleep 100
     }
-    Click(480, 675)
+    Click(480, 675, 2)
     Sleep 300
 
     return true
@@ -412,51 +422,18 @@ checkOverviewPage() {
     while !pixSearch(230, 375, 0xFFFFFF) {
         Sleep 100
     }
-    Sleep 500
+    Sleep 750
 
     return true
 }
 
-/* 
- * Hotkey
- */
-
-^e:: {
-    changeSize(WINDOW)
-}
-
-^d:: {
-    /*
-     * Autohire
-     */
-
-    loc := [{x:300, y:400}, {x:800, y:400}, {x:300, y:650}]
-
-    for l in loc {
-        Click(l.x, l.y)
-
-        while pixSearch(770, 60, 0xFFFFFF) {
-            Sleep 100
-        }
-
-        while !pixSearch(770, 60, 0xFFFFFF) {
-            Sleep 100
-            Click(1140, 95)
-        }
-    }
-
-}
-
-^r:: {
-
-}
-
-^g:: {
-    back := {x:50, y:75}
-
+baseAutomation(back) {
     cfg := config(50)
 
     MsgBox("Config " cfg, "Config", "T1")
+
+    if (cfg = 0) 
+        return Error("Config not found")
 
     controlCenter(cfg)
     Click(back.x, back.y)
@@ -513,4 +490,44 @@ checkOverviewPage() {
 
     loop 2
         slideUp()
+}
+
+/* 
+ * Hotkey
+ */
+
+^e:: {
+    changeSize(WINDOW)
+}
+
+^d:: {
+    /*
+     * Autohire
+     */
+
+    loc := [{x:300, y:400}, {x:800, y:400}, {x:300, y:650}]
+
+    for l in loc {
+        Click(l.x, l.y)
+        Sleep 1000
+
+        while pixSearch(770, 60, 0xFFFFFF) {
+            Sleep 100
+        }
+
+        while !pixSearch(770, 60, 0xFFFFFF) {
+            Sleep 100
+            Click(1140, 95)
+        }
+    }
+
+}
+
+^r:: {
+
+}
+
+^g:: {
+    back := {x:50, y:75}
+    baseAutomation(back)
 }
