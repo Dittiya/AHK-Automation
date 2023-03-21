@@ -76,7 +76,7 @@ factoryGold_1(config:=0) {
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
-    findOps(operators)
+    findOps(operators, 60)
 
     return factory
 }
