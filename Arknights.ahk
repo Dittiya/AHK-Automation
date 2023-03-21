@@ -526,6 +526,12 @@ baseAutomation(back) {
 }
 
 ^g:: {
+    startTime := A_TickCount
+    
     back := {x:50, y:75}
     baseAutomation(back)
+
+    elapsedTime := A_TickCount - startTime
+    elapsedTime /= 1000
+    MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
 }
