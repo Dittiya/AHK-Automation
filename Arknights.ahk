@@ -379,16 +379,13 @@ findOps(operators, var:=50) {
 }
 
 slideLeft() {
-    /* 
-     * god this is a pain
-     * whatever it's good enough
-     */
-
     start := [winWidth*0.9, winHeight*0.5]
     end := [winWidth*0.5, winHeight*0.5]
-    SendEvent "{Click " start[1] " " start[2] " Down}" . "{click " end[1] " " end[2] " Down}"
-    Sleep 200
-    SendEvent "{Click " end[1] " " end[2] " Up}"
+
+    Click(start[1], start[2], 0)
+    SendMode "Event"
+    MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
+    SendMode "Input"
 }
 
 slideUp() {
