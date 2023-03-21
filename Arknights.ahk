@@ -71,7 +71,7 @@ factoryGold_1(config:=0) {
     if (config = 0)
         return Error("Config not found")
 
-    factory := ImgSearch("factory2")
+    factory := ImgSearch("factory")
     Click(factory.x+150, factory.y+50)
     checkOpsPage()
 
@@ -153,7 +153,7 @@ factoryExp_1(config:=0) {
     if (config = 0) 
         return Error("Config not found")
 
-    factory := ImgSearch("factory2")
+    factory := ImgSearch("factory")
     Click(factory.x+150, factory.y+50)
     checkOpsPage()
 
