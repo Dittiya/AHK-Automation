@@ -203,7 +203,7 @@ config(var:=50) {
     return 0
 }
 
-controlCenterConfig(conf:=0, var:=100) {
+controlCenterConfig(conf:=0) {
     if (conf = 0) {
         return Error("Config not found")
     }
@@ -217,7 +217,7 @@ controlCenterConfig(conf:=0, var:=100) {
         return amiya
 }
 
-tradingPostConfig_1(conf:=0, var:=100) {
+tradingPostConfig_1(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
@@ -230,7 +230,7 @@ tradingPostConfig_1(conf:=0, var:=100) {
         return amiya
 }
 
-tradingPostConfig_2(conf:=0, var:=100) {
+tradingPostConfig_2(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
@@ -243,7 +243,7 @@ tradingPostConfig_2(conf:=0, var:=100) {
         return amiya
 }
 
-factoryGoldConfig_1(conf:=0, var:=100) {
+factoryGoldConfig_1(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
@@ -256,7 +256,7 @@ factoryGoldConfig_1(conf:=0, var:=100) {
         return amiya
 }
 
-factoryGoldConfig_2(conf:=0, var:=100) {
+factoryGoldConfig_2(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
@@ -269,7 +269,7 @@ factoryGoldConfig_2(conf:=0, var:=100) {
         return amiya
 }
 
-powerPlantConfig_1(conf:=0, var:=100) {
+powerPlantConfig_1(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
@@ -282,7 +282,7 @@ powerPlantConfig_1(conf:=0, var:=100) {
         return amiya
 }
 
-powerPlantConfig_2(conf:=0, var:=100) {
+powerPlantConfig_2(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
@@ -295,7 +295,7 @@ powerPlantConfig_2(conf:=0, var:=100) {
         return amiya
 }
 
-factoryExpConfig_1(conf:=0, var:=100) {
+factoryExpConfig_1(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
@@ -308,7 +308,7 @@ factoryExpConfig_1(conf:=0, var:=100) {
         return amiya
 }
 
-factoryExpConfig_2(conf:=0, var:=100) {
+factoryExpConfig_2(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
@@ -321,7 +321,7 @@ factoryExpConfig_2(conf:=0, var:=100) {
         return amiya
 }
 
-factoryExpConfig_3(conf:=0, var:=100) {
+factoryExpConfig_3(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
@@ -334,7 +334,7 @@ factoryExpConfig_3(conf:=0, var:=100) {
         return amiya
 }
 
-officeConfig(conf:=0, var:=100) {
+officeConfig(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
