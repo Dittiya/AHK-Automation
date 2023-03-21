@@ -53,7 +53,7 @@ controlCenter(config:=0) {
 
     operators := controlCenterConfig(config)
 
-    findOps(operators, 80)
+    findOps(operators, 100)
 }
 
 tradingPost_1(config:=0) {
@@ -64,7 +64,7 @@ tradingPost_1(config:=0) {
     checkOpsPage()
 
     operators := tradingPostConfig_1(config)
-    findOps(operators)
+    findOps(operators, 80)
 }
 
 factoryGold_1(config:=0) {
@@ -76,7 +76,7 @@ factoryGold_1(config:=0) {
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
-    findOps(operators, 70)
+    findOps(operators, 80)
 
     return factory
 }
@@ -104,7 +104,7 @@ tradingPost_2(config:=0) {
     checkOpsPage()
 
     operators := tradingPostConfig_2(config)
-    findOps(operators)
+    findOps(operators, 90)
 
     return trade
 }
@@ -120,7 +120,7 @@ factoryGold_2(config:=0, relative:=0) {
     checkOpsPage()
     
     operators := factoryGoldConfig_2(config)
-    findOps(operators)
+    findOps(operators, 90)
 }
 
 powerPlant_2(config:=0, relative:=0) {
