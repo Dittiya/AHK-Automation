@@ -53,7 +53,7 @@ controlCenter(config:=0) {
 
     operators := controlCenterConfig(config)
 
-    findOps(operators, 110)
+    findOps(operators, 80)
 }
 
 tradingPost_1(config:=0) {
@@ -364,7 +364,7 @@ changeSize(window) {
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
 
-findOps(operators, var:=110) {
+findOps(operators, var:=50) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
