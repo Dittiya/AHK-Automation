@@ -76,7 +76,7 @@ factoryGold_1(config:=0) {
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
-    findOps(operators, 60)
+    findOps(operators, 70)
 
     return factory
 }
@@ -368,9 +368,10 @@ findOps(operators, var:=50) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
-            if (A_Index = 50)
-                break
+            if (A_Index = 15)
+                return Error("Operator not found")
             slideLeft()
+            Sleep 500
             ops.search()
         }
         Click(ops.x, ops.y)
@@ -380,11 +381,11 @@ findOps(operators, var:=50) {
 
 slideLeft() {
     start := [winWidth*0.9, winHeight*0.5]
-    end := [winWidth*0.5, winHeight*0.5]
+    end := [winWidth*0.6, winHeight*0.5]
 
     Click(start[1], start[2], 0)
     SendMode "Event"
-    MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
+    MouseClickDrag "L", start[1], start[2], end[1], end[2], 25
     SendMode "Input"
 }
 
