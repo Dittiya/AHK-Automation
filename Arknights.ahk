@@ -158,7 +158,7 @@ factoryExp_1(config:=0) {
     checkOpsPage()
 
     operators := factoryExpConfig_1(config)
-    findOps(operators)
+    findOps(operators, 80)
 
     return factory
 } 
@@ -171,7 +171,7 @@ factoryExp_2(config:=0, relative:=0) {
     checkOpsPage()
 
     operators := factoryExpConfig_2(config)
-    findOps(operators)
+    findOps(operators, 80)
 }
 
 factoryExp_3(config:=0, relative:=0) {
@@ -181,8 +181,8 @@ factoryExp_3(config:=0, relative:=0) {
     Click(relative.x+150, relative.y+320)
     checkOpsPage()
 
-    operators := factoryExpConfig_2(config)
-    findOps(operators)
+    operators := factoryExpConfig_3(config)
+    findOps(operators, 80)
 }
 
 /*
