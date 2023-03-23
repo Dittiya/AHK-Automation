@@ -15,7 +15,7 @@ HotIfWinactive WINDOW
  */
 
 changeSize(window) {
-    WinMove( , , 1280, 720, window)
+    WinMove( , , 1280, 739, window)
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
@@ -32,15 +32,11 @@ pixSearch(x, y, color ,pad:=0) {
 }
 
 returnMenu() {
-    x := 230
-    y := 70
-    x2 := x
-    y2 := y
-    color := 0x133453
-
-    while PixelSearch(&px, &py, x, y, x2, y2, color, 2) = 0 {
+    while !pixSearch(230, 70, 0x133453) {
         Click(1200, 55)
+        Sleep 100
     }
+
     Sleep 3000
 }
 
@@ -69,12 +65,10 @@ cafe() {
 
 lessons() {
     ; enter lessons menu
-    Click(208, 670)
-    x := 360
-    y := 330
-    color := 0xFFFFFF
-    while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+    while !pixSearch(360, 330, 0xFFFFFF) {
+        Click(208, 670)
         Sleep 100
+    }
 
     ; click on the first location 
     Sleep 250
@@ -130,9 +124,8 @@ lessons() {
 
 club() {
     ; click club from menu
-    Click(560, 666)
-
     while !pixSearch(450, 300, 0xF6F6F6) {
+        Click(560, 666)
         Sleep 100
     }
 
@@ -142,9 +135,8 @@ club() {
 
 mail() {
     ; click mail from menu
-    Click(1112, 72)
-
     while !pixSearch(100, 230, 0xFFFFFF) {
+        Click(1112, 72)
         Sleep 100
     }
 
@@ -158,11 +150,11 @@ mail() {
 daily() {
     ; click tasks from menu
     Click(72, 262)
-    x := 600
-    y := 140
-    color := 0x2D4663
-    while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+
+    while !pixSearch(600, 140, 0x2D4663) {
         Sleep 100
+    }
+
     Sleep 750
     Click(1101, 677)
 
@@ -173,11 +165,10 @@ daily() {
 campaign() {
     Click(1166, 572)
 
-    x := 400
-    y := 60
-    color := 0xF8FAFB
-    while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+    while pixSearch(400, 60, 0xF8FAFB) {
+        Click(1166, 572)
         Sleep 100
+    }
 
     bounty()
 
