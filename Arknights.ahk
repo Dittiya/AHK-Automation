@@ -134,7 +134,7 @@ powerPlant_2(config:=0, relative:=0) {
     checkOpsPage()
 
     operators := powerPlantConfig_2(config)
-    findOps(operators)
+    findOps(operators, 90)
 }
 
 office(config:=0) {
@@ -191,14 +191,16 @@ factoryExp_3(config:=0, relative:=0) {
 
 config(var:=50) {
     amiya := ImgSearch("amiya_work", var)
-    Click(amiya.x, amiya.y, 0)
-    if (amiya.found) 
+    if (amiya.found) {
+        Click(amiya.x, amiya.y, 0)
         return 1
+    }
     
     swire := ImgSearch("swire_work", var)
-    Click(swire.x, swire.y, 0)
-    if swire.found 
+    if swire.found {
+        Click(swire.x, swire.y, 0)
         return 2
+    }
 
     return 0
 }
@@ -364,14 +366,14 @@ changeSize(window) {
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
 
-findOps(operators, var:=50) {
+findOps(operators, var:=90) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
             if (A_Index = 15)
                 return Error("Operator not found")
             slideLeft()
-            Sleep 500
+            Sleep 100
             ops.search()
         }
         Click(ops.x, ops.y)
@@ -385,7 +387,7 @@ slideLeft() {
 
     Click(start[1], start[2], 0)
     SendMode "Event"
-    MouseClickDrag "L", start[1], start[2], end[1], end[2], 25
+    MouseClickDrag "L", start[1], start[2], end[1], end[2], 20
     SendMode "Input"
 }
 
@@ -410,8 +412,9 @@ checkOpsPage() {
     while !pixSearch(1080, 680, 0x0075A8) {
         Sleep 100
     }
-    Click(480, 675, 2)
+    Click(480, 675)
     Sleep 300
+    Click(480, 675)
 
     return true
 }
@@ -507,13 +510,13 @@ baseAutomation(back) {
 
     for l in loc {
         Click(l.x, l.y)
-        Sleep 1000
+        Sleep 500
 
-        while pixSearch(770, 60, 0xFFFFFF) {
+        while pixSearch(790, 60, 0xFFFFFF) {
             Sleep 100
         }
 
-        while !pixSearch(770, 60, 0xFFFFFF) {
+        while !pixSearch(790, 60, 0xFFFFFF) {
             Sleep 100
             Click(1140, 95)
         }
@@ -530,6 +533,17 @@ baseAutomation(back) {
     
     back := {x:50, y:75}
     baseAutomation(back)
+
+    elapsedTime := A_TickCount - startTime
+    elapsedTime /= 1000
+    MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
+}
+
++g:: {
+    startTime := A_TickCount
+    
+    confirm := {x:1080, y:680}
+    baseAutomation(confirm)
 
     elapsedTime := A_TickCount - startTime
     elapsedTime /= 1000
