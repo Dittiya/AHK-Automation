@@ -524,10 +524,6 @@ baseAutomation(back) {
 
 }
 
-^r:: {
-
-}
-
 ^g:: {
     startTime := A_TickCount
     
@@ -535,7 +531,7 @@ baseAutomation(back) {
     baseAutomation(back)
 
     elapsedTime := A_TickCount - startTime
-    elapsedTime /= 1000
+    elapsedTime := Ceil(elapsedTime / 1000)
     MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
 }
 
@@ -546,6 +542,6 @@ baseAutomation(back) {
     baseAutomation(confirm)
 
     elapsedTime := A_TickCount - startTime
-    elapsedTime /= 1000
+    elapsedTime := Ceil(elapsedTime / 1000)
     MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
 }
