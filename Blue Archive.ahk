@@ -277,10 +277,6 @@ scrimmage() {
     changeSize(WINDOW)
 }
 
-^r:: {
-    club()
-}
-
 +g:: {
     startTime := A_TickCount
 
