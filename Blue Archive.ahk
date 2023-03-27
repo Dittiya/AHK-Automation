@@ -124,7 +124,7 @@ lessons() {
 
 club() {
     ; click club from menu
-    while !pixSearch(450, 300, 0xF6F6F6) {
+    while pixSearch(230, 70, 0x133453) {
         Click(560, 666)
         Sleep 100
     }
@@ -163,9 +163,7 @@ daily() {
 }
 
 campaign() {
-    Click(1166, 572)
-
-    while pixSearch(400, 60, 0xF8FAFB) {
+    while pixSearch(230, 70, 0x133453) {
         Click(1166, 572)
         Sleep 100
     }
@@ -280,7 +278,7 @@ scrimmage() {
 }
 
 ^r:: {
-    mail()
+    club()
 }
 
 +g:: {
