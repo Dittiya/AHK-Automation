@@ -51,6 +51,8 @@ controlCenter(config:=0) {
     Click(650, 230)
     checkOpsPage()
 
+    Click(850, 75)
+    Sleep 500
     operators := controlCenterConfig(config)
 
     findOps(operators, 100)
@@ -76,7 +78,7 @@ factoryGold_1(config:=0) {
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
-    findOps(operators, 80)
+    findOps(operators, 90)
 
     return factory
 }
@@ -158,7 +160,7 @@ factoryExp_1(config:=0) {
     checkOpsPage()
 
     operators := factoryExpConfig_1(config)
-    findOps(operators, 80)
+    findOps(operators, 100)
 
     return factory
 } 
@@ -353,6 +355,11 @@ officeConfig(conf:=0) {
  * Functions
  */
 
+exitAuto() {
+    MsgBox "Exiting app", "Automation done!", "T1"
+    ExitApp
+}
+
 changeSize(window) {
     /*
      * w: 1280	h: 739
@@ -370,8 +377,6 @@ findOps(operators, var:=90) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
-            if (A_Index = 15)
-                return Error("Operator not found")
             slideLeft()
             Sleep 100
             ops.search()
@@ -395,6 +400,16 @@ slideUp() {
     start := [winWidth*0.9, winHeight*0.8]
     end := [winWidth*0.9, winHeight*0.2]
 
+    Click(start[1], start[2], 0)
+    SendMode "Event"
+    MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
+    SendMode "Input"
+    Click()
+}
+
+slideDown() {
+    start := [winWidth*0.9, winHeight*0.2]
+    end := [winWidth*0.9, winHeight*0.8]
     Click(start[1], start[2], 0)
     SendMode "Event"
     MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
@@ -497,6 +512,10 @@ baseAutomation(back) {
  * Hotkey
  */
 
+^r:: {
+    slideDown()
+}
+
 ^e:: {
     changeSize(WINDOW)
 }
@@ -524,10 +543,6 @@ baseAutomation(back) {
 
 }
 
-^r:: {
-
-}
-
 ^g:: {
     startTime := A_TickCount
     
@@ -535,8 +550,8 @@ baseAutomation(back) {
     baseAutomation(back)
 
     elapsedTime := A_TickCount - startTime
-    elapsedTime /= 1000
-    MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
+    elapsedTime := Ceil(elapsedTime / 1000)
+    MsgBox("Finished in " elapsedTime  "s.", "Elapsed Time", "T1")
 }
 
 +g:: {
@@ -546,6 +561,7 @@ baseAutomation(back) {
     baseAutomation(confirm)
 
     elapsedTime := A_TickCount - startTime
-    elapsedTime /= 1000
-    MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
+    elapsedTime := Ceil(elapsedTime / 1000)
+    MsgBox("Finished in " elapsedTime  "s.", "Elapsed Time", "T1")
+    exitAuto()
 }

@@ -75,10 +75,7 @@ lessons() {
     Click(900, 200)
 
     ; wait after loading
-    x := 1000
-    y := 240
-    color := 0xCAD4E0
-    while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+    while !pixSearch(1000, 240, 0xCAD4E0)
         Sleep 100
     Sleep 250
     Click(1150, 675)
@@ -122,12 +119,50 @@ lessons() {
     returnMenu()
 }
 
+lessonsV2() {
+    ; enter lessons menu
+    while !pixSearch(360, 330, 0xFFFFFF) {
+        Click(208, 670)
+        Sleep 100
+    }
+
+    ; click on the first location 
+    Sleep 250
+    Click(900, 350)
+
+    ; wait after loading
+    while !pixSearch(1000, 240, 0xCAD4E0)
+        Sleep 100
+    Sleep 750
+    Click(1150, 675)
+
+    ; select best classes (last 2)
+    classes := [{x:350, y:550}, {x:950, y:400}]
+    for cls in classes {
+        while !pixSearch(800, 350, 0x2D4C72) {
+            Click(cls.x, cls.y)
+            Sleep 250
+        }
+        Click(600, 600)
+        while !pixSearch(500, 430, 0x2D4C72) {
+            Click(780, 430)
+            Sleep 250
+        }
+        Sleep 250
+        Click(600, 600)
+    }
+
+    returnMenu()
+}
+
 club() {
     ; click club from menu
-    while !pixSearch(450, 300, 0xF6F6F6) {
+    while pixSearch(230, 70, 0x133453) {
         Click(560, 666)
         Sleep 100
     }
+    
+    Sleep 750
 
     ; return to menu
     returnMenu()
@@ -163,9 +198,7 @@ daily() {
 }
 
 campaign() {
-    Click(1166, 572)
-
-    while pixSearch(400, 60, 0xF8FAFB) {
+    while pixSearch(230, 70, 0x133453) {
         Click(1166, 572)
         Sleep 100
     }
@@ -181,31 +214,21 @@ campaign() {
 
 bounty() {
     ; find bounty button
-    Click(730, 450)
-    x := 730
-    y := 190
-    color := 0xFFFFFF
-    while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0 {
-        Sleep 100
+    while !pixSearch(800, 650, 0x435266) {
         Click(730, 450)
+        Sleep 250
     }
     Sleep 750
 
     locations := [300, 420, 555]
     for _, loc in locations {
         Click(800, loc)
-        x := 450
-        y := 500
-        color := 0xFFFFFF
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+        while !pixSearch(450, 500, 0xFFFFFF)
             Sleep 100
         Sleep 200
         Click(1080, 640)
 
-        x := 500
-        y := 300
-        color := 0xF7F7F6
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+        while !pixSearch(500,300, 0xF7F7F6)
             Sleep 100
         Sleep 200
         Click(1000, 320)
@@ -215,10 +238,7 @@ bounty() {
         Sleep 500
         Click(700, 500)
 
-        x := 280
-        y := 555
-        color := 0xF6FEFD
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0 {
+        while !pixSearch(280, 555, 0xF6FEFD) {
             Sleep 100
             Click(555, 700)
         }
@@ -238,18 +258,12 @@ scrimmage() {
     locations := [300, 420, 555]
     for _, loc in locations {
         Click(800, loc)
-        x := 800
-        y := 150
-        color := 0x2D4C72
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+        while !pixSearch(800, 150, 0x2D4C72)
             Sleep 100
         Sleep 200
         Click(1045, 210)
 
-        x := 500
-        y := 300
-        color := 0xF7F7F6
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0
+        while !pixSearch(500, 300, 0xF7F7F6)
             Sleep 100
         Sleep 200
         Click(1000, 320)
@@ -259,10 +273,7 @@ scrimmage() {
         Sleep 500
         Click(700, 500)
 
-        x := 1200
-        y := 180
-        color := 0x1A3351
-        while PixelSearch(&px, &py, x, y, x, y, color, 2) = 0 {
+        while !pixSearch(1200, 180, 0x1A3351) {
             Sleep 100
             Click(555, 700)
         }
@@ -280,21 +291,21 @@ scrimmage() {
 }
 
 ^r:: {
-    mail()
+    club()
 }
 
 +g:: {
     startTime := A_TickCount
 
     cafe()
-    lessons()
+    lessonsV2()
     club()
     mail() 
     daily()
     campaign()
    
     elapsedTime := A_TickCount - startTime
-    elapsedTime /= 1000
+    elapsedTime := Ceil(elapsedTime / 1000) 
     MsgBox elapsedTime "s have passed.", "Elapsed Time", "T1"
 
     exitAuto()
