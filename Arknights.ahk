@@ -51,11 +51,11 @@ controlCenter(config:=0) {
     Click(650, 230)
     checkOpsPage()
 
-    ; Click(850, 75)
-    ; Sleep 300
+    Click(850, 75)
+    Sleep 500
     operators := controlCenterConfig(config)
 
-    findOps(operators, 110)
+    findOps(operators, 100)
 }
 
 tradingPost_1(config:=0) {
@@ -78,7 +78,7 @@ factoryGold_1(config:=0) {
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
-    findOps(operators, 80)
+    findOps(operators, 90)
 
     return factory
 }
@@ -377,8 +377,6 @@ findOps(operators, var:=90) {
     for _, operator in operators {
         ops := ImgSearch(operator, var)
         while !ops.found {
-            if (A_Index = 15)
-                return Error("Operator not found")
             slideLeft()
             Sleep 100
             ops.search()
