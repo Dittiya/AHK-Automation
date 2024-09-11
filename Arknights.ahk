@@ -11,7 +11,7 @@ Esc::ExitApp
  * Constants
  */
 
-WINDOW := "BlueStacks"
+WINDOW := "BlueStacks App Player"
 
 HotIfWinactive WINDOW
 
@@ -48,14 +48,15 @@ controlCenter(config:=0) {
     if (config = 0)
         return Error("Config not found")
 
-    Click(650, 230)
+    Click(655, 230)
+    Click(655, 230)
     checkOpsPage()
 
-    Click(850, 75)
+    ; Click(850, 75)
     Sleep 500
     operators := controlCenterConfig(config)
 
-    findOps(operators, 100)
+    findOps(operators, 85)
 }
 
 tradingPost_1(config:=0) {
@@ -66,7 +67,7 @@ tradingPost_1(config:=0) {
     checkOpsPage()
 
     operators := tradingPostConfig_1(config)
-    findOps(operators, 80)
+    findOps(operators, 90)
 }
 
 factoryGold_1(config:=0) {
@@ -74,7 +75,7 @@ factoryGold_1(config:=0) {
         return Error("Config not found")
 
     factory := ImgSearch("factory")
-    Click(factory.x+150, factory.y+50)
+    Click(factory.x+120, factory.y+50)
     checkOpsPage()
 
     operators := factoryGoldConfig_1(config)
@@ -90,7 +91,7 @@ powerPlant_1(config:=0, relative:=0) {
     if (relative = 0)
         return Error("Relative location not found")
 
-    Click(relative.x+150, relative.y+175)
+    Click(relative.x+120, relative.y+175)
     checkOpsPage()
 
     operators := powerPlantConfig_1(config)
@@ -156,7 +157,7 @@ factoryExp_1(config:=0) {
         return Error("Config not found")
 
     factory := ImgSearch("factory")
-    Click(factory.x+150, factory.y+50)
+    Click(factory.x+120, factory.y+50)
     checkOpsPage()
 
     operators := factoryExpConfig_1(config)
@@ -185,6 +186,14 @@ factoryExp_3(config:=0, relative:=0) {
 
     operators := factoryExpConfig_3(config)
     findOps(operators, 80)
+}
+
+dorm(x, y) {
+    Click(x, y)
+    checkOpsPage()
+    Send("^w")
+    Sleep 200
+    checkOverviewPage()
 }
 
 /*
@@ -225,8 +234,8 @@ tradingPostConfig_1(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
-    amiya := ["exu", "lappland", "texas"]
-    swire := ["gummy", "midnight", "catapult"]
+    amiya := ["lappland", "texas", "jaye"]
+    swire := ["midnight", "catapult", "sora"]
 
     if (conf = 1) 
         return swire
@@ -238,8 +247,8 @@ tradingPostConfig_2(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
-    amiya := ["fang", "mousse", "matoimaru"]
-    swire := ["shamare", "bibeak", "kafka"]
+    amiya := ["shamare", "exu", "gummy"]
+    swire := ["ambriel", "mousse", "matoimaru"]
 
     if (conf = 1)
         return swire
@@ -252,7 +261,7 @@ factoryGoldConfig_1(conf:=0) {
         return Error("Config not found")
 
     amiya := ["gravel", "haze", "spot"]
-    swire := ["perfumer", "roberta", "steward"]
+    swire := ["astgenne", "dorothy", "ptilo"]
 
     if (conf = 1)
         return swire
@@ -264,8 +273,8 @@ factoryGoldConfig_2(conf:=0) {
     if (conf = 0)
         return Error("Config not found")
 
-    amiya := ["ptilo", "vanilla", "scene"]
-    swire := ["jessica", "ceobe", "vermeil"]
+    amiya := ["purestream", "weedy", "eunectes"]
+    swire := ["perfumer", "roberta", "mizuki"]
 
     if (conf = 1)
         return swire
@@ -304,7 +313,7 @@ factoryExpConfig_1(conf:=0) {
         return Error("Config not found")
 
     amiya := ["conviction", "vigna"]
-    swire := ["wildmane", "ashlock"]
+    swire := ["vanilla", "jessica"]
 
     if (conf = 1)
         return swire
@@ -316,8 +325,8 @@ factoryExpConfig_2(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
-    amiya := ["frostleaf", "castle"]
-    swire := ["silence", "meteor"]
+    amiya := ["frostleaf", "feater"]
+    swire := ["steward", "asbestos"]
 
     if (conf = 1)
         return swire
@@ -329,8 +338,8 @@ factoryExpConfig_3(conf:=0) {
     if (conf = 0) 
         return Error("Config not found")
 
-    amiya := ["shirayuki", "feater"]
-    swire := ["kroos", "yato"]
+    amiya := ["castle", "shirayuki"]
+    swire := ["fang", "kroos"]
 
     if (conf = 1)
         return swire
@@ -360,6 +369,17 @@ exitAuto() {
     ExitApp
 }
 
+testSearch(operators, var) {
+    for _, operator in operators {
+        ops := ImgSearch(operator, var)
+        if ops.found {
+            Click(ops.x, ops.y, 0)
+        } else {
+            MsgBox(operator " Not found", "Err", "T0.5")
+        }
+    }
+}
+
 changeSize(window) {
     /*
      * w: 1280	h: 739
@@ -368,7 +388,7 @@ changeSize(window) {
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Original window size " winWidth "x" winHeight, "Resize window", "T1")
 
-    WinMove( , , 1280, 739, window)
+    WinMove(100, 100, 1280, 739, window)
     WinGetPos(&winX, &winY, &winWidth, &winHeight, window)
     MsgBox("Resized window to " winWidth "x" winHeight, "Resize window", "T1")
 }
@@ -414,6 +434,7 @@ slideDown() {
     SendMode "Event"
     MouseClickDrag "L", start[1], start[2], end[1], end[2], 10
     SendMode "Input"
+    Sleep 75
     Click()
 }
 
@@ -508,12 +529,28 @@ baseAutomation(back) {
         slideUp()
 }
 
+rest() {
+    dorm(650, 620)
+    dorm(650, 250)
+
+    slideDown()
+    slideDown()
+    
+    dorm(650, 190)
+    
+    slideDown()
+    slideDown()
+
+    dorm(650, 130)
+}
+
 /* 
  * Hotkey
  */
 
 ^r:: {
-    slideDown()
+    ops := ["kroos"]
+    testSearch(ops, 90)
 }
 
 ^e:: {
@@ -525,19 +562,21 @@ baseAutomation(back) {
      * Autohire
      */
 
-    loc := [{x:300, y:400}, {x:800, y:400}, {x:300, y:650}]
+    loc := [{x:300, y:400}, {x:800, y:400}, {x:300, y:675}]
+    anchor := {x:775, y:60, color:0xFFFFFF}
+    btn := {x:1160, y:95}
 
     for l in loc {
         Click(l.x, l.y)
         Sleep 500
 
-        while pixSearch(790, 60, 0xFFFFFF) {
+        while pixSearch(anchor.x, anchor.y, anchor.color) {
             Sleep 100
         }
 
-        while !pixSearch(790, 60, 0xFFFFFF) {
+        while !pixSearch(anchor.x, anchor.y, anchor.color) {
             Sleep 100
-            Click(1140, 95)
+            Click(btn.x, btn.y)
         }
     }
 
@@ -559,6 +598,8 @@ baseAutomation(back) {
     
     confirm := {x:1080, y:680}
     baseAutomation(confirm)
+    Sleep 500
+    rest()
 
     elapsedTime := A_TickCount - startTime
     elapsedTime := Ceil(elapsedTime / 1000)

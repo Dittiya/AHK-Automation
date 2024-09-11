@@ -52,7 +52,7 @@ cafe() {
     }
 
     ; receive stamina from cafe
-    Sleep 1000
+    Sleep 1500
     Click(1120, 660)
     Sleep 750
     Click(630, 520)
@@ -63,6 +63,7 @@ cafe() {
     returnMenu()
 }
 
+; deprecated
 lessons() {
     ; enter lessons menu
     while !pixSearch(360, 330, 0xFFFFFF) {
@@ -70,14 +71,14 @@ lessons() {
         Sleep 100
     }
 
-    ; click on the first location 
-    Sleep 250
-    Click(900, 200)
+    ; click on the third location 
+    Sleep 1000
+    Click(900, 400, 5)
 
     ; wait after loading
     while !pixSearch(1000, 240, 0xCAD4E0)
         Sleep 100
-    Sleep 250
+    Sleep 500
     Click(1150, 675)
 
     ; select best classes (last 2)
@@ -127,8 +128,8 @@ lessonsV2() {
     }
 
     ; click on the first location 
-    Sleep 250
-    Click(900, 350)
+    Sleep 500
+    Click(900, 550)
 
     ; wait after loading
     while !pixSearch(1000, 240, 0xCAD4E0)
@@ -143,9 +144,10 @@ lessonsV2() {
             Click(cls.x, cls.y)
             Sleep 250
         }
+        Sleep 500
         Click(600, 600)
         while !pixSearch(500, 430, 0x2D4C72) {
-            Click(780, 430)
+            Click(900, 600)
             Sleep 250
         }
         Sleep 250
@@ -182,7 +184,7 @@ mail() {
     returnMenu()
 }
 
-daily() {
+daily(final:=false) {
     ; click tasks from menu
     Click(72, 262)
 
@@ -192,6 +194,10 @@ daily() {
 
     Sleep 750
     Click(1101, 677)
+
+    if (final = true) {
+        Click(950, 677)
+    }
 
     ; return to menu
     returnMenu()
@@ -210,6 +216,9 @@ campaign() {
     Sleep 500
 
     scrimmage()
+
+    Sleep 500
+    returnMenu()
 }
 
 bounty() {
